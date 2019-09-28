@@ -37,7 +37,6 @@ public class Main extends ApplicationAdapter {
     public  static Player p;
 
     public static World world;
-
     private TiledMap map;
 
     private TiledMap citymap;
@@ -52,7 +51,7 @@ public class Main extends ApplicationAdapter {
     private Menu menu;
     static Music r;
 
-    private TiledMapTileLayer Hello;
+    private TiledMapTileLayer Building;
 
     @Override
     public void create() {
@@ -65,7 +64,7 @@ public class Main extends ApplicationAdapter {
 
         mapLoader = new TmxMapLoader();
 
-        map = mapLoader.load("Assets/Maps/Map.tmx");
+        map = mapLoader.load("Assets/Maps/cyber.tmx");
 
        //citymap = mapLoader.load ("Assets/Maps/City.tmx");
 
@@ -84,7 +83,7 @@ public class Main extends ApplicationAdapter {
 
         menu = new Menu();
 
-        Hello = (TiledMapTileLayer) map.getLayers().get("Hello");
+        Building = (TiledMapTileLayer) map.getLayers().get("Building");
     }
 
     @Override
@@ -135,9 +134,10 @@ public class Main extends ApplicationAdapter {
             r.play();
             batch.begin();
             update();
+
             batch.end();
             renderer.getBatch().begin();
-            renderer.renderTileLayer(Hello);
+            renderer.renderTileLayer(Building);
             renderer.getBatch().end();
             move();
 
