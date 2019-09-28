@@ -3,10 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -14,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Main extends ApplicationAdapter {
-    SpriteBatch batch;
+    static SpriteBatch batch;
 
     public static final float PPM = 0.3f;
 
@@ -28,19 +30,24 @@ public class Main extends ApplicationAdapter {
 
     static String Game = "Intro_1";
 
-    private Player p;
+    public  static Player p;
 
     public static World world;
 
     private TiledMap map;
 
+    private TiledMap citymap;
+
     private TmxMapLoader mapLoader;
 
-    private OrthogonalTiledMapRenderer renderer;
+    static OrthogonalTiledMapRenderer renderer;
+    private OrthogonalTiledMapRenderer cityrender;
 
-    Box2DDebugRenderer b2dr;
+    static Box2DDebugRenderer b2dr;
 
     private Menu menu;
+    static Music r;
+
 
 
 
@@ -51,27 +58,36 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         camera = new OrthographicCamera(720f, 480f);
         p = new Player();
+        r = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/room_soundtrack.mp3"));
+
 
         mapLoader = new TmxMapLoader();
 
         map = mapLoader.load("Assets/Maps/Map.tmx");
 
+       // citymap = mapLoader.load ("Assets/Maps/City.tmx");
+
 		renderer = new OrthogonalTiledMapRenderer(map,PPM);
+
+		cityrender = new OrthogonalTiledMapRenderer(citymap,PPM);
 
         world.setContactListener(new WorldContactListener());
 
         WorldCreator.Boundaries(world,map.getLayers().get("Boundary").getObjects());
 
+      //  WorldCreator.Boundaries(world,map.getLayers().get("exit").getObjects());
+
+
         b2dr = new Box2DDebugRenderer();
 
         menu = new Menu();
-
     }
 
     @Override
     public void render() {
 
         if(Game.equals("Intro_1")){ //starting the game off with the capcom intro
+
             C_animation = true;
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
@@ -92,33 +108,22 @@ public class Main extends ApplicationAdapter {
             batch.end();
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
 //                menu.s.play(); // add this feature in later and make it so the animation is slower
-                Game = "Level1";
-                menu.m.stop();
+                Game = "level1";
+                  menu.m.stop();
             }
         }
-
-        if(Game.equals("Level1")) { // start of level 1
-            I_animation = false;
-            camera.zoom = 0.1f;
-            world.step(1 / 60f, 6, 2);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-            camera.update();
-            renderer.setView(camera);
-            renderer.render();
-
-            batch.setProjectionMatrix(camera.combined);
-
-            b2dr.render(world, camera.combined);
-
-            System.out.println(p.getX() + " , " + p.getY());
-
-
+        
+        if (Game.equals("level1")) {
+            cam.c();
+            r.play();
             batch.begin();
             update();
             batch.end();
             move();
+
         }
+
+
     }
 
     public void update(){
@@ -126,7 +131,7 @@ public class Main extends ApplicationAdapter {
     }
 
 
-    public void move() {
+    public static void move() {
         p.body.setLinearVelocity(0, 0);
 
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
@@ -182,8 +187,6 @@ public class Main extends ApplicationAdapter {
             animation = true;
 
         }
-
-
 
         else {
             p.getBody().applyLinearImpulse(new Vector2(p.getBody().getLinearVelocity().x * -1, p.getBody().getLinearVelocity().y * -1), p.getBody().getWorldCenter(), true);

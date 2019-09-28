@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="isometric" renderorder="left-up" width="10" height="10" tilewidth="64" tileheight="32" infinite="1" nextlayerid="4" nextobjectid="3">
+ <tileset firstgid="1" name="city" tilewidth="1037" tileheight="537" tilecount="1" columns="1">
+  <image source="city.png" width="1037" height="537"/>
+ </tileset>
+ <layer id="1" name="Graphics" width="10" height="10">
+  <data encoding="csv">
+   <chunk x="0" y="0" width="16" height="16">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</chunk>
+  </data>
+ </layer>
+ <objectgroup id="2" name="Boundary">
+  <object id="1" x="138" y="-112">
+   <polygon points="0,0 15.5,0.5 15,-17 -63.5,-14.5 -62.5,6.5"/>
+  </object>
+  <object id="2" x="-2" y="-14">
+   <polygon points="0,0 0,-114 -48.5,-115.5 -50,2"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="exit"/>
+</map>
