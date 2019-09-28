@@ -49,8 +49,6 @@ public class Main extends ApplicationAdapter {
     static Music r;
 
 
-
-
     @Override
     public void create() {
         world = new World(new Vector2(0,0),true);
@@ -60,12 +58,11 @@ public class Main extends ApplicationAdapter {
         p = new Player();
         r = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/room_soundtrack.mp3"));
 
-
         mapLoader = new TmxMapLoader();
 
         map = mapLoader.load("Assets/Maps/Map.tmx");
 
-       // citymap = mapLoader.load ("Assets/Maps/City.tmx");
+       //citymap = mapLoader.load ("Assets/Maps/City.tmx");
 
 		renderer = new OrthogonalTiledMapRenderer(map,PPM);
 
@@ -122,7 +119,6 @@ public class Main extends ApplicationAdapter {
             move();
 
         }
-
 
     }
 
