@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -34,21 +35,19 @@ public class Main extends ApplicationAdapter {
 
     public static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6 , SE = 7;
 
-    static boolean C_animation = false, I_animation = false, animation;
+    static boolean C_animation = false, I_animation = false, animation, city;
 
     static String Game = "Intro_1";
 
     public  static Player p;
 
     public static World world;
-    private TiledMap map;
+    public static TiledMap CurrentMap, map, map1;
 
-    private TiledMap citymap;
 
     private TmxMapLoader mapLoader;
 
     static OrthogonalTiledMapRenderer renderer;
-    private OrthogonalTiledMapRenderer cityrender;
 
     static Box2DDebugRenderer b2dr;
 
@@ -76,31 +75,32 @@ public class Main extends ApplicationAdapter {
 
         mapLoader = new TmxMapLoader();
 
+        map = mapLoader.load("Assets/Maps/Lan's Room.tmx");
+        map1 = mapLoader.load("Assets/Maps/cyber.tmx");
 
-        map = mapLoader.load("Assets/Maps/cyber.tmx");
-//        map = mapLoader.load("Assets/Maps/Lan's Room.tmx");
+        CurrentMap = map;
 
-       //citymap = mapLoader.load ("Assets/Maps/City.tmx");
+		renderer = new OrthogonalTiledMapRenderer(CurrentMap,PPM);
 
-		renderer = new OrthogonalTiledMapRenderer(map,PPM);
-
-		cityrender = new OrthogonalTiledMapRenderer(citymap,PPM);
 
         world.setContactListener(new WorldContactListener());
 
-        WorldCreator.Boundaries(world,map.getLayers().get("Boundary").getObjects());
-
-      //  WorldCreator.Boundaries(world,map.getLayers().get("exit").getObjects());
-
+        WorldCreator.Boundaries(world,CurrentMap.getLayers().get("Boundary").getObjects());
+        WorldCreator.World(world,CurrentMap);
 
 
         b2dr = new Box2DDebugRenderer();
 
         menu = new Menu();
 
+        Building = (TiledMapTileLayer) CurrentMap.getLayers().get("Building");
+    }
 
-
-        Building = (TiledMapTileLayer) map.getLayers().get("Building");
+    public static TiledMap ChangeMap(TiledMap map){
+        CurrentMap.dispose();
+        CurrentMap = map;
+        renderer.setMap(CurrentMap);
+        return CurrentMap;
     }
 
     @Override
@@ -140,7 +140,7 @@ public class Main extends ApplicationAdapter {
             C_animation = true;
             I_animation = false;
             batch.begin();
-            menu.update(batch,0,0);
+            menu.update(batch, 0, 0);
             batch.end();
 
 
@@ -157,18 +157,25 @@ public class Main extends ApplicationAdapter {
                 update();
 
                 batch.end();
-                renderer.getBatch().begin();
-                renderer.renderTileLayer(Building);
-                renderer.getBatch().end();
+//            if(city) {
+//                renderer.getBatch().begin();
+//                renderer.renderTileLayer(Building);
+//                renderer.getBatch().end();
+//            }
                 move();
-            }
 
+            }
         }
 
     }
 
+
     public void update(){
         p.update(batch);
+
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            ChangeMap(map1);
+        }
     }
 
 

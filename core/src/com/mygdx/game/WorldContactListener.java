@@ -4,8 +4,15 @@ import com.badlogic.gdx.physics.box2d.*;
 
 
 public class WorldContactListener implements ContactListener {
+
     @Override
     public void beginContact(Contact contact) {
+        if(contact.getFixtureA().getUserData() == "Player" && contact.getFixtureB().getUserData() == "Exit"){
+            Main.ChangeMap(Main.map1);
+            Main.city = true;
+            Player.Lan.setPosition(240,78);
+
+        }
         Gdx.app.log("Begin Contact", "");
     }
 

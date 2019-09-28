@@ -75,9 +75,9 @@ public class Player {
 
 
     public void createbody(){
-
-        Lan.setPosition(200,60);
-        //Lan.setPosition(37,31); my code
+        if(!Main.city) {
+            Lan.setPosition(100, 31);
+        }
 
         rect = new Rectangle((int) Lan.getX(), (int) Lan.getY(), (int) Lan.getWidth(), (int) Lan.getHeight());//create a recto take players x,y,width and height
 

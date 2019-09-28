@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="15" height="11" tilewidth="20" tileheight="20" infinite="0" backgroundcolor="#55ffff" nextlayerid="4" nextobjectid="4">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="15" height="11" tilewidth="20" tileheight="20" infinite="0" backgroundcolor="#55ffff" nextlayerid="8" nextobjectid="15">
  <tileset firstgid="1" source="room.tsx"/>
  <layer id="1" name="Background" width="15" height="11">
   <data encoding="csv">
@@ -38,5 +38,8 @@
   <object id="3" x="86.5" y="192.5">
    <polyline points="0,0 23.5,-11.25 54.5,4.5 175.5,-55.25 175,-127.25 55.75,-188 -64.75,-128.25 -64.5,-55.75 -10,-27.75 -25.75,-20 -25,-11"/>
   </object>
+ </objectgroup>
+ <objectgroup id="7" name="Exit">
+  <object id="14" x="62.5" y="174.5" width="21.5" height="10.5"/>
  </objectgroup>
 </map>
