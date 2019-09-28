@@ -7,10 +7,14 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.IsometricStaggeredTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -48,6 +52,7 @@ public class Main extends ApplicationAdapter {
     private Menu menu;
     static Music r;
 
+    private TiledMapTileLayer Hello;
 
     @Override
     public void create() {
@@ -78,6 +83,8 @@ public class Main extends ApplicationAdapter {
         b2dr = new Box2DDebugRenderer();
 
         menu = new Menu();
+
+        Hello = (TiledMapTileLayer) map.getLayers().get("Hello");
     }
 
     @Override
@@ -111,11 +118,27 @@ public class Main extends ApplicationAdapter {
         }
         
         if (Game.equals("level1")) {
-            cam.c();
+            Main.I_animation = false;
+            Main.camera.zoom = 0.1f;
+            Main.world.step(1 / 60f, 6, 2);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            camera.update();
+            renderer.setView(camera);
+            renderer.render();
+
+
+            Main.batch.setProjectionMatrix(Main.camera.combined);
+
+            Main.b2dr.render(Main.world, Main.camera.combined);
+
             r.play();
             batch.begin();
             update();
             batch.end();
+            renderer.getBatch().begin();
+            renderer.renderTileLayer(Hello);
+            renderer.getBatch().end();
             move();
 
         }
