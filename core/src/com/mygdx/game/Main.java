@@ -35,7 +35,7 @@ public class Main extends ApplicationAdapter {
 
     public static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6 , SE = 7;
 
-    static boolean C_animation = false, I_animation = false, animation, city = false ;
+    static boolean C_animation = false, I_animation = false, animation, city = false , transition = false  ;
 
     static String Game = "Intro_1";
 
@@ -55,12 +55,8 @@ public class Main extends ApplicationAdapter {
 
     private Menu menu;
     static Music r;
-    long start =  System.nanoTime();
+    static long start =  System.nanoTime();
     Texture loading;
-
-
-
-
 
     private TiledMapTileLayer Building;
 
@@ -69,30 +65,34 @@ public class Main extends ApplicationAdapter {
         world = new World(new Vector2(0,0),true);
 
         batch = new SpriteBatch();
-        camera = new OrthographicCamera(720f, 480f);
-        p = new Player();
-        r = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/room_soundtrack.mp3"));
-        loading =new Texture("Assets/Menu Intro/Capcom/loading.png");
 
+        camera = new OrthographicCamera(720f, 480f);
+
+        p = new Player();
+
+        r = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/room_soundtrack.mp3"));
+
+        loading =new Texture("Assets/Menu Intro/Capcom/loading.png");
 
         mapLoader = new TmxMapLoader();
 
         map = mapLoader.load("Assets/Maps/Lan's Room.tmx");
+
         map1 = mapLoader.load("Assets/Maps/cyber.tmx");
 
         CurrentMap = map;
 
         renderer = new OrthogonalTiledMapRenderer(CurrentMap,PPM);
+
         render = new OrthogonalTiledMapRenderer(map1,PPM);
 
         world.setContactListener(new WorldContactListener());
 
         WorldCreator.Boundaries(world,CurrentMap.getLayers().get("Boundary").getObjects());
+
         WorldCreator.World(world,CurrentMap);
 
-
         b2dr = new Box2DDebugRenderer();
-
         menu = new Menu();
 
         Building = (TiledMapTileLayer) CurrentMap.getLayers().get("Building");
@@ -107,7 +107,6 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-
         if(Game.equals("Intro_1")){ //starting the game off with the capcom intro
 
             C_animation = true;
@@ -135,17 +134,16 @@ public class Main extends ApplicationAdapter {
 
             }
         }
-        
+
         if (Game.equals("level1") ) {
             C_animation = true;
             I_animation = false;
             batch.begin();
             menu.update(batch, 0, 0);
             batch.end();
-
-
             if (System.nanoTime() - start > 9000E6) {
                 while (city){
+                    Player.Lan.setPosition(240,78);
                     renderer = render;
                     cam.Level1();
                     break;
@@ -159,10 +157,7 @@ public class Main extends ApplicationAdapter {
                 r.play();
                 batch.begin();
                 update();
-
                 batch.end();
-
-
                 move();
 
             }
@@ -243,6 +238,19 @@ public class Main extends ApplicationAdapter {
             p.frames = 0;
         }
 
+    if(transition){
+            cam.create();
+            p.body.setTransform(240, 78, 0);
+            p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
+            p.setY(p.body.getPosition().y);
+
+            camera.position.x = p.getX(); // camera follows players x
+            camera.position.y = p.getY(); // camera follows players y
+            transition = false;
+
+
+
+    }
 	    p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
 	    p.setY(p.body.getPosition().y);
 
