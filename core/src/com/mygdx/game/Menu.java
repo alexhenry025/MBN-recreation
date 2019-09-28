@@ -30,6 +30,7 @@ public class Menu {
         m = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/Title.mp3"));
         s = Gdx.audio.newSound(Gdx.files.internal("Assets/Sound/Start_SoundEffect.mp3"));
 
+
     }
 
     public void Capcom_load(){
