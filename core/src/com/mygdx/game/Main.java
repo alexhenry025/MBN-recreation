@@ -35,7 +35,7 @@ public class Main extends ApplicationAdapter {
 
     public static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6 , SE = 7;
 
-    static boolean C_animation = false, I_animation = false, animation, city;
+    static boolean C_animation = false, I_animation = false, animation, city = false ;
 
     static String Game = "Intro_1";
 
@@ -48,6 +48,8 @@ public class Main extends ApplicationAdapter {
     private TmxMapLoader mapLoader;
 
     static OrthogonalTiledMapRenderer renderer;
+
+    static OrthogonalTiledMapRenderer render;
 
     static Box2DDebugRenderer b2dr;
 
@@ -80,8 +82,8 @@ public class Main extends ApplicationAdapter {
 
         CurrentMap = map;
 
-		renderer = new OrthogonalTiledMapRenderer(CurrentMap,PPM);
-
+        renderer = new OrthogonalTiledMapRenderer(CurrentMap,PPM);
+        render = new OrthogonalTiledMapRenderer(map1,PPM);
 
         world.setContactListener(new WorldContactListener());
 
@@ -128,8 +130,6 @@ public class Main extends ApplicationAdapter {
             batch.end();
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
 //                menu.s.play(); // add this feature in later and make it so the animation is slower
-
-
                 Game = "level1";
                   menu.m.stop();
 
@@ -145,23 +145,24 @@ public class Main extends ApplicationAdapter {
 
 
             if (System.nanoTime() - start > 9000E6) {
-
-
+                while (city){
+                    renderer = render;
+                    cam.Level1();
+                    break;
+                }
                 I_animation = false;
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
                 world.step(1 / 60f, 6, 2);
+                System.out.println(city);
                 cam.Level1();
                 r.play();
                 batch.begin();
                 update();
 
                 batch.end();
-//            if(city) {
-//                renderer.getBatch().begin();
-//                renderer.renderTileLayer(Building);
-//                renderer.getBatch().end();
-//            }
+
+
                 move();
 
             }
@@ -180,7 +181,7 @@ public class Main extends ApplicationAdapter {
 
 
     public static void move() {
-        p.body.setLinearVelocity(0, 0);
+      //  p.body.setLinearVelocity(0, 0);
 
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
             moves1 = NE;
