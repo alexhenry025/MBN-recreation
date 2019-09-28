@@ -5,13 +5,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 
 public class cam {
-    public  static void c(){
+    public  static void Level1(){
 
-
-        Main.I_animation = false;
         Main.camera.zoom = 0.1f;
-        Main.world.step(1 / 60f, 6, 2);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Main.camera.update();
         Main.renderer.setView(Main.camera);

@@ -65,6 +65,7 @@ public class Main extends ApplicationAdapter {
         mapLoader = new TmxMapLoader();
 
         map = mapLoader.load("Assets/Maps/cyber.tmx");
+//        map = mapLoader.load("Assets/Maps/Lan's Room.tmx");
 
        //citymap = mapLoader.load ("Assets/Maps/City.tmx");
 
@@ -117,20 +118,11 @@ public class Main extends ApplicationAdapter {
         }
         
         if (Game.equals("level1")) {
-            Main.I_animation = false;
-            Main.camera.zoom = 0.1f;
-            Main.world.step(1 / 60f, 6, 2);
+            I_animation = false;
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-            camera.update();
-            renderer.setView(camera);
-            renderer.render();
-
-
-            Main.batch.setProjectionMatrix(Main.camera.combined);
-
-            Main.b2dr.render(Main.world, Main.camera.combined);
-
+            Gdx.gl.glClearColor(51/255f,245/255f,219/255f,1);
+            world.step(1 / 60f, 6, 2);
+            cam.Level1();
             r.play();
             batch.begin();
             update();
