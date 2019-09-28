@@ -21,10 +21,12 @@ public class cam {
     }
 
     public static  void create (){
-        WorldCreator.Boundaries(Main.world,Main.CurrentMap.getLayers().remove(""));
+        WorldCreator.Boundaries(Main.world,Main.CurrentMap.getLayers().get("Boundary").getObjects());
+
     }
 
     public static void update (){
+
         Main.p.update(Main.batch);
     }
 }
