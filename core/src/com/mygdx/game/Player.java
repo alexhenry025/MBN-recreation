@@ -54,8 +54,6 @@ public class Player {
         return frames;
     }
 
-
-
     public void Load(){
         for(int i = 0; i < open_list.length; i ++ ){
             for(String w : new String[]{"Lanup", "Landown", "Lanleft", "Lanright" , "LanNW", "LanSW","LanNE", "LanSE"}){
@@ -68,7 +66,6 @@ public class Player {
         }
     }
 
-
     public void MoveBody(int x, int y){
         body.setTransform(x,y,0);
     }
@@ -76,9 +73,7 @@ public class Player {
 
     public void createbody(){
 
-        Lan.setPosition(100, 31);
-
-
+        Lan.setPosition(216, 220);
 
         rect = new Rectangle((int) Lan.getX(), (int) Lan.getY(), (int) Lan.getWidth(), (int) Lan.getHeight());//create a recto take players x,y,width and height
 
@@ -100,7 +95,6 @@ public class Player {
         this.body.setTransform((float) rect.getX(), (float) rect.getY(), 0);
 
     }
-
 
     public void update(SpriteBatch batch){
 
@@ -137,7 +131,6 @@ public class Player {
         Lan.set(new Sprite(sprites.get(Main.moves1).get(frames)));
         this.render(batch);
     }
-
 
     public void setX(float x) {
         Lan.setX(x);

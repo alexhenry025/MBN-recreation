@@ -20,8 +20,6 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
 
 
 public class Main extends ApplicationAdapter {
@@ -57,19 +55,131 @@ public class Main extends ApplicationAdapter {
     static Music r;
     static long start =  System.nanoTime();
     Texture loading;
-    static boolean C_animation = false, I_animation = false, animation, city = false , transition = false ;
     static long COCK = 0;
+    static boolean C_animation = false, I_animation = false, animation, city = false , transition = false , L_animation = false ;
 
-    public static TiledMap ChangeMap(TiledMap map){
+   public static TiledMap ChangeMap(TiledMap map){
 
         CurrentMap.dispose();
         CurrentMap = map;
         renderer.setMap(CurrentMap);
 
         return CurrentMap;
+   }
+
+    @Override
+    public void create() {
+        world = new World(new Vector2(0,0),true);
+
+        batch = new SpriteBatch();
+
+        camera = new OrthographicCamera(720f, 480f);
+
+        p = new Player();
+
+        r = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/room_soundtrack.mp3"));
+
+        loading =new Texture("Assets/Menu Intro/Capcom/loading.png");
+
+        mapLoader = new TmxMapLoader();
+
+        map = mapLoader.load("Assets/Maps/Lan's Room1.tmx");
+
+        map1 = mapLoader.load("Assets/Maps/cyber.tmx");
+
+        CurrentMap = map;
+
+        renderer = new OrthogonalTiledMapRenderer(CurrentMap,PPM);
+
+        render = new OrthogonalTiledMapRenderer(map1,PPM);
+
+        world.setContactListener(new WorldContactListener());
+
+        WorldCreator.Boundaries(world,CurrentMap.getLayers().get("Boundary").getObjects());
+
+
+        WorldCreator.World(world,CurrentMap);
+
+        b2dr = new Box2DDebugRenderer();
+        menu = new Menu();
+
+        Building = (TiledMapTileLayer) map1.getLayers().get("Building");
     }
 
-    public static void move() {
+    @Override
+    public void render() {
+        if(Game.equals("Intro_1")){ //starting the game off with the capcom intro
+
+            C_animation = true;
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            menu.update(batch,0,0);
+            batch.end();
+            if(Menu.change){
+                Game = "Intro_2";
+            }
+        }
+
+        if(Game.equals("Intro_2")){ // once the capcom intro is finished loop title screen
+            C_animation = false;
+            I_animation = true;
+            menu.m.play();
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            menu.update(batch,0,0);
+            batch.end();
+            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
+//                menu.s.play(); // add this feature in later and make it so the animation is slower
+                Game = "level1";
+                  menu.m.stop();
+
+            }
+        }
+
+        if (Game.equals("level1") ) {
+            I_animation = false;
+             COCK = System.nanoTime();
+             L_animation = true;
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            menu.update(batch,0,0);
+            batch.end();
+
+            if (System.nanoTime() - start > 9000E6) {
+                L_animation = false;
+
+
+                while (city){
+                    renderer = render;
+                    cam.Level1();
+                    break;
+                }
+
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
+                world.step(1 / 60f, 6, 2);
+                System.out.println(city);
+                cam.Level1();
+                r.play();
+                batch.begin();
+                update();
+                batch.end();
+
+                renderer.getBatch().begin();
+                renderer.renderTileLayer(Main.Building);
+                renderer.getBatch().end();
+                move();
+
+            }
+        }
+
+    }
+
+    public void update(){
+        p.update(batch);
+    }
+
+    public void move() {
       //  p.body.setLinearVelocity(0, 0);
 
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
@@ -134,128 +244,23 @@ public class Main extends ApplicationAdapter {
 
     if(transition){
 
+        if (System.nanoTime() - start > 9000E6) {
+
 
             cam.create();
-            p.body.setTransform(240, 78, 0);
+            p.body.setTransform(220, 150, 0);
             p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
             p.setY(p.body.getPosition().y);
             camera.position.x = p.getX(); // camera follows players x
             camera.position.y = p.getY(); // camera follows players y
             transition = false;
+        }
     }
 	    p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
 	    p.setY(p.body.getPosition().y);
 
 	    camera.position.x = p.getX(); // camera follows players x
 	    camera.position.y = p.getY(); // camera follows players y
-
-    }
-
-    @Override
-    public void create() {
-        world = new World(new Vector2(0,0),true);
-
-        batch = new SpriteBatch();
-
-        camera = new OrthographicCamera(720f, 480f);
-
-        p = new Player();
-
-        r = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/room_soundtrack.mp3"));
-
-        loading =new Texture("Assets/Menu Intro/Capcom/loading.png");
-
-        mapLoader = new TmxMapLoader();
-
-        map = mapLoader.load("Assets/Maps/Lan's Room.tmx");
-
-        map1 = mapLoader.load("Assets/Maps/cyber.tmx");
-
-        CurrentMap = map;
-
-        renderer = new OrthogonalTiledMapRenderer(CurrentMap,PPM);
-
-        render = new OrthogonalTiledMapRenderer(map1,PPM);
-
-        world.setContactListener(new WorldContactListener());
-
-        WorldCreator.Boundaries(world,CurrentMap.getLayers().get("Boundary").getObjects());
-
-
-        WorldCreator.World(world,CurrentMap);
-
-        b2dr = new Box2DDebugRenderer();
-        menu = new Menu();
-
-        Building = (TiledMapTileLayer) map1.getLayers().get("Building");
-    }
-
-
-    public void update(){
-        p.update(batch);
-    }
-
-    @Override
-    public void render() {
-        if(Game.equals("Intro_1")){ //starting the game off with the capcom intro
-
-            C_animation = true;
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            batch.begin();
-            menu.update(batch,0,0);
-            batch.end();
-            if(Menu.change){
-                Game = "Intro_2";
-            }
-        }
-
-        if(Game.equals("Intro_2")){ // once the capcom intro is finished loop title screen
-            C_animation = false;
-            I_animation = true;
-            menu.m.play();
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            batch.begin();
-            menu.update(batch,0,0);
-            batch.end();
-            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
-//                menu.s.play(); // add this feature in later and make it so the animation is slower
-                Game = "level1";
-                  menu.m.stop();
-
-            }
-        }
-
-        if (Game.equals("level1") ) {
-             COCK = System.nanoTime();
-
-            C_animation = true;
-            I_animation = false;
-            batch.begin();
-            menu.update(batch, 0, 0);
-            batch.end();
-            if (System.nanoTime() - start > 9000E6) {
-                while (city){
-                    renderer = render;
-                    cam.Level1();
-                    break;
-                }
-                I_animation = false;
-                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
-                world.step(1 / 60f, 6, 2);
-                System.out.println(city);
-                cam.Level1();
-                r.play();
-                batch.begin();
-                update();
-                batch.end();
-                renderer.getBatch().begin();
-                renderer.renderTileLayer(Building);
-                renderer.getBatch().end();
-                move();
-
-            }
-        }
 
     }
 

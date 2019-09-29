@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.sun.net.httpserver.Filter;
 
-
 public class WorldCreator {
     public static void Boundaries (World world, MapObjects objects){
         Body body;
@@ -27,7 +26,6 @@ public class WorldCreator {
             }
             else if (obj instanceof PolygonMapObject){
                 shape = createPolygon((PolygonMapObject)obj);
-
             }
             else {
                 continue;
@@ -38,8 +36,6 @@ public class WorldCreator {
             shape.dispose();
         }
 
-
-
     }
 
     public static void World(World world, TiledMap map) {
@@ -47,7 +43,6 @@ public class WorldCreator {
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
-
 
         // for buildings
         for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
@@ -66,8 +61,6 @@ public class WorldCreator {
         }
     }
 
-
-
     private static ChainShape createPolyline(PolylineMapObject polyline){
         float [] vertices = polyline.getPolyline().getTransformedVertices();
         Vector2[] worldverticies = new Vector2[vertices.length/2];
@@ -79,7 +72,6 @@ public class WorldCreator {
         cs.createChain(worldverticies);
         return cs;
     }
-
     private static ChainShape createPolygon (PolygonMapObject polygon){
         float [] v = polygon.getPolygon().getTransformedVertices();
         Vector2[] wv = new Vector2[v.length/2];
@@ -91,7 +83,5 @@ public class WorldCreator {
         cs.createChain(wv);
         return cs;
     }
-
-
 
 }

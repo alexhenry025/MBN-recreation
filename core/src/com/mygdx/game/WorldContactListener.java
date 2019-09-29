@@ -18,6 +18,7 @@ public class WorldContactListener implements ContactListener {
                 System.out.println("exit contact");
                 Main.CurrentMap = Main.map1;
                 // Main.ChangeMap(Main.map1);
+
                 Main.city = true;
                 Main.transition = true;
 
