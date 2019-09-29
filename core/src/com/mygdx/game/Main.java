@@ -144,17 +144,13 @@ public class Main extends ApplicationAdapter {
             batch.begin();
             menu.update(batch,0,0);
             batch.end();
-
             if (System.nanoTime() - start > 9000E6) {
                 L_animation = false;
-
-
                 while (city){
                     renderer = render;
                     cam.Level1();
                     break;
                 }
-
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
                 world.step(1 / 60f, 6, 2);
@@ -164,7 +160,6 @@ public class Main extends ApplicationAdapter {
                 batch.begin();
                 update();
                 batch.end();
-
                 renderer.getBatch().begin();
                 renderer.renderTileLayer(Main.Building);
                 renderer.getBatch().end();
@@ -194,21 +189,18 @@ public class Main extends ApplicationAdapter {
             moves1 = SE;
             p.getBody().applyLinearImpulse(new Vector2(80, -80), p.getBody().getWorldCenter(), true);
             animation = true;
-
         }
 
         else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.DOWN) )){
             moves1 = SW;
             p.getBody().applyLinearImpulse(new Vector2(-80, -80), p.getBody().getWorldCenter(), true);
             animation = true;
-
         }
 
         else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
             moves1 = NW;
             p.getBody().applyLinearImpulse(new Vector2(-80, 80), p.getBody().getWorldCenter(), true);
             animation = true;
-
         }
 
         else  if (Gdx.input.isKeyPressed(Input.Keys.UP)) {// moves the player up
@@ -233,7 +225,6 @@ public class Main extends ApplicationAdapter {
             //System.out.println("right");
             p.getBody().applyLinearImpulse(new Vector2(80, 0), p.getBody().getWorldCenter(), true);
             animation = true;
-
         }
 
         else {
@@ -245,8 +236,6 @@ public class Main extends ApplicationAdapter {
     if(transition){
 
         if (System.nanoTime() - start > 9000E6) {
-
-
             cam.create();
             p.body.setTransform(220, 150, 0);
             p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
@@ -258,7 +247,6 @@ public class Main extends ApplicationAdapter {
     }
 	    p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
 	    p.setY(p.body.getPosition().y);
-
 	    camera.position.x = p.getX(); // camera follows players x
 	    camera.position.y = p.getY(); // camera follows players y
 
