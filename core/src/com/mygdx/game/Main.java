@@ -55,8 +55,8 @@ public class Main extends ApplicationAdapter {
     static Music r;
     static long start =  System.nanoTime();
     Texture loading;
-    static long COCK = 0;
-    static boolean C_animation = false, I_animation = false, animation, city = false , transition = false , L_animation = false ;
+
+    static boolean C_animation = false, I_animation = false, animation, city = false , transition = false , L_animation = false, Enter, Exit;
 
    public static TiledMap ChangeMap(TiledMap map){
 
@@ -121,6 +121,7 @@ public class Main extends ApplicationAdapter {
         }
 
         if(Game.equals("Intro_2")){ // once the capcom intro is finished loop title screen
+            Menu.change = false;
             C_animation = false;
             I_animation = true;
             menu.m.play();
@@ -130,31 +131,38 @@ public class Main extends ApplicationAdapter {
             batch.end();
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
 //                menu.s.play(); // add this feature in later and make it so the animation is slower
-                Game = "level1";
+                Game = "Loading";
                   menu.m.stop();
 
             }
         }
 
-        if (Game.equals("level1") ) {
+        if(Game.equals("Loading")){
             I_animation = false;
-             COCK = System.nanoTime();
-             L_animation = true;
+            L_animation = true;
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
             menu.update(batch,0,0);
             batch.end();
+            if(Menu.change){
+                Game = "level1";
+            }
+        }
+
+        if (Game.equals("level1") ) {
+            Menu.change = false;
+            L_animation = false;
             if (System.nanoTime() - start > 9000E6) {
-                L_animation = false;
-                while (city){
+                while (city) {
                     renderer = render;
                     cam.Level1();
                     break;
                 }
+            }
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
                 world.step(1 / 60f, 6, 2);
-                System.out.println(city);
+                System.out.println(Game);
                 cam.Level1();
                 r.play();
                 batch.begin();
@@ -165,13 +173,25 @@ public class Main extends ApplicationAdapter {
                 renderer.getBatch().end();
                 move();
 
-            }
+
         }
 
     }
 
     public void update(){
         p.update(batch);
+
+        if(Enter){
+            p.MoveBody((int)WorldCreator.x_exit + 5, (int)WorldCreator.y_exit + 5);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            Game = "Loading";
+            Enter = false;
+        }
+
+        if(Exit){
+            p.MoveBody((int)WorldCreator.x_enter - 1, (int)WorldCreator.y_enter - 1);
+            Exit = false;
+        }
     }
 
     public void move() {
@@ -237,11 +257,13 @@ public class Main extends ApplicationAdapter {
 
         if (System.nanoTime() - start > 9000E6) {
             cam.create();
-            p.body.setTransform(220, 150, 0);
             p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
             p.setY(p.body.getPosition().y);
             camera.position.x = p.getX(); // camera follows players x
             camera.position.y = p.getY(); // camera follows players y
+
+
+
             transition = false;
         }
     }

@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.CircleMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
@@ -13,11 +15,34 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.sun.net.httpserver.Filter;
 
+import static com.mygdx.game.Main.map;
+
 public class WorldCreator {
-    public static void Boundaries (World world, MapObjects objects){
+    static float x_enter, y_enter, x_exit, y_exit;
+
+    static int mapWidth;
+    static int mapHeight;
+    static int tilePixelWidth;
+    static int tilePixelHeight;
+
+    static int mapPixelWidth;
+    static int mapPixelHeight;
+
+
+    public  static void Boundaries (World world, MapObjects objects){
         Body body;
         BodyDef bdef = new BodyDef();
         FixtureDef fdef = new FixtureDef();
+        MapProperties prop = Main.CurrentMap.getProperties();
+
+        mapWidth = prop.get("width", Integer.class);
+        mapHeight = prop.get("height", Integer.class);
+        tilePixelWidth = prop.get("tilewidth", Integer.class);
+        tilePixelHeight = prop.get("tileheight", Integer.class);
+
+        mapPixelWidth = mapWidth * tilePixelWidth;
+        mapPixelHeight = mapHeight * tilePixelHeight;
+
 
         for(MapObject obj : objects){
             Shape shape;
@@ -47,6 +72,10 @@ public class WorldCreator {
         // for buildings
         for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+
+            x_exit = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
+            y_exit = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
+
             bdef.type = BodyDef.BodyType.StaticBody;
 
             bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
@@ -57,6 +86,25 @@ public class WorldCreator {
 
             fdef.shape = shape;
             body.createFixture(fdef).setUserData("Exit");
+
+        }
+
+        for (MapObject obj : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+
+            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+            x_enter = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
+            y_enter = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+
+            bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
+
+            fdef.shape = shape;
+            body.createFixture(fdef).setUserData("Enter");
 
         }
     }

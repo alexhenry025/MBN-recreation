@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Menu {
     private Texture background;
@@ -21,6 +22,7 @@ public class Menu {
     static int C_frame = 0, timer = 0, C_timer = 0, I_frame = 0 , L_frame = 0;
     private static ArrayList<ArrayList<Texture>> Loading_Sprites = new ArrayList<ArrayList<Texture>>();
     static boolean change = false;
+    Timer time;
 
     public Menu(){
         C_menu = new Sprite();
@@ -31,6 +33,7 @@ public class Menu {
         Intro_loading();
         m = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/Title.mp3"));
         s = Gdx.audio.newSound(Gdx.files.internal("Assets/Sound/Start_SoundEffect.mp3"));
+        time = new Timer();
 
     }
 
@@ -94,14 +97,16 @@ public class Menu {
     }
 
     public int L_frame(){
+
         if(C_timer < 2){
             C_timer ++;
             if(C_timer == 2){
-                if(L_frame < 31){
+                if(L_frame < 32){
                     L_frame ++;
-                    if(L_frame == 31){
+                    if(L_frame == 32){
                         L_frame = 0;
                         change = true;
+
 
                     }
                     C_timer = 0;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="70" height="70" tilewidth="22" tileheight="20" infinite="0" backgroundcolor="#78fffb" nextlayerid="24" nextobjectid="35">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="70" height="70" tilewidth="22" tileheight="20" infinite="0" backgroundcolor="#78fffb" nextlayerid="25" nextobjectid="42">
  <tileset firstgid="1" source="room.tsx"/>
  <tileset firstgid="155" name="house" tilewidth="20" tileheight="20" tilecount="266" columns="19">
   <image source="house.png" width="398" height="284"/>
@@ -60,6 +60,8 @@
  </objectgroup>
  <objectgroup id="23" name="Exit">
   <object id="32" x="910" y="357.667" width="21.3333" height="10.3333"/>
-  <object id="34" x="776" y="488.333" width="27" height="12.3333"/>
+ </objectgroup>
+ <objectgroup id="24" name="Enter">
+  <object id="39" x="787.25" y="447.5" width="29.25" height="39"/>
  </objectgroup>
 </map>

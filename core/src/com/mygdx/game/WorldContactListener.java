@@ -13,16 +13,25 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
 
 
+        if (contact.getFixtureA().getUserData() == "Player" && contact.getFixtureB().getUserData() == "Enter") {
+
+//                System.out.println("exit contact");
+//                Main.CurrentMap = Main.map1;
+//                // Main.ChangeMap(Main.map1);
+//
+//                Main.city = true;
+                Main.Enter = true;
+
+        }
+
         if (contact.getFixtureA().getUserData() == "Player" && contact.getFixtureB().getUserData() == "Exit") {
 
-                System.out.println("exit contact");
-                Main.CurrentMap = Main.map1;
-                // Main.ChangeMap(Main.map1);
-
-                Main.city = true;
-                Main.transition = true;
-
-
+//                System.out.println("exit contact");
+//                Main.CurrentMap = Main.map1;
+//                // Main.ChangeMap(Main.map1);
+//
+//                Main.city = true;
+            Main.Exit = true;
 
         }
 
