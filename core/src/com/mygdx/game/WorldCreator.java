@@ -18,7 +18,7 @@ import com.sun.net.httpserver.Filter;
 import static com.mygdx.game.Main.map;
 
 public class WorldCreator {
-    static float x_enter, y_enter, x_exit, y_exit;
+    static float x_enter, y_enter, x_exit, y_exit , x_spawn , y_spawn;
 
     static int mapWidth;
     static int mapHeight;
@@ -68,6 +68,27 @@ public class WorldCreator {
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
+
+
+
+        for (MapObject obj : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+
+            x_spawn = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
+            y_spawn = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+
+            bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
+
+            fdef.shape = shape;
+            body.createFixture(fdef).setUserData("Spawn");
+
+        }
 
         // for buildings
         for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {

@@ -19,7 +19,7 @@ public class Menu {
     static ArrayList<Texture> C_t, I_t;
     private static ArrayList<ArrayList<Texture>> capcom_Sprites = new ArrayList<ArrayList<Texture>>();
     private static ArrayList<ArrayList<Texture>> Intro_Sprites = new ArrayList<ArrayList<Texture>>();
-    static int C_frame = 0, timer = 0, C_timer = 0, I_frame = 0 , L_frame = 0;
+    static int C_frame = 0, timer = 0, C_timer = 0, I_frame = 0;
     private static ArrayList<ArrayList<Texture>> Loading_Sprites = new ArrayList<ArrayList<Texture>>();
     static boolean change = false;
     Timer time;
@@ -27,10 +27,10 @@ public class Menu {
     public Menu(){
         C_menu = new Sprite();
         I_menu = new Sprite();
-        L_menu = new Sprite();
+
         Capcom_load();
         Intro_load();
-        Intro_loading();
+
         m = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/Title.mp3"));
         s = Gdx.audio.newSound(Gdx.files.internal("Assets/Sound/Start_SoundEffect.mp3"));
         time = new Timer();
@@ -54,13 +54,7 @@ public class Menu {
     }
 
 
-    public void Intro_loading(){
-        C_t = new ArrayList<Texture>();
-        for(int k = 0; k < 32; k ++){
-            C_t.add(new Texture("Assets/Menu Intro/loading/loading" + k + ".png"));
-        }
-        Loading_Sprites.add(C_t);
-    }
+
 
 
     public int C_frame(){
@@ -96,26 +90,7 @@ public class Menu {
         return I_frame;
     }
 
-    public int L_frame(){
 
-        if(C_timer < 2){
-            C_timer ++;
-            if(C_timer == 2){
-                if(L_frame < 32){
-                    L_frame ++;
-                    if(L_frame == 32){
-                        L_frame = 0;
-                        change = true;
-
-
-                    }
-                    C_timer = 0;
-
-                }
-            }
-        }
-        return L_frame;
-    }
 
     public void render(SpriteBatch batch){
 
@@ -129,11 +104,6 @@ public class Menu {
             I_menu.draw(batch);
         }
 
-        if (Main.L_animation){
-            L_menu.setPosition(0,0);
-            L_menu.draw(batch);
-
-        }
     }
     public void update(SpriteBatch batch, int x, int y){
 
@@ -147,10 +117,6 @@ public class Menu {
             I_menu.set(new Sprite(Intro_Sprites.get(0).get(I_frame)));
             render(batch);
         }
-        if (Main.L_animation){
-            L_frame();
-            L_menu.set(new Sprite(Loading_Sprites.get(0).get(L_frame)));
-            render(batch);
-        }
+
     }
 }

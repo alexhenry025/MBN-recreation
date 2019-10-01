@@ -14,6 +14,7 @@ public class cam {
             Main.batch.setProjectionMatrix(Main.camera.combined);
 //            Main.b2dr.render(Main.world, Main.camera.combined);
             System.out.println(Main.p.getX() + " , " + Main.p.getY());
+         System.out.println(Main.CurrentMap);
 
 
             Main.r.play();
@@ -22,6 +23,7 @@ public class cam {
 
     public static  void create (){
         WorldCreator.Boundaries(Main.world,Main.CurrentMap.getLayers().get("Boundary").getObjects());
+
     }
 
     public static void update (){

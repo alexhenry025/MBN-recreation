@@ -73,8 +73,6 @@ public class Player {
 
     public void createbody(){
 
-        Lan.setPosition(216, 220);
-
         rect = new Rectangle((int) Lan.getX(), (int) Lan.getY(), (int) Lan.getWidth(), (int) Lan.getHeight());//create a recto take players x,y,width and height
 
         BodyDef bdef = new BodyDef();
@@ -86,7 +84,7 @@ public class Player {
 
         fdef.shape = shape;
 
-        shape.setAsBox(10 * (float) Math.pow(Main.PPM, 2), 10 * (float) Math.pow(Main.PPM, 2));
+        shape.setAsBox(10 * (float) Math.pow(Main.PPM, 2), 24 * (float) Math.pow(Main.PPM, 2));
 
         this.body.createFixture(fdef);
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="10" nextobjectid="31">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="11" nextobjectid="33">
  <tileset firstgid="1" name="City" tilewidth="3" tileheight="2" tilecount="78003" columns="321">
   <image source="City/City.png" width="963" height="486"/>
  </tileset>
@@ -1288,5 +1288,8 @@
   <object id="30" x="613.25" y="264.25">
    <polyline points="0,0 12.75,-8 3.5,-14.25"/>
   </object>
+ </objectgroup>
+ <objectgroup id="10" name="Exit">
+  <object id="32" x="790.545" y="541.818" width="18.1818" height="7.45455"/>
  </objectgroup>
 </map>

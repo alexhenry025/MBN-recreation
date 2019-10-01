@@ -52,6 +52,8 @@ public class Main extends ApplicationAdapter {
     static Box2DDebugRenderer b2dr;
 
     private Menu menu;
+
+    private Loading load;
     static Music r;
     static long start =  System.nanoTime();
     Texture loading;
@@ -103,7 +105,9 @@ public class Main extends ApplicationAdapter {
         b2dr = new Box2DDebugRenderer();
         menu = new Menu();
 
-        Building = (TiledMapTileLayer) map1.getLayers().get("Building");
+        load = new Loading();
+
+        Building = (TiledMapTileLayer) map.getLayers().get("Building");
     }
 
     @Override
@@ -131,27 +135,27 @@ public class Main extends ApplicationAdapter {
             batch.end();
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
 //                menu.s.play(); // add this feature in later and make it so the animation is slower
-                Game = "Loading";
+                Game = "level1";
+               p.MoveBody((int)WorldCreator.x_spawn + 1, (int)WorldCreator.y_spawn + 1);
                   menu.m.stop();
 
             }
         }
 
         if(Game.equals("Loading")){
-            I_animation = false;
             L_animation = true;
+            System.out.println("BYEEEEEE");
+
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
-            menu.update(batch,0,0);
+            load.update(batch,0,0);
             batch.end();
-            if(Menu.change){
-                Game = "level1";
-            }
+            Game.equals("level1");
+
         }
 
-        if (Game.equals("level1") ) {
+        if (Game.equals("level1")  ) {
             Menu.change = false;
-            L_animation = false;
             if (System.nanoTime() - start > 9000E6) {
                 while (city) {
                     renderer = render;
@@ -172,8 +176,6 @@ public class Main extends ApplicationAdapter {
                 renderer.renderTileLayer(Main.Building);
                 renderer.getBatch().end();
                 move();
-
-
         }
 
     }
@@ -182,14 +184,18 @@ public class Main extends ApplicationAdapter {
         p.update(batch);
 
         if(Enter){
-            p.MoveBody((int)WorldCreator.x_exit + 5, (int)WorldCreator.y_exit + 5);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            Game = "Loading";
+            //Menu.L_frame = 7;
+            p.MoveBody((int)WorldCreator.x_exit + 8, (int)WorldCreator.y_exit + 8);
+            Game.equals("Loading");
+
+
+           System.out.println("HIIIIIIIIIIIIIIIIIIIIIIII");
             Enter = false;
         }
 
         if(Exit){
-            p.MoveBody((int)WorldCreator.x_enter - 1, (int)WorldCreator.y_enter - 1);
+
+           p.MoveBody((int)WorldCreator.x_enter - 5 , (int)WorldCreator.y_enter - 5);
             Exit = false;
         }
     }
@@ -254,18 +260,15 @@ public class Main extends ApplicationAdapter {
         }
 
     if(transition){
+        cam.create();
 
-        if (System.nanoTime() - start > 9000E6) {
-            cam.create();
             p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
             p.setY(p.body.getPosition().y);
             camera.position.x = p.getX(); // camera follows players x
             camera.position.y = p.getY(); // camera follows players y
 
-
-
             transition = false;
-        }
+
     }
 	    p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
 	    p.setY(p.body.getPosition().y);
