@@ -150,12 +150,14 @@ public class Main extends ApplicationAdapter {
             batch.begin();
             load.update(batch,0,0);
             batch.end();
+            if(Menu.change){
+                Game = "level1";
+            }
             Game.equals("level1");
-
         }
 
-        if (Game.equals("level1")  ) {
-            Menu.change = false;
+        if (Game.equals("level1") ) {
+
             if (System.nanoTime() - start > 9000E6) {
                 while (city) {
                     renderer = render;
@@ -186,10 +188,8 @@ public class Main extends ApplicationAdapter {
         if(Enter){
             //Menu.L_frame = 7;
             p.MoveBody((int)WorldCreator.x_exit + 8, (int)WorldCreator.y_exit + 8);
-            Game.equals("Loading");
-
-
-           System.out.println("HIIIIIIIIIIIIIIIIIIIIIIII");
+            //Game = "Loading";
+           System.out.println("enter");
             Enter = false;
         }
 

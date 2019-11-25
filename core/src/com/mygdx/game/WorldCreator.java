@@ -71,7 +71,7 @@ public class WorldCreator {
 
 
 
-        for (MapObject obj : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject obj : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {// this will be the spawn box for the player
             Rectangle rect = ((RectangleMapObject) obj).getRectangle();
 
             x_spawn = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
@@ -81,25 +81,26 @@ public class WorldCreator {
 
             bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
 
-            body = world.createBody(bdef);
+           // body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
+           // shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
 
-            fdef.shape = shape;
-            body.createFixture(fdef).setUserData("Spawn");
+           // fdef.shape = shape;
+           // body.createFixture(fdef).setUserData("Spawn");
 
         }
 
         // for buildings
-        for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+        for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {// exit box for the player
+            Rectangle rect = ((RectangleMapObject) obj).getRectangle();//define a rectangle map object , since we are using rectangle box collision
 
-            x_exit = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
+            x_exit = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;//
             y_exit = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
 
             bdef.type = BodyDef.BodyType.StaticBody;
 
-            bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
+            bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM); // set the position of the exit box ,
+            // this will indicate where the player will spawn after exiting a door
 
             body = world.createBody(bdef);
 
@@ -112,7 +113,7 @@ public class WorldCreator {
 
         for (MapObject obj : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
 
-            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+            Rectangle rect = ((RectangleMapObject) obj).getRectangle();//define a rectangle map object , since we are using rectangle box collision
             x_enter = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
             y_enter = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
 
