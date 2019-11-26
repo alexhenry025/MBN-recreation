@@ -1,138 +1,120 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.objects.CircleMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.sun.net.httpserver.Filter;
 
-import static com.mygdx.game.Main.map;
+import java.util.ArrayList;
 
-public class WorldCreator {
+public class WorldCreator{
+    Body body;
+    BodyDef bdef = new BodyDef();
+    FixtureDef fdef = new FixtureDef();
+    PolygonShape shape = new PolygonShape();
+
+    static ArrayList<Body> boundries = new ArrayList<Body>();
+    static ArrayList<Body> Exit = new ArrayList<Body>();
+    static ArrayList<Body> Enter = new ArrayList<Body>();
+    static ArrayList<ArrayList<Body>> Bodies = new ArrayList<ArrayList<Body>>();
+
     static float x_enter, y_enter, x_exit, y_exit , x_spawn , y_spawn;
 
-    static int mapWidth;
-    static int mapHeight;
-    static int tilePixelWidth;
-    static int tilePixelHeight;
+    public WorldCreator(World world, TiledMap map){
 
-    static int mapPixelWidth;
-    static int mapPixelHeight;
-
-
-    public  static void Boundaries (World world, MapObjects objects){
-        Body body;
-        BodyDef bdef = new BodyDef();
-        FixtureDef fdef = new FixtureDef();
-        MapProperties prop = Main.CurrentMap.getProperties();
-
-        mapWidth = prop.get("width", Integer.class);
-        mapHeight = prop.get("height", Integer.class);
-        tilePixelWidth = prop.get("tilewidth", Integer.class);
-        tilePixelHeight = prop.get("tileheight", Integer.class);
-
-        mapPixelWidth = mapWidth * tilePixelWidth;
-        mapPixelHeight = mapHeight * tilePixelHeight;
-
-
-        for(MapObject obj : objects){
-            Shape shape;
-            if(obj instanceof PolylineMapObject){
-                shape = createPolyline((PolylineMapObject)obj);
+        for(int i = 0; i < map.getLayers().getCount(); i ++){
+            for(MapObject obj : map.getLayers().get(2).getObjects().getByType(PolylineMapObject.class)){
+                Shape shape;
+                if(obj instanceof PolylineMapObject){
+                    shape = createPolyline((PolylineMapObject)obj);
+                }
+                else if (obj instanceof PolygonMapObject){
+                    shape = createPolygon((PolygonMapObject)obj);
+                }
+                else {
+                    continue;
+                }
+                bdef.type =  BodyDef.BodyType.StaticBody;
+                body = world.createBody(bdef);
+                body.createFixture(shape,0.1f);
+                boundries.add(body);
+                shape.dispose();
             }
-            else if (obj instanceof PolygonMapObject){
-                shape = createPolygon((PolygonMapObject)obj);
+
+            for (MapObject obj : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {// this will be the spawn box for the player
+                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+
+                x_spawn = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
+                y_spawn = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
+
+                bdef.type = BodyDef.BodyType.StaticBody;
+
+                bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
+
+                // body = world.createBody(bdef);
+
+                // shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
+
+                // fdef.shape = shape;
+                // body.createFixture(fdef).setUserData("Spawn");
+
             }
-            else {
-                continue;
+
+            // for buildings
+            for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {// exit box for the player
+                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+
+                x_exit = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;//
+                y_exit = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
+
+                bdef.type = BodyDef.BodyType.StaticBody;
+
+                bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM); // set the position of the exit box ,
+                // this will indicate where the player will spawn after exiting a door
+
+                body = world.createBody(bdef);
+
+                shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
+
+                fdef.shape = shape;
+                body.createFixture(fdef).setUserData("Exit");
+                Exit.add(body);
+
             }
-            bdef.type =  BodyDef.BodyType.StaticBody;
-            body = world.createBody(bdef);
-            body.createFixture(shape,0.1f);
-            shape.dispose();
+
+            for (MapObject obj : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+
+                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+                x_enter = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
+                y_enter = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
+
+                bdef.type = BodyDef.BodyType.StaticBody;
+
+                bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
+
+                body = world.createBody(bdef);
+
+                shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
+
+                fdef.shape = shape;
+                body.createFixture(fdef).setUserData("Enter");
+                Enter.add(body);
+
+            }
         }
 
-    }
+        Bodies.add(boundries);
+        Bodies.add(Exit);
+        Bodies.add(Enter);
 
-    public static void World(World world, TiledMap map) {
-        Body body;
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-
-
-
-        for (MapObject obj : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {// this will be the spawn box for the player
-            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-
-            x_spawn = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
-            y_spawn = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-
-            bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
-
-           // body = world.createBody(bdef);
-
-           // shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
-           // fdef.shape = shape;
-           // body.createFixture(fdef).setUserData("Spawn");
-
-        }
-
-        // for buildings
-        for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {// exit box for the player
-            Rectangle rect = ((RectangleMapObject) obj).getRectangle();//define a rectangle map object , since we are using rectangle box collision
-
-            x_exit = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;//
-            y_exit = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-
-            bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM); // set the position of the exit box ,
-            // this will indicate where the player will spawn after exiting a door
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
-            fdef.shape = shape;
-            body.createFixture(fdef).setUserData("Exit");
-
-        }
-
-        for (MapObject obj : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-
-            Rectangle rect = ((RectangleMapObject) obj).getRectangle();//define a rectangle map object , since we are using rectangle box collision
-            x_enter = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
-            y_enter = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-
-            bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
-            fdef.shape = shape;
-            body.createFixture(fdef).setUserData("Enter");
-
-        }
     }
 
     private static ChainShape createPolyline(PolylineMapObject polyline){
-        float [] vertices = polyline.getPolyline().getTransformedVertices();
+        float [] vertices = polyline.getPolyline().getTransformedVertices();//
         Vector2[] worldverticies = new Vector2[vertices.length/2];
 
         for(int i = 0; i < worldverticies.length; i ++){
@@ -153,5 +135,4 @@ public class WorldCreator {
         cs.createChain(wv);
         return cs;
     }
-
 }

@@ -16,9 +16,7 @@ public class WorldContactListener implements ContactListener {
         if (contact.getFixtureA().getUserData() == "Player" && contact.getFixtureB().getUserData() == "Enter") {
 
 //                System.out.println("exit contact");
-               // Main.CurrentMap = Main.map1;
-//              Main.ChangeMap(Main.map1);
-//
+               // Main.CurrentMap = Main.map1;//
                 //Main.city = true;
                // Main.transition = true;
                 Main.Enter = true;
@@ -29,7 +27,7 @@ public class WorldContactListener implements ContactListener {
 
 //                System.out.println("exit contact");
 //                Main.CurrentMap = Main.map1;
-//                // Main.ChangeMap(Main.map1);
+//
 //
 //                Main.city = true;
             Main.Exit = true;

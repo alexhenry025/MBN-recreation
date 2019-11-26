@@ -18,8 +18,10 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricStaggeredTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 
 public class Main extends ApplicationAdapter {
@@ -40,8 +42,8 @@ public class Main extends ApplicationAdapter {
     public  static Player p;
 
     public static World world;
-    public static TiledMap CurrentMap, map, map1;
 
+    public String map, map1;
 
     private TmxMapLoader mapLoader;
 
@@ -54,20 +56,14 @@ public class Main extends ApplicationAdapter {
     private Menu menu;
 
     private Loading load;
+
+    private WorldCreator wc;
+
     static Music r;
     static long start =  System.nanoTime();
     Texture loading;
 
     static boolean C_animation = false, I_animation = false, animation, city = false , transition = false , L_animation = false, Enter, Exit;
-
-   public static TiledMap ChangeMap(TiledMap map){
-
-        CurrentMap.dispose();
-        CurrentMap = map;
-        renderer.setMap(CurrentMap);
-
-        return CurrentMap;
-   }
 
     @Override
     public void create() {
@@ -85,29 +81,19 @@ public class Main extends ApplicationAdapter {
 
         mapLoader = new TmxMapLoader();
 
-        map = mapLoader.load("Assets/Maps/Lan's Room1.tmx");
+        map = "Assets/Maps/Lan's Room1.tmx";
 
-        map1 = mapLoader.load("Assets/Maps/cyber.tmx");
-
-        CurrentMap = map;
-
-        renderer = new OrthogonalTiledMapRenderer(CurrentMap,PPM);
-
-        render = new OrthogonalTiledMapRenderer(map1,PPM);
+        map1 = "Assets/Maps/cyber.tmx";
 
         world.setContactListener(new WorldContactListener());
 
-        WorldCreator.Boundaries(world,CurrentMap.getLayers().get("Boundary").getObjects());
-
-
-        WorldCreator.World(world,CurrentMap);
+        CreateMap(map);
 
         b2dr = new Box2DDebugRenderer();
         menu = new Menu();
 
         load = new Loading();
 
-        Building = (TiledMapTileLayer) map.getLayers().get("Building");
     }
 
     @Override
@@ -157,27 +143,26 @@ public class Main extends ApplicationAdapter {
         }
 
         if (Game.equals("level1") ) {
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
 
-            if (System.nanoTime() - start > 9000E6) {
-                while (city) {
-                    renderer = render;
-                    cam.Level1();
-                    break;
-                }
+            world.step(1 / 60f, 6, 2);
+
+            if(Gdx.input.isKeyPressed(Input.Keys.W)){
+                CreateMap(map1);
             }
-                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
-                world.step(1 / 60f, 6, 2);
-                System.out.println(Game);
-                cam.Level1();
-                r.play();
-                batch.begin();
-                update();
-                batch.end();
-                renderer.getBatch().begin();
-                renderer.renderTileLayer(Main.Building);
-                renderer.getBatch().end();
-                move();
+
+            cam.Level1();
+            r.play();
+
+            batch.begin();
+            update();
+
+            batch.end();
+            renderer.getBatch().begin();
+            renderer.renderTileLayer(Main.Building);
+            renderer.getBatch().end();
+            move();
         }
 
     }
@@ -259,21 +244,28 @@ public class Main extends ApplicationAdapter {
             p.frames = 0;
         }
 
-    if(transition){
-        cam.create();
-
-            p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
-            p.setY(p.body.getPosition().y);
-            camera.position.x = p.getX(); // camera follows players x
-            camera.position.y = p.getY(); // camera follows players y
-
-            transition = false;
-
-    }
 	    p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
 	    p.setY(p.body.getPosition().y);
 	    camera.position.x = p.getX(); // camera follows players x
 	    camera.position.y = p.getY(); // camera follows players y
+
+    }
+
+    void CreateMap(String type){
+        TmxMapLoader loader = new TmxMapLoader();
+        TiledMap map = loader.load(type);
+        renderer = new OrthogonalTiledMapRenderer(map,PPM);
+
+        if(wc != null){
+            for(int i = 0; i < WorldCreator.Bodies.size(); i ++){
+                for(int j = 0; j < WorldCreator.Bodies.get(i).size(); j ++){
+                    Main.world.destroyBody(WorldCreator.Bodies.get(i).remove(j));
+                }
+            }
+        }
+
+        wc = new WorldCreator(world,map);
+        Building = (TiledMapTileLayer) map.getLayers().get("Building");
 
     }
 
