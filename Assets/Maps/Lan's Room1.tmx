@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="8" nextobjectid="25">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="8" nextobjectid="28">
  <tileset firstgid="1" name="house" tilewidth="3" tileheight="2" tilecount="18744" columns="132">
   <image source="house.png" width="398" height="284"/>
  </tileset>
@@ -62,9 +62,13 @@
   <object id="24" x="385" y="431.667">
    <polyline points="0,0 11.3333,-6.33333 -11,-18 -23.6667,-11.3333 -25.6667,-10.6667 1.66667,3.33333 2.33333,-2"/>
   </object>
+  <object id="27" x="417" y="291.333">
+   <polyline points="0,0 13.6667,5.66667"/>
+  </object>
  </objectgroup>
  <objectgroup id="5" name="Exit">
   <object id="12" x="924.333" y="224.667" width="21" height="11"/>
+  <object id="26" x="361.667" y="459.667" width="30" height="10.3333"/>
  </objectgroup>
  <objectgroup id="4" name="Enter">
   <object id="14" x="435.667" y="254.333" width="30.3333" height="55"/>

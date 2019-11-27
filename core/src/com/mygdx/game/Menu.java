@@ -61,6 +61,7 @@ public class Menu {
             L_t.add(new Texture("Assets/Menu Intro/loading/loading" + k + ".png"));
         }
         Loading_Sprites.add(L_t);
+
     }
 
     public int C_frame(){
@@ -134,6 +135,7 @@ public class Menu {
         if(Main.L_animation) {
             L_menu.setPosition(0, 0);
             L_menu.draw(batch);
+
         }
 
     }
@@ -152,8 +154,10 @@ public class Menu {
 
         if (Main.L_animation) {
             L_frame();
-            System.out.println(L_frame);
+
+            //System.out.println(L_frame);
             L_menu.set(new Sprite(Loading_Sprites.get(0).get(L_frame)));
+
             render(batch);
         }
 

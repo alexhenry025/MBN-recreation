@@ -50,7 +50,7 @@ public class Loading {
     public  void render(SpriteBatch batch) {
         if(Main.L_animation = true) {
             L_menu.setPosition(0, 0);
-            System.out.println("HIIIIIIIIIII");
+            //System.out.println("HIIIIIIIIIII");
             L_menu.draw(batch);
         }
 

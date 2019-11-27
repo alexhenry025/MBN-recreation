@@ -23,6 +23,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
+
 
 public class Main extends ApplicationAdapter {
     static SpriteBatch batch;
@@ -59,11 +61,16 @@ public class Main extends ApplicationAdapter {
 
     private WorldCreator wc;
 
+    static long start =  System.currentTimeMillis();
+    public long time;
+
     static Music r;
-    static long start =  System.nanoTime();
+    public long secondspassed;
     Texture loading;
 
     static boolean C_animation = false, I_animation = false, animation, city = false , transition = false , L_animation = false, Enter, Exit;
+    boolean destroyed = true;
+    private ArrayList<Body> bodiesToDestroy = new ArrayList<Body>(); // bodies to be destroyed after loading in a new map
 
     @Override
     public void create() {
@@ -87,12 +94,13 @@ public class Main extends ApplicationAdapter {
 
         world.setContactListener(new WorldContactListener());
 
-        CreateMap(map);
+
 
         b2dr = new Box2DDebugRenderer();
         menu = new Menu();
 
         load = new Loading();
+
 
     }
 
@@ -121,7 +129,9 @@ public class Main extends ApplicationAdapter {
             batch.end();
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
 //                menu.s.play(); // add this feature in later and make it so the animation is slower
-                Game = "level1";
+                CreateMap(map);
+
+                Game = "Loading";
                p.MoveBody((int)WorldCreator.x_spawn + 1, (int)WorldCreator.y_spawn + 1);
                   menu.m.stop();
 
@@ -131,33 +141,36 @@ public class Main extends ApplicationAdapter {
         if(Game.equals("Loading")){
             L_animation = true;
             System.out.println("BYEEEEEE");
+           // CreateMap(map1);
 
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
             load.update(batch,0,0);
             batch.end();
-            if(Menu.change){
+            if(Gdx.input.isKeyPressed(Input.Keys.R)){
                 Game = "level1";
             }
-            Game.equals("level1");
-        }
 
+            //Game = "level1";
+        }
+       // long time=System.currentTimeMillis()-start;
+        //long secondspassed = time/10000;
         if (Game.equals("level1") ) {
+            //L_animation= false;
+            world.step(1 / 60f, 6, 2);// calculates the physics useing box2D
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1);
+            System.out.println(secondspassed);
 
-            world.step(1 / 60f, 6, 2);
-
-            if(Gdx.input.isKeyPressed(Input.Keys.W)){
-                CreateMap(map1);
-            }
-
+            if(Exit == true){
+                    //Game = "Loading";
+                    destroymap();// call the function that gets rid of all objects in previous maps
+          }
             cam.Level1();
             r.play();
-
+            b2dr.render(world,camera.combined);
             batch.begin();
             update();
-
             batch.end();
             renderer.getBatch().begin();
             renderer.renderTileLayer(Main.Building);
@@ -252,20 +265,34 @@ public class Main extends ApplicationAdapter {
     }
 
     void CreateMap(String type){
+
         TmxMapLoader loader = new TmxMapLoader();
         TiledMap map = loader.load(type);
         renderer = new OrthogonalTiledMapRenderer(map,PPM);
 
-        if(wc != null){
-            for(int i = 0; i < WorldCreator.Bodies.size(); i ++){
-                for(int j = 0; j < WorldCreator.Bodies.get(i).size(); j ++){
-                    Main.world.destroyBody(WorldCreator.Bodies.get(i).remove(j));
-                }
-            }
-        }
 
         wc = new WorldCreator(world,map);
         Building = (TiledMapTileLayer) map.getLayers().get("Building");
+
+
+
+    }
+
+    void destroymap(){
+        if (wc != null) {
+            bodiesToDestroy = wc.getToBeDestroyed();
+            destroyed = false;
+        }
+        if (!destroyed) { // if not destroyed
+            for (Body i : bodiesToDestroy) {
+                world.destroyBody(i); // destroys the current body
+            }
+            destroyed = true; // sets destroyed
+        }
+
+
+            //System.out.println(wc);
+            CreateMap(map1);
 
     }
 

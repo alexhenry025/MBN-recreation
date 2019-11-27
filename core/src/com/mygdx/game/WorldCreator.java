@@ -21,6 +21,7 @@ public class WorldCreator{
     static ArrayList<Body> Exit = new ArrayList<Body>();
     static ArrayList<Body> Enter = new ArrayList<Body>();
     static ArrayList<ArrayList<Body>> Bodies = new ArrayList<ArrayList<Body>>();
+    private ArrayList<Body> toBeDestroyed = new ArrayList<Body>();
 
     static float x_enter, y_enter, x_exit, y_exit , x_spawn , y_spawn;
 
@@ -134,5 +135,17 @@ public class WorldCreator{
         ChainShape cs = new ChainShape();
         cs.createChain(wv);
         return cs;
+    }
+
+
+
+
+    public ArrayList<Body> getToBeDestroyed() {
+        toBeDestroyed = new ArrayList<Body>();
+        for (Body i : boundries) toBeDestroyed.add(i);
+        for (Body i : Enter) toBeDestroyed.add(i);
+        for (Body i : Exit) toBeDestroyed.add(i);
+
+        return toBeDestroyed;
     }
 }
