@@ -132,8 +132,8 @@ public class Main extends ApplicationAdapter {
                 CreateMap(map);
 
                 Game = "Loading";
-               p.MoveBody((int)WorldCreator.x_spawn + 1, (int)WorldCreator.y_spawn + 1);
-                  menu.m.stop();
+                p.MoveBody((int)WorldCreator.x_spawn + 1, (int)WorldCreator.y_spawn + 1);
+                menu.m.stop();
 
             }
         }

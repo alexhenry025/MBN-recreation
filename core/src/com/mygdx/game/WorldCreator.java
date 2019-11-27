@@ -27,14 +27,10 @@ public class WorldCreator{
 
     public WorldCreator(World world, TiledMap map){
 
-        for(int i = 0; i < map.getLayers().getCount(); i ++){
             for(MapObject obj : map.getLayers().get(2).getObjects().getByType(PolylineMapObject.class)){
                 Shape shape;
-                if(obj instanceof PolylineMapObject){
-                    shape = createPolyline((PolylineMapObject)obj);
-                }
-                else if (obj instanceof PolygonMapObject){
-                    shape = createPolygon((PolygonMapObject)obj);
+                if(obj instanceof PolylineMapObject) {
+                    shape = createPolyline((PolylineMapObject) obj);
                 }
                 else {
                     continue;
@@ -62,7 +58,6 @@ public class WorldCreator{
 
                 // fdef.shape = shape;
                 // body.createFixture(fdef).setUserData("Spawn");
-
             }
 
             // for buildings
@@ -106,9 +101,9 @@ public class WorldCreator{
                 Enter.add(body);
 
             }
-        }
 
-        Bodies.add(boundries);
+
+
         Bodies.add(Exit);
         Bodies.add(Enter);
 
