@@ -1,3 +1,9 @@
+/*
+ * This is the main launcher class
+ * 2019 - Ghanem & Usman
+ * Megaman Battle Network 6
+ */
+
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.Files;

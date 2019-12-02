@@ -2,165 +2,53 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.ArrayList;
-import java.util.Timer;
-
 public class Menu {
-    private Texture background;
-    Music m;
-    Sound s;
-    static Sprite C_menu, I_menu,L_menu;
-    static ArrayList<Texture> C_t, I_t , L_t;
-    private static ArrayList<ArrayList<Texture>> capcom_Sprites = new ArrayList<ArrayList<Texture>>();
-    private static ArrayList<ArrayList<Texture>> Intro_Sprites = new ArrayList<ArrayList<Texture>>();
-    private static ArrayList<ArrayList<Texture>> Loading_Sprites = new ArrayList<ArrayList<Texture>>();
-    static int C_frame = 0, timer = 0, C_timer = 0, I_frame = 0, L_frame = 0 , L_timer=0;
-    static boolean change = false;
-    Timer time;
+    public static boolean change = false, create = true;
+
+    private Intro_Animations introAnimations;
+
+    private String game;
 
     public Menu(){
-        C_menu = new Sprite();
-        I_menu = new Sprite();
-        L_menu = new Sprite();
-
-        Capcom_load();
-        Intro_load();
-        Intro_loading();
-
-        m = Gdx.audio.newMusic(Gdx.files.internal("Assets/Sound/Title.mp3"));
-        s = Gdx.audio.newSound(Gdx.files.internal("Assets/Sound/Start_SoundEffect.mp3"));
-        time = new Timer();
-
+        game = Main.Game;
     }
-
-    public void Capcom_load(){
-        C_t = new ArrayList<Texture>();
-        for(int k = 0; k < 31; k ++){
-            C_t.add(new Texture("Assets/Menu Intro/Capcom/Capcom" + k + ".png"));
-        }
-        capcom_Sprites.add(C_t);
-    }
-
-    public void Intro_load(){
-        C_t = new ArrayList<Texture>();
-        for(int k = 0; k < 4; k ++){
-            C_t.add(new Texture("Assets/Menu Intro/Intro/Intro" + k + ".png"));
-        }
-        Intro_Sprites.add(C_t);
-    }
-
-    public void Intro_loading() {
-        L_t = new ArrayList<Texture>();
-        for (int k = 0; k < 32; k++) {
-            L_t.add(new Texture("Assets/Menu Intro/loading/loading" + k + ".png"));
-        }
-        Loading_Sprites.add(L_t);
-
-    }
-
-    public int C_frame(){
-        if(C_timer < 2){
-            C_timer ++;
-            if(C_timer == 2){
-                if(C_frame < 31){
-                    C_frame ++;
-                    if(C_frame == 31){
-                        C_frame = 0;
-                        change = true;
-
-                    }
-                    C_timer = 0;
-
-                }
-            }
-        }
-        return C_frame;
-    }
-
-    public int I_frame(){
-        if(timer < 15){
-            timer++;
-            if(timer == 15){
-                I_frame += 1;
-                if(I_frame == 4){
-                    I_frame = 0;
-                }
-                timer = 0;
-            }
-        }
-        return I_frame;
-    }
-
-
-    public  int L_frame() {
-
-        if (L_timer < 2) {
-            L_timer++;
-            if (L_timer == 2) {
-                if (L_frame < 32) {
-                    L_frame++;
-                    if (L_frame == 32) {
-                        L_frame = 0;
-                    }
-                    L_timer = 0;
-
-                }
-            }
-        }
-
-        return L_frame;
-    }
-
-
-
 
     public void render(SpriteBatch batch){
-
-        if(Main.C_animation){
-            C_menu.setPosition(0,0);
-            C_menu.draw(batch);
+        if(game.equals("Intro_1")){ //starting the game off with the capcom introAnimations
+            if(create){
+                introAnimations = new Intro_Animations("Assets/Menu Intro/Capcom/Capcom",31);
+                create = false;
+            }
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            introAnimations.update(batch,2,31);
+            batch.end();
+            if(change){
+                game = "Intro_2";
+                create = true;
+            }
         }
 
-        if (Main.I_animation){
-            I_menu.setPosition(0,0);
-            I_menu.draw(batch);
+        if(game.equals("Intro_2")){ // once the capcom introAnimations is finished loop title screen
+            if(create){
+                introAnimations = new Intro_Animations("Assets/Menu Intro/Intro/Intro",4);
+                create = false;
+            }
+            //menu.m.play();
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            introAnimations.update(batch,15,4);
+            batch.end();
+            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
+//                menu.s.play(); // add this feature in later and make it so the animation is slower
+
+                Main.Game = "level1";
+                Main.p.MoveBody(90, 60); // move lan
+            }
         }
-
-        if(Main.L_animation) {
-            L_menu.setPosition(0, 0);
-            L_menu.draw(batch);
-
-        }
-
     }
-    public void update(SpriteBatch batch, int x, int y){
 
-        if(Main.C_animation) {
-            C_frame();
-            C_menu.set(new Sprite(capcom_Sprites.get(0).get(C_frame)));
-            render(batch);
-        }
-        if (Main.I_animation){
-            I_frame();
-            I_menu.set(new Sprite(Intro_Sprites.get(0).get(I_frame)));
-            render(batch);
-        }
-
-        if (Main.L_animation) {
-            L_frame();
-
-            //System.out.println(L_frame);
-            L_menu.set(new Sprite(Loading_Sprites.get(0).get(L_frame)));
-
-            render(batch);
-        }
-
-
-    }
 }

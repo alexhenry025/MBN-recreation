@@ -1,9 +1,16 @@
+/*
+ * This is the player class that controls everything about the player
+ * 2019 - Ghanem & Usman
+ * Megaman Battle Network 6
+ */
+
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.awt.*;
@@ -14,11 +21,10 @@ public class Player {
     static Sprite Lan;
     static ArrayList<Texture> tmp;
     static ArrayList<ArrayList<Texture>> sprites = new ArrayList<ArrayList<Texture>>();
-    Rectangle rect;
+    com.badlogic.gdx.math.Rectangle rect;
     Body body;
     public static int frames = 0;
     int t = 0;
-    int width = 18, height = 34;
 
     Box2DDebugRenderer bdr;
 
@@ -32,6 +38,7 @@ public class Player {
     }
 
     public void render(SpriteBatch batch){
+
         Lan.setPosition(100,100);
         batch.draw(Lan,body.getPosition().x - 25 * (float) Math.pow(Main.PPM,2),body.getPosition().y - 25 * (float) Math.pow(Main.PPM, 2), Lan.getWidth() * (float) Math.pow(Main.PPM, 2) * 3, Lan.getHeight() * (float) Math.pow(Main.PPM, 2) * 3);
 //        bdr.render(Main.world,Main.camera.combined);
@@ -72,6 +79,7 @@ public class Player {
 
 
     public void createbody(){
+        Lan.setPosition(100,100);
 
         rect = new Rectangle((int) Lan.getX(), (int) Lan.getY(), (int) Lan.getWidth(), (int) Lan.getHeight());//create a recto take players x,y,width and height
 
@@ -86,16 +94,15 @@ public class Player {
 
         shape.setAsBox(10 * (float) Math.pow(Main.PPM, 2), 24 * (float) Math.pow(Main.PPM, 2));
 
-        this.body.createFixture(fdef);
+        this.body.createFixture(fdef).setUserData("Player");
 
         this.body.getFixtureList().get(0).setUserData("Player");
 
-        this.body.setTransform((float) rect.getX(), (float) rect.getY(), 0);
+        this.body.setTransform(rect.getX(), rect.getY(), 0);
 
     }
 
     public void update(SpriteBatch batch){
-
         Lan.setPosition(body.getPosition().x,body.getPosition().y);
 
         if(Main.animation && Main.moves1 == Main.UP){
@@ -149,6 +156,12 @@ public class Player {
     public Body getBody() {
         return body;
     }
+
+    public Rectangle getRect(){
+        return rect;
+    }
+
+
 
 
 

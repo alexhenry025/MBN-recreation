@@ -1,115 +1,72 @@
+/*
+ * This is a class that controls all world objects
+ * 2019 - Ghanem & Usman
+ * Megaman Battle Network 6
+ */
+
 package com.mygdx.game;
 
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-
 import java.util.ArrayList;
 
 public class WorldCreator{
-    Body body;
-    BodyDef bdef = new BodyDef();
-    FixtureDef fdef = new FixtureDef();
-    PolygonShape shape = new PolygonShape();
+    public Body body;
+    public BodyDef bdef = new BodyDef();
+    public FixtureDef fdef = new FixtureDef();
+    public PolygonShape shape = new PolygonShape();
 
-    static ArrayList<Body> boundries = new ArrayList<Body>();
-    static ArrayList<Body> Exit = new ArrayList<Body>();
-    static ArrayList<Body> Enter = new ArrayList<Body>();
-    static ArrayList<ArrayList<Body>> Bodies = new ArrayList<ArrayList<Body>>();
+    public static ArrayList<Door> door; // this is an object Array list for doors makes all the doors and also handles map change
+    private ArrayList<Body> Wall; // this is an object array list that contains all bodies for wall collision
     private ArrayList<Body> toBeDestroyed = new ArrayList<Body>();
 
-    static float x_enter, y_enter, x_exit, y_exit , x_spawn , y_spawn;
-
     public WorldCreator(World world, TiledMap map){
-
-            for(MapObject obj : map.getLayers().get(2).getObjects().getByType(PolylineMapObject.class)){
-                Shape shape;
-                if(obj instanceof PolylineMapObject) {
-                    shape = createPolyline((PolylineMapObject) obj);
+        door = new ArrayList<Door>(); // make a new one every time a new map loads
+        Wall = new ArrayList<Body>(); // make a new one every time a new map loads
+        for(int i = 0; i < map.getLayers().getCount(); i ++) { // iterate through all the objects in the map
+            for (MapObject obj : map.getLayers().get(i).getObjects()) { // check all the objects in the map
+                if (obj instanceof PolylineMapObject) { // if an object is polyline type
+                    Shape shape;
+                    shape = createPolyline((PolylineMapObject) obj); // create polyline object
+                    bdef.type = BodyDef.BodyType.StaticBody;
+                    body = world.createBody(bdef);
+                    body.createFixture(shape, Main.PPM).setUserData("Wall");
+                    Wall.add(body);
+                    shape.dispose();
                 }
-                else {
-                    continue;
+
+                if (obj instanceof RectangleMapObject) { // if its a rect type
+                    Rectangle rect = ((RectangleMapObject) obj).getRectangle(); // create the rect and body
+
+                    bdef.type = BodyDef.BodyType.StaticBody;
+
+                    bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
+
+                    body = world.createBody(bdef);
+
+                    shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
+
+                    fdef.shape = shape;
+
+                    if(obj.getName().equals("Door")) { // if the object name is door
+                        // make a new door and add it to the list
+                        door.add(new Door(rect, (String) obj.getProperties().get("type"), (Integer) (obj.getProperties().get("x_d")), (Integer) (obj.getProperties().get("y_d")),(Integer) obj.getProperties().get("SpawnLoc")));
+                        for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
+                            f.setUserData(1);
+                        }
+                    }
                 }
-                bdef.type =  BodyDef.BodyType.StaticBody;
-                body = world.createBody(bdef);
-                body.createFixture(shape,0.1f);
-                boundries.add(body);
-                shape.dispose();
             }
-
-            for (MapObject obj : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {// this will be the spawn box for the player
-                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-
-                x_spawn = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
-                y_spawn = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
-
-                bdef.type = BodyDef.BodyType.StaticBody;
-
-                bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
-
-                // body = world.createBody(bdef);
-
-                // shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
-                // fdef.shape = shape;
-                // body.createFixture(fdef).setUserData("Spawn");
-            }
-
-            // for buildings
-            for (MapObject obj : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {// exit box for the player
-                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-
-                x_exit = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;//
-                y_exit = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
-
-                bdef.type = BodyDef.BodyType.StaticBody;
-
-                bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM); // set the position of the exit box ,
-                // this will indicate where the player will spawn after exiting a door
-
-                body = world.createBody(bdef);
-
-                shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
-                fdef.shape = shape;
-                body.createFixture(fdef).setUserData("Exit");
-                Exit.add(body);
-
-            }
-
-            for (MapObject obj : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-
-                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-                x_enter = ((RectangleMapObject) obj).getRectangle().getX() * Main.PPM;
-                y_enter = ((RectangleMapObject) obj).getRectangle().getY() * Main.PPM;
-
-                bdef.type = BodyDef.BodyType.StaticBody;
-
-                bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
-
-                body = world.createBody(bdef);
-
-                shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
-                fdef.shape = shape;
-                body.createFixture(fdef).setUserData("Enter");
-                Enter.add(body);
-
-            }
-
-
-
-        Bodies.add(Exit);
-        Bodies.add(Enter);
+        }
 
     }
 
-    private static ChainShape createPolyline(PolylineMapObject polyline){
+    private static ChainShape createPolyline(PolylineMapObject polyline){ // method that creates the polyline objects
         float [] vertices = polyline.getPolyline().getTransformedVertices();//
         Vector2[] worldverticies = new Vector2[vertices.length/2];
 
@@ -120,27 +77,15 @@ public class WorldCreator{
         cs.createChain(worldverticies);
         return cs;
     }
-    private static ChainShape createPolygon (PolygonMapObject polygon){
-        float [] v = polygon.getPolygon().getTransformedVertices();
-        Vector2[] wv = new Vector2[v.length/2];
 
-        for ( int i =0 ; i< wv.length ; i++){
-            wv[i] = new Vector2(v[i*2] * Main.PPM , v[i*2+1] * Main.PPM);
-        }
-        ChainShape cs = new ChainShape();
-        cs.createChain(wv);
-        return cs;
-    }
-
-
-
-
-    public ArrayList<Body> getToBeDestroyed() {
+    public ArrayList<Body> getToBeDestroyed() { // this arrylist stores all physical objects on the map that will need to be destroyed upon map change
         toBeDestroyed = new ArrayList<Body>();
-        for (Body i : boundries) toBeDestroyed.add(i);
-        for (Body i : Enter) toBeDestroyed.add(i);
-        for (Body i : Exit) toBeDestroyed.add(i);
+        for (Body i : Wall) toBeDestroyed.add(i);
+        for(Door i : door) toBeDestroyed.add(i.body);
+
 
         return toBeDestroyed;
     }
+
+
 }
