@@ -17,7 +17,7 @@ public class Door {
     float New_x, New_y;
     String type;
     int counter;
-    //             rect   type used for map change  x     y        counter is what will tell the door which spawn to map to from array
+    //   rect type used for map change x y counter is what will tell the door which spawn to map to from array
     public Door(Rectangle rect, String type, int New_x, int New_y, int counter){ // this gets the values for door from the world creator
         this.rect = rect;
         this.type = type;
@@ -27,7 +27,6 @@ public class Door {
         CreateBox2d();
     }
 
-
     public void CreateBox2d(){ // create the body
         BodyDef bdef = new BodyDef();
         FixtureDef def = new FixtureDef();
@@ -36,7 +35,6 @@ public class Door {
         bdef.type = BodyDef.BodyType.StaticBody;
 
         bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
-
 
         body = Main.world.createBody(bdef);
 

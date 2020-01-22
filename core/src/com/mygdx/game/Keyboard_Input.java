@@ -15,7 +15,7 @@ import static com.mygdx.game.Main.*;
 
 public class Keyboard_Input {
 
-    void Player_Keys(){
+    void Player_Keys(){// simple inputs for the player ,allowing the player to move in 8 different directions
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
             moves1 = NE;
             p.getBody().applyLinearImpulse(new Vector2(80, 80), p.getBody().getWorldCenter(), true);

@@ -67,7 +67,7 @@ public class WorldCreator{
     }
 
     private static ChainShape createPolyline(PolylineMapObject polyline){ // method that creates the polyline objects
-        float [] vertices = polyline.getPolyline().getTransformedVertices();//
+        float [] vertices = polyline.getPolyline().getTransformedVertices();
         Vector2[] worldverticies = new Vector2[vertices.length/2];
 
         for(int i = 0; i < worldverticies.length; i ++){
@@ -78,7 +78,7 @@ public class WorldCreator{
         return cs;
     }
 
-    public ArrayList<Body> getToBeDestroyed() { // this arrylist stores all physical objects on the map that will need to be destroyed upon map change
+    public ArrayList<Body> getToBeDestroyed() { // this Array list stores all physical objects on the map that will need to be destroyed upon map change
         toBeDestroyed = new ArrayList<Body>();
         for (Body i : Wall) toBeDestroyed.add(i);
         for(Door i : door) toBeDestroyed.add(i.body);

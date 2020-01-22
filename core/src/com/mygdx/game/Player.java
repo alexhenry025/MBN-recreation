@@ -60,8 +60,7 @@ public class Player {
         }
         return frames;
     }
-
-    public void Load(){
+    public void Load(){// load method , loads all the players sprites.
         for(int i = 0; i < open_list.length; i ++ ){
             for(String w : new String[]{"Lanup", "Landown", "Lanleft", "Lanright" , "LanNW", "LanSW","LanNE", "LanSE"}){
                 tmp = new ArrayList<Texture>();
@@ -78,7 +77,7 @@ public class Player {
     }
 
 
-    public void createbody(){
+    public void createbody(){// create the players body
         Lan.setPosition(100,100);
 
         rect = new Rectangle((int) Lan.getX(), (int) Lan.getY(), (int) Lan.getWidth(), (int) Lan.getHeight());//create a recto take players x,y,width and height
@@ -92,7 +91,7 @@ public class Player {
 
         fdef.shape = shape;
 
-        shape.setAsBox(10 * (float) Math.pow(Main.PPM, 2), 24 * (float) Math.pow(Main.PPM, 2));
+        shape.setAsBox(30 * (float) Math.pow(Main.PPM, 2), 20 * (float) Math.pow(Main.PPM, 2));
 
         this.body.createFixture(fdef).setUserData("Player");
 
@@ -102,7 +101,7 @@ public class Player {
 
     }
 
-    public void update(SpriteBatch batch){
+    public void update(SpriteBatch batch){// update method which updates the players frame relative to its movement
         Lan.setPosition(body.getPosition().x,body.getPosition().y);
 
         if(Main.animation && Main.moves1 == Main.UP){

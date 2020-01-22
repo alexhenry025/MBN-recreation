@@ -4,7 +4,6 @@ import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
 
-
 public class WorldContactListener implements ContactListener {
     public ArrayList<Fixture> obj; // an fixture array that adds each object within contact to distingush between them
 
@@ -20,10 +19,8 @@ public class WorldContactListener implements ContactListener {
                 Main.Change_Map = true; // change the map
             }
         }
-
         Main.objs = obj; // update the obj arraylist in the main for changing the map
     }
-
 
     @Override
     public void endContact(Contact contact) {
@@ -44,5 +41,3 @@ public class WorldContactListener implements ContactListener {
 
     }
 }
-
-

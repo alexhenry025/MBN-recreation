@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="19" nextobjectid="55">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="19" nextobjectid="57">
  <tileset firstgid="1" name="City" tilewidth="3" tileheight="2" tilecount="78003" columns="321">
   <image source="City/City.png" width="963" height="486"/>
  </tileset>
@@ -891,6 +891,12 @@
   <object id="47" name="Door" x="445.625" y="230.375" width="34.75" height="26.25"/>
   <object id="48" name="Door" x="230" y="344.25" width="29.125" height="12.125"/>
   <object id="49" name="Door" x="205.25" y="351.125" width="11.25" height="32.25"/>
+  <object id="55" name="Wall" x="740" y="606.25">
+   <polyline points="0,0 -27.5,14.25"/>
+  </object>
+  <object id="56" x="592.75" y="560.25">
+   <polyline points="0,0 21.25,10"/>
+  </object>
  </objectgroup>
  <layer id="8" name="layer3" width="400" height="400">
   <data encoding="csv">
