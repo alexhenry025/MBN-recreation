@@ -41,7 +41,15 @@ public class Levels {
         Main.Building = (TiledMapTileLayer) map.getLayers().get("Building");
     }
     void ChangeMap(){//
+        Main.batch.begin();
+        Main.display.update();
+        Main.batch.end();
+        //System.out.println("change map function ");
         for (Fixture i : Main.objs) { // iterates all the objects player is colliding with, also y destroy body is put in the beginning
+            if(i.getUserData().getClass() == NPC.class){
+                NPC npc = (NPC) i.getUserData(); //gets the user data of each door
+                //System.out.println("Hi lan how are you doing ");
+            }
             if (i.getUserData().getClass() == Door.class) { // if the object is a door
                 Door door = (Door) i.getUserData(); //gets the user data of each door
                 Main.Map_Counter = Integer.parseInt(door.getType()); // update the map counter

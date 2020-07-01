@@ -43,7 +43,7 @@ public class Menu {
             introAnimations.update(batch,15,4);
             batch.end();
             if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){ // if user presses the enter button
-//                menu.s.play(); // add this feature in later and make it so the animation is slower
+                //menu.s.play(); // add this feature in later and make it so the animation is slower
 
                 Main.Game = "level1";
                 Main.p.MoveBody(90, 60); // move lan
