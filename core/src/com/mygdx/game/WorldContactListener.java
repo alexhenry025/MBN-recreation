@@ -22,6 +22,7 @@ public class WorldContactListener implements ContactListener {
             }
             if(contact.getFixtureB().getUserData().getClass() == NPC.class){
                 obj.add(contact.getFixtureB());
+                System.out.println("Hi lan ");
             }
         }
         Main.objs = obj; // update the obj arraylist in the main for changing the map
