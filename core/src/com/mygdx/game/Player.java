@@ -40,7 +40,7 @@ public class Player {
     public void render(SpriteBatch batch){
 
         Lan.setPosition(100,100);
-        batch.draw(Lan,body.getPosition().x - 25 * (float) Math.pow(Main.PPM,2),body.getPosition().y - 25 * (float) Math.pow(Main.PPM, 2), Lan.getWidth() * (float) Math.pow(Main.PPM, 2) * 3, Lan.getHeight() * (float) Math.pow(Main.PPM, 2) * 3);
+        batch.draw(Lan,body.getPosition().x - 25 * (float) Math.pow(Main.PPM,2),body.getPosition().y - 25 * (float) Math.pow(Main.PPM, 2), Lan.getWidth() * (float) Math.pow(Main.PPM, 2) * 2.5f, Lan.getHeight() * (float) Math.pow(Main.PPM, 2) * 2.5f);
 //        bdr.render(Main.world,Main.camera.combined);
     }
 

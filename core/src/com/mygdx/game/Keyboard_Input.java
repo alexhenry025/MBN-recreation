@@ -1,7 +1,7 @@
 /*
  * This is a class for keyboard input
  * 2019 - Ghanem & Usman
- * Megamn Battle Network 6
+ * Megaman Battle Network 6
  */
 
 
@@ -18,46 +18,46 @@ public class Keyboard_Input {
     void Player_Keys(){// simple inputs for the player ,allowing the player to move in 8 different directions
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
             moves1 = NE;
-            p.getBody().applyLinearImpulse(new Vector2(80, 80), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(50, 50), p.getBody().getWorldCenter(), true);
             animation = true;
 
         }
 
         else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.DOWN) )){
             moves1 = SE;
-            p.getBody().applyLinearImpulse(new Vector2(80, -80), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(50, -50), p.getBody().getWorldCenter(), true);
             animation = true;
         }
 
         else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.DOWN) )){
             moves1 = SW;
-            p.getBody().applyLinearImpulse(new Vector2(-80, -80), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(-50, -50), p.getBody().getWorldCenter(), true);
             animation = true;
         }
 
         else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
             moves1 = NW;
-            p.getBody().applyLinearImpulse(new Vector2(-80, 80), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(-50, 50), p.getBody().getWorldCenter(), true);
             animation = true;
         }
 
         else  if (Gdx.input.isKeyPressed(Input.Keys.UP)) {// moves the player up
             moves1 = UP;
-            p.getBody().applyLinearImpulse(new Vector2(0, 80), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(0, 50), p.getBody().getWorldCenter(), true);
             animation = true;
         }
 
         else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             moves1 = Down;
-            p.getBody().applyLinearImpulse(new Vector2(0, -80), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(0, -50), p.getBody().getWorldCenter(), true);
             animation = true;
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moves1 = Left;
-            p.getBody().applyLinearImpulse(new Vector2(-80, 0), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(-50, 0), p.getBody().getWorldCenter(), true);
             animation = true;
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moves1 = Right;
-            p.getBody().applyLinearImpulse(new Vector2(80, 0), p.getBody().getWorldCenter(), true);
+            p.getBody().applyLinearImpulse(new Vector2(50, 0), p.getBody().getWorldCenter(), true);
             animation = true;
         }
 
