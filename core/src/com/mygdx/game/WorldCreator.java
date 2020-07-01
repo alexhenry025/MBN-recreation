@@ -23,11 +23,13 @@ public class WorldCreator{
 
     public static ArrayList<Door> door; // this is an object Array list for doors makes all the doors and also handles map change
     private ArrayList<Body> Wall; // this is an object array list that contains all bodies for wall collision
+    public static ArrayList<NPC>npc;
     private ArrayList<Body> toBeDestroyed = new ArrayList<Body>();
 
     public WorldCreator(World world, TiledMap map){
         door = new ArrayList<Door>(); // make a new one every time a new map loads
         Wall = new ArrayList<Body>(); // make a new one every time a new map loads
+        npc = new ArrayList<NPC>();//this is a list of all the NPC is the current map
         for(int i = 0; i < map.getLayers().getCount(); i ++) { // iterate through all the objects in the map
             for (MapObject obj : map.getLayers().get(i).getObjects()) { // check all the objects in the map
                 if (obj instanceof PolylineMapObject) { // if an object is polyline type
@@ -60,6 +62,17 @@ public class WorldCreator{
                             f.setUserData(1);
                         }
                     }
+
+                    if(obj.getName().equals("NPC")){
+                      //  System.out.println("Hi lan how are you doing today ");
+                        npc.add(new NPC(rect ,(String) obj.getProperties().get("type")));
+
+                        for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
+                            f.setUserData(2);
+                        }
+
+                    }
+
                 }
             }
         }

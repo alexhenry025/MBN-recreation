@@ -1,5 +1,6 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
@@ -15,8 +16,12 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         if (contact.getFixtureA().getUserData() == "Player"){ // if the first fixture is player
             if(contact.getFixtureB().getUserData().getClass() == Door.class){ // check if the second fixtrue is any door from door class
+
                 obj.add(contact.getFixtureB()); // add the object for only that door
                 Main.Change_Map = true; // change the map
+            }
+            if(contact.getFixtureB().getUserData().getClass() == NPC.class){
+                obj.add(contact.getFixtureB());
             }
         }
         Main.objs = obj; // update the obj arraylist in the main for changing the map

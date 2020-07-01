@@ -47,6 +47,8 @@ public class Main extends ApplicationAdapter {
 
     private Menu menu;
 
+    public static Display display;
+
     private Keyboard_Input keys;
     public  static OrthogonalTiledMapRenderer renderer;// render with respect to the Orthogonal plane
 
@@ -80,6 +82,8 @@ public class Main extends ApplicationAdapter {
 
         menu = new Menu();
 
+        display = new Display();
+
         keys = new Keyboard_Input();
 
         spawns = new Spawns();
@@ -98,7 +102,7 @@ public class Main extends ApplicationAdapter {
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
         if (Game.equals("level1")){
-            System.out.println("\n" + p.getX() + ", " +  p.getY() + "\n");
+          //  System.out.println("\n" + p.getX() + ", " +  p.getY() + "\n");
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
                 for (Body i : bodiesToDestroy) {
