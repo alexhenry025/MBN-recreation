@@ -17,6 +17,7 @@ public class Door {
     float New_x, New_y;
     String type;
     int counter;
+    //private Stage stage
     //   rect type used for map change x y counter is what will tell the door which spawn to map to from array
     public Door(Rectangle rect, String type, int New_x, int New_y, int counter){ // this gets the values for door from the world creator
         this.rect = rect;

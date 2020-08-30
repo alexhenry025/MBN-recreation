@@ -15,7 +15,7 @@ public class WorldContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
         if (contact.getFixtureA().getUserData() == "Player"){ // if the first fixture is player
-            if(contact.getFixtureB().getUserData().getClass() == Door.class){ // check if the second fixtrue is any door from door class
+            if(contact.getFixtureB().getUserData().getClass() == Door.class){ // check if the second fixture  is any door from door class
 
                 obj.add(contact.getFixtureB()); // add the object for only that door
                 Main.Change_Map = true; // change the map

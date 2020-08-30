@@ -15,6 +15,7 @@ public class Menu {
 
     public static Boolean test = false;
 
+
     public Menu(){
         game = Main.Game;
     }
@@ -47,9 +48,11 @@ public class Menu {
             introAnimations.update(batch,15,4);
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){ // if user presses the enter button
                 //menu.s.play(); // add this feature in later and make it so the animation is slower
+                test = true;
+            }
+            if (test) {
                 Fade_Animation.Fade(batch);
             }
-
             batch.end();
         }
     }

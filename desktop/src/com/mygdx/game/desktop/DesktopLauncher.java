@@ -22,6 +22,7 @@ public class DesktopLauncher {
 		config.addIcon("Assets/icon.png", Files.FileType.Internal);
 		config.foregroundFPS = 45;
 
+
 	}
 }
 

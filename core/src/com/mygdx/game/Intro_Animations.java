@@ -9,6 +9,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import java.util.ArrayList;
 
@@ -17,8 +19,11 @@ public class Intro_Animations {
     private ArrayList<Texture> Texture;
     private ArrayList<ArrayList<Texture>> Sprites;
     private int timer, frame;
+    private Stage stage;
+    public static float alpha = 1;
 
     public Intro_Animations(String type, int size){
+        stage = new Stage();
         sprite = new Sprite();
         Texture = new ArrayList<Texture>();
         Sprites = new ArrayList<ArrayList<Texture>>();
@@ -53,6 +58,8 @@ public class Intro_Animations {
     }
 
     public void update(SpriteBatch batch, int timer_MAX, int frame_MAX){
+        stage.addAction(Actions.fadeOut(1));
+        //System.out.println("FAAADE");
         Animation(timer_MAX, frame_MAX);
         sprite.set(new Sprite(Sprites.get(0).get(frame)));
         render(batch);
@@ -60,7 +67,7 @@ public class Intro_Animations {
 
     public void render(SpriteBatch batch){
         sprite.setPosition(0,0);
-        sprite.draw(batch);
+        sprite.draw(batch,alpha);
     }
 
 
