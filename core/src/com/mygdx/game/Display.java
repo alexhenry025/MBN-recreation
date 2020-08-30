@@ -29,7 +29,7 @@ public class Display {
         render(Main.batch);
     }
     public void render(SpriteBatch batch){
-        b.setPosition(Main.p.getX()-35,Main.p.getY()-23);
+        b.setPosition(Main.p.getX()-35,Main.p.getY()-24);
         //System.out.println("ADSSSSSSSSSSSSSSss");
         b.draw(batch);
     }

@@ -4,24 +4,19 @@
  * Megaman Battle Network 6
  */
 package com.mygdx.game;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-
-import java.io.IOException;
 import java.util.*;
 
 public class Main extends ApplicationAdapter {
@@ -59,6 +54,7 @@ public class Main extends ApplicationAdapter {
     public static World world;
     public static Spawns spawns;
     static boolean animation, destroyed = true, Change_Map = false;// booleans used to indicate , chang of map , removal of objects and animation
+    public static float time;
 
     @Override
     public void create() {// create method
@@ -99,6 +95,7 @@ public class Main extends ApplicationAdapter {
     }
     @Override
     public void render() {
+        time += Gdx.graphics.getDeltaTime();
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
         if (Game.equals("level1")){
@@ -131,8 +128,9 @@ public class Main extends ApplicationAdapter {
     public void update(){
         p.update(batch); // updates the players x y coordinates etc
     }
+
     public void move() {
-//        p.body.setLinearVelocity(0, 0);
+//      p.body.setLinearVelocity(0, 0);
         keys.Player_Keys(); // calls the player keys method in the keyboard input class
 	    p.setX(p.body.getPosition().x); // set the pos of player sprite to player body
 	    p.setY(p.body.getPosition().y); // ser the pos of player sprite to player body

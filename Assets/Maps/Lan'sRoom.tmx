@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="20" height="20" tilewidth="30" tileheight="20" infinite="0" nextlayerid="17" nextobjectid="30">
+ <tileset firstgid="1" source="lan's room.tsx"/>
+ <layer id="1" name="Background" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzEVSAwAQAMHgFiC4kxDc3d3dneD8/w/0F/ZAcclU9XUSiXx/UQGFFFFMCaWUUU5F8FdJFUmqqaGWFHXUB38NNNJEMy200kY7HcFfJ110kyZDD1l66Qv++hlgkCGGGWGUMcaDvwkmmWKaGWaZY56F4G+RJZZZYZU11tlgM/jbYpsddtljnwMOOQr+jjnhlDPOueCSK66DvxtuueOeBx554pmX4C/HK2+888EnX3zzE/zl+59+AZDME1c=
+  </data>
+ </layer>
+ <layer id="2" name="Graphics" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApIBwAGQAAB
+  </data>
+ </layer>
+ <objectgroup id="3" name="Wall">
+  <object id="14" x="245" y="263.25">
+   <polyline points="0,0 26,-13.25 56.75,3.5 165.25,-50.75 135.75,-66.25 117.25,-56.25 39.75,-98 -12,-74.25 34.25,-51.75 -8.25,-29.5 3.25,-23.25 -21,-10.5"/>
+  </object>
+  <object id="25" name="Door" type="1" x="232.125" y="253.625" width="18.75" height="4.75">
+   <properties>
+    <property name="SpawnLoc" type="int" value="1"/>
+    <property name="x_d" type="int" value="208"/>
+    <property name="y_d" type="int" value="240"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="8" name="Tile Layer 3" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApIBwAGQAAB
+  </data>
+ </layer>
+ <objectgroup id="11" name="Door"/>
+</map>
