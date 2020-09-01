@@ -53,8 +53,9 @@ public class Main extends ApplicationAdapter {
     public static TiledMapTileLayer Building;// Layer made in tile
     public static World world;
     public static Spawns spawns;
-    static boolean animation, destroyed = true, Change_Map = false;// booleans used to indicate , chang of map , removal of objects and animation
-    public static float time;
+    static boolean animation, destroyed = true, changemap = false;// booleans used to indicate , chang of map , removal of objects and animation
+
+
 
     @Override
     public void create() {// create method
@@ -95,11 +96,11 @@ public class Main extends ApplicationAdapter {
     }
     @Override
     public void render() {
-        time += Gdx.graphics.getDeltaTime();
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
+
         if (Game.equals("level1")){
-          //  System.out.println("\n" + p.getX() + ", " +  p.getY() + "\n");
+          System.out.println("\n" + p.getX() + ", " +  p.getY() + "\n");
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
                 for (Body i : bodiesToDestroy) {
@@ -111,7 +112,7 @@ public class Main extends ApplicationAdapter {
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
 
             levels.Level1(camera,renderer,batch);// render the first level
-            b2dr.render(world,camera.combined);
+            //b2dr.render(world,camera.combined);
             batch.begin();
             update();
             batch.end();

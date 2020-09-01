@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class WorldContactListener implements ContactListener {
     public ArrayList<Fixture> obj; // an fixture array that adds each object within contact to distingush between them
-
+    boolean test = false;
     public WorldContactListener(){
         obj = new ArrayList<Fixture>(); // make a new one for each map
     }
@@ -16,9 +16,7 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         if (contact.getFixtureA().getUserData() == "Player"){ // if the first fixture is player
             if(contact.getFixtureB().getUserData().getClass() == Door.class){ // check if the second fixture  is any door from door class
-
                 obj.add(contact.getFixtureB()); // add the object for only that door
-                Main.Change_Map = true; // change the map
             }
             if(contact.getFixtureB().getUserData().getClass() == NPC.class){
                 obj.add(contact.getFixtureB());
@@ -27,6 +25,7 @@ public class WorldContactListener implements ContactListener {
         }
         Main.objs = obj; // update the obj arraylist in the main for changing the map
     }
+
 
     @Override
     public void endContact(Contact contact) {

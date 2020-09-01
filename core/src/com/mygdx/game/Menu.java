@@ -5,16 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-
 public class Menu {
     public static boolean change = false, create = true;
-
     private Intro_Animations introAnimations;
-
     private String game;
-
     public static Boolean test = false;
-
 
     public Menu(){
         game = Main.Game;
@@ -51,7 +46,7 @@ public class Menu {
                 test = true;
             }
             if (test) {
-                Fade_Animation.Fade(batch);
+                Fade_Animation.Fade(batch, "level1");
             }
             batch.end();
         }
