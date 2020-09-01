@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.*;
@@ -26,7 +27,7 @@ public class Main extends ApplicationAdapter {
     static int moves1, Map_Counter = 0, SpawnCount;// counter for maps , this would be = to the level of the map
     static String Game = "Intro_1";
     static Player player; // Player object
-    //private static Box2DDebugRenderer b2dr; // debugger used for checking where all world hit boxes are
+    private static Box2DDebugRenderer b2dr; // debugger used for checking where all world hit boxes are
     private Levels levels;
     static ArrayList<String> Maps;// object Array list for maps
     private Menu menu;
@@ -50,7 +51,7 @@ public class Main extends ApplicationAdapter {
         levels = new Levels();
         Maps = new ArrayList<String>();
         File_Reading();
-        //b2dr = new Box2DDebugRenderer();// variable used to render the collision boxes. used for testing purposes.
+        b2dr = new Box2DDebugRenderer();// variable used to render the collision boxes. used for testing purposes.
         menu = new Menu();
         display = new Display();
         keys = new Keyboard_Input();
@@ -81,7 +82,7 @@ public class Main extends ApplicationAdapter {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear the screen
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
             levels.Level1(camera,renderer,batch);// render the first level
-            //b2dr.render(world,camera.combined);
+            b2dr.render(world,camera.combined);
             batch.begin();
             update();
             batch.end();

@@ -33,7 +33,7 @@ class Player {
 
     private void render(SpriteBatch batch){
         Lan.setPosition(100,100);
-        batch.draw(Lan,body.getPosition().x - 25 * (float) Math.pow(Main.PPM,2),body.getPosition().y - 25 * (float) Math.pow(Main.PPM, 2), Lan.getWidth() * (float) Math.pow(Main.PPM, 2) * 2.5f, Lan.getHeight() * (float) Math.pow(Main.PPM, 2) * 2.5f);
+        batch.draw(Lan,body.getPosition().x - 27 * (float) Math.pow(Main.PPM,2),body.getPosition().y - 15 * (float) Math.pow(Main.PPM, 2), Lan.getWidth() * (float) Math.pow(Main.PPM, 2) * 3.2f, Lan.getHeight() * (float) Math.pow(Main.PPM, 2) * 3.2f);
     }
 
     private int moveFrames(){ // this is the animation for the movement frames the character
@@ -77,7 +77,7 @@ class Player {
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         fdef.shape = shape;
-        shape.setAsBox(30 * (float) Math.pow(Main.PPM, 2), 20 * (float) Math.pow(Main.PPM, 2));
+        shape.setAsBox(20 * (float) Math.pow(Main.PPM, 2), 10 * (float) Math.pow(Main.PPM, 2));
         this.body.createFixture(fdef).setUserData("Player");
         this.body.getFixtureList().get(0).setUserData("Player");
         this.body.setTransform(rect.getX(), rect.getY(), 0);

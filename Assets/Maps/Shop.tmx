@@ -24,9 +24,10 @@
    eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
   </data>
  </layer>
- <objectgroup id="5" name="Door" visible="0">
-  <object id="1" name="Door" type="2" x="351.432" y="283.329" width="71.4315" height="5.60384" rotation="-27.9062">
+ <objectgroup id="5" name="Door">
+  <object id="1" name="Door" type="2" x="357.769" y="268.661" width="71.4315" height="5.60384">
    <properties>
+    <property name="Angle" type="float" value="-27.91"/>
     <property name="SpawnLoc" type="int" value="4"/>
     <property name="x_d" type="int" value="100"/>
     <property name="y_d" type="int" value="100"/>

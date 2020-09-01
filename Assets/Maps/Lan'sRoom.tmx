@@ -15,8 +15,9 @@
   <object id="14" x="245" y="263.25">
    <polyline points="0,0 26,-13.25 56.75,3.5 165.25,-50.75 135.75,-66.25 117.25,-56.25 39.75,-98 -12,-74.25 34.25,-51.75 -8.25,-29.5 3.25,-23.25 -21,-10.5"/>
   </object>
-  <object id="25" name="Door" type="1" x="232.125" y="253.625" width="18.75" height="4.75">
+  <object id="25" name="Door" type="1" x="228.519" y="252.278" width="18.75" height="4.75">
    <properties>
+    <property name="Angle" type="float" value="-328.58"/>
     <property name="SpawnLoc" type="int" value="1"/>
     <property name="x_d" type="int" value="208"/>
     <property name="y_d" type="int" value="240"/>
