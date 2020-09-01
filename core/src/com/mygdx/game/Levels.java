@@ -55,14 +55,14 @@ public class Levels {
             }
 
             if (i.getUserData().getClass() == Door.class) { // if the object is a door
+                Fade_Animation.alpha = 0f;
+                test = true;
                 Door door = (Door) i.getUserData(); //gets the user data of each door
                 Main.Map_Counter = Integer.parseInt(door.getType()); // update the map counter
                 Main.spawns.setSpawnCounter(door.getCounter()); // get the spawn counter
                 Main.SpawnCount = Main.spawns.getSpawnCounter(); // set a local variable in main to spawn counter
                 CreateMap(Main.Maps.get(Main.Map_Counter), Main.spawns.getSpawns_x().get(Main.SpawnCount), Main.spawns.getSpawns_y().get(Main.SpawnCount)); // change the map and the players x,y
                 // get the correct index            gets the correct spawn x                  gets the correct spawn y
-                Fade_Animation.alpha = 0f;
-                test = true;
             }
         }
         if(test){

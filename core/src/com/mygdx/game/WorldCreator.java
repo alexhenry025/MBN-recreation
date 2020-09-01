@@ -5,7 +5,6 @@
  */
 
 package com.mygdx.game;
-
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -15,12 +14,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import java.util.ArrayList;
 
-public class WorldCreator{
-    public Body body;
+class WorldCreator{
+    private Body body;
     public BodyDef bdef = new BodyDef();
     public FixtureDef fdef = new FixtureDef();
     public PolygonShape shape = new PolygonShape();
-
     public static ArrayList<Door> door; // this is an object Array list for doors makes all the doors and also handles map change
     private ArrayList<Body> Wall; // this is an object array list that contains all bodies for wall collision
     public static ArrayList<NPC>npc;
@@ -44,39 +42,29 @@ public class WorldCreator{
 
                 if (obj instanceof RectangleMapObject) { // if its a rect type
                     Rectangle rect = ((RectangleMapObject) obj).getRectangle(); // create the rect and body
-
                     bdef.type = BodyDef.BodyType.StaticBody;
-
                     bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
-
                     body = world.createBody(bdef);
-
                     shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
                     fdef.shape = shape;
-
-                    if(obj.getName().equals("Door")) { // if the object name is door
+                    if (obj.getName().equals("Door")) { // if the object name is door
                         // make a new door and add it to the list
-                        door.add(new Door(rect, (String) obj.getProperties().get("type"), (Integer) (obj.getProperties().get("x_d")), (Integer) (obj.getProperties().get("y_d")),(Integer) obj.getProperties().get("SpawnLoc")));
+                        door.add(new Door(rect, (String) obj.getProperties().get("type"), (Integer) (obj.getProperties().get("x_d")), (Integer) (obj.getProperties().get("y_d")), (Integer) obj.getProperties().get("SpawnLoc")));
                         for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
                             f.setUserData(1);
                         }
                     }
-
-                    if(obj.getName().equals("NPC")){
-                      //  System.out.println("Hi lan how are you doing today ");
-                        npc.add(new NPC(rect ,(String) obj.getProperties().get("type")));
+                    if (obj.getName().equals("NPC")) {
+                        //  System.out.println("Hi lan how are you doing today ");
+                        npc.add(new NPC(rect, (String) obj.getProperties().get("type")));
 
                         for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
                             f.setUserData(2);
                         }
-
                     }
-
                 }
             }
         }
-
     }
 
     private static ChainShape createPolyline(PolylineMapObject polyline){ // method that creates the polyline objects
@@ -95,10 +83,6 @@ public class WorldCreator{
         toBeDestroyed = new ArrayList<Body>();
         for (Body i : Wall) toBeDestroyed.add(i);
         for(Door i : door) toBeDestroyed.add(i.body);
-
-
         return toBeDestroyed;
     }
-
-
 }

@@ -25,5 +25,3 @@ public class DesktopLauncher {
 
 	}
 }
-
-//double checking if the files were update

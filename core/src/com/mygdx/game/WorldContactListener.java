@@ -1,10 +1,12 @@
+/*
+ * This is the main class for the game
+ * 2019 - Ghanem & Usman
+ * Megaman Battle Network 6
+ */
+
 package com.mygdx.game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.*;
-
 import java.util.ArrayList;
-
 public class WorldContactListener implements ContactListener {
     public ArrayList<Fixture> obj; // an fixture array that adds each object within contact to distingush between them
     boolean test = false;

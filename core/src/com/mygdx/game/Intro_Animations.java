@@ -11,10 +11,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
 import java.util.ArrayList;
 
-public class Intro_Animations {
+class Intro_Animations {
     private Sprite sprite;
     private ArrayList<Texture> Texture;
     private ArrayList<ArrayList<Texture>> Sprites;
@@ -22,7 +21,7 @@ public class Intro_Animations {
     private Stage stage;
     public static float alpha = 1;
 
-    public Intro_Animations(String type, int size){
+    Intro_Animations(String type, int size){
         stage = new Stage();
         sprite = new Sprite();
         Texture = new ArrayList<Texture>();
@@ -31,7 +30,7 @@ public class Intro_Animations {
 
     }
 
-    public void load(String type, int size){
+    private void load(String type, int size){
         for(int i = 0; i < size; i ++){
             Texture.add(new Texture(type + i + ".png"));
         }
@@ -57,7 +56,7 @@ public class Intro_Animations {
         return frame;
     }
 
-    public void update(SpriteBatch batch, int timer_MAX, int frame_MAX){
+    void update(SpriteBatch batch, int timer_MAX, int frame_MAX){
         stage.addAction(Actions.fadeOut(1));
         //System.out.println("FAAADE");
         Animation(timer_MAX, frame_MAX);
@@ -65,7 +64,7 @@ public class Intro_Animations {
         render(batch);
     }
 
-    public void render(SpriteBatch batch){
+    private void render(SpriteBatch batch){
         sprite.setPosition(0,0);
         sprite.draw(batch,alpha);
     }

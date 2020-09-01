@@ -12,18 +12,18 @@ import com.badlogic.gdx.files.FileHandle;
 
 import java.util.ArrayList;
 
-public class Spawns {
+class Spawns {
     private ArrayList<Integer> Spawns_x = new ArrayList<Integer>(); // create an object array that holds all the spawn location x coordinates
     private ArrayList<Integer> Spawns_y = new ArrayList<Integer>(); // create an object Array that holds all the spawn location y coordinates
     private int SpawnCounter = 0; // this is a spawn counter which will be used to get the correct index and spawn x, y
 
-    public Spawns(){
+    Spawns(){
         FileReader(); // call file reader to load in values
 
     }
 
     private void FileReader(){
-        FileHandle file = Gdx.files.internal("Assets/SpawnBoxes.txt"); // this can be found in the assets folder
+        FileHandle file = Gdx.files.internal("Assets/SpawnBoxes.dat"); // this can be found in the assets folder
         String [] text = file.readString().split("\n");
         for(int i = 0; i < text.length; i ++){
             String [] text1 = text[i].split(", ");
@@ -38,19 +38,19 @@ public class Spawns {
         }
     }
 
-    public ArrayList<Integer> getSpawns_x(){
+    ArrayList<Integer> getSpawns_x(){
         return Spawns_x;
     }
 
-    public ArrayList<Integer> getSpawns_y(){
+    ArrayList<Integer> getSpawns_y(){
         return Spawns_y;
     }
 
-    public int getSpawnCounter(){
+    int getSpawnCounter(){
         return SpawnCounter;
     }
 
-    public void setSpawnCounter(int x){
+    void setSpawnCounter(int x){
         this.SpawnCounter = x;
     }
 }

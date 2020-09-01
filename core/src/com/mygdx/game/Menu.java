@@ -1,21 +1,22 @@
-package com.mygdx.game;
+/*
+ * This class is used for the intro animations
+ * 2019 - Ghanem & Usman
+ * Megaman battle network 6
+ */
 
+package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Menu {
-    public static boolean change = false, create = true;
+class Menu {
+    static boolean change = false;
+    private static boolean create = true;
     private Intro_Animations introAnimations;
-    private String game;
-    public static Boolean test = false;
+    private static Boolean test = false;
 
-    public Menu(){
-        game = Main.Game;
-    }
-
-    public void render(SpriteBatch batch){
+    void render(SpriteBatch batch){
 
         if(Main.Game.equals("Intro_1")){ //starting the game off with the capcom introAnimations
             if(create){
@@ -51,5 +52,4 @@ public class Menu {
             batch.end();
         }
     }
-
 }

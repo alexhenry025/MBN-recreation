@@ -19,7 +19,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.*;
 
 public class Main extends ApplicationAdapter {
-
     static SpriteBatch batch;
     static final float PPM = 0.3f;
     static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6 , SE = 7;// variable for player direction
@@ -96,11 +95,11 @@ public class Main extends ApplicationAdapter {
             levels.ChangeMap();
         }
     }
-    public void update(){
+    private void update(){
         player.update(batch); // updates the players x y coordinates etc
     }
 
-    public void move() {
+    private void move() {
 //      p.body.setLinearVelocity(0, 0);
         keys.Player_Keys(); // calls the player keys method in the keyboard input class
 	    player.setX(player.body.getPosition().x); // set the pos of player sprite to player body

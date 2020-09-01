@@ -5,21 +5,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Fade_Animation {
-     public static Texture texture = new Texture("Assets/Fade.png");
-     public static Sprite sprite = new Sprite(texture);
-     public static float alpha = 0;
+class Fade_Animation {
+     private static Texture texture = new Texture("Assets/Fade.png");
+     private static Sprite sprite = new Sprite(texture);
+     static float alpha = 0;
 
-
-    public static void Fade(SpriteBatch batch, String level){
-        if(alpha<1) {
-            for (int i = 0; i < 100; i++) {
-                alpha += 0.0005;
-            }
-        }
-        if(alpha>1) {
-            Main.Game = level;
-            Levels.test = false;
+    static void Fade(SpriteBatch batch, String level){
+        switch((int)alpha){
+            case 0:
+                for (int i = 0; i < 100; i++) {
+                    alpha += 0.0005;
+                }
+                break;
+            case 1:
+                Main.Game = level;
+                Levels.test = false;
+            default:
+                break;
         }
         sprite.setPosition(0,0);
         sprite.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
