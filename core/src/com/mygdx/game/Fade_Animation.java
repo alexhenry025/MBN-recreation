@@ -13,13 +13,12 @@ class Fade_Animation {
     public static boolean Fade(SpriteBatch batch, String level){
         switch((int)alpha){
             case 0:
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 50; i++) {
                     alpha += 0.0005;
                 }
                 break;
             case 1:
                 Main.Game = level;
-                Levels.test = false;
             default:
                 break;
         }

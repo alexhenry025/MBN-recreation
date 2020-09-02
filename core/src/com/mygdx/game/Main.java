@@ -74,6 +74,7 @@ public class Main extends ApplicationAdapter {
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
         if (Game.equals("level1")){
+            System.out.println(Levels.test + ", " + Levels.time);
           //System.out.println("\n" + player.getX() + ", " +  player.getY() + "\n");
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
@@ -98,7 +99,7 @@ public class Main extends ApplicationAdapter {
                 renderer.getBatch().end();
             }
             move();
-           levels.ChangeMap();
+            levels.ChangeMap();
         }
     }
     private void update(){

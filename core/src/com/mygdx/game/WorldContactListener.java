@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import java.util.ArrayList;
 public class WorldContactListener implements ContactListener {
     public ArrayList<Fixture> obj; // an fixture array that adds each object within contact to distingush between them
-    boolean test = false;
     public WorldContactListener(){
         obj = new ArrayList<Fixture>(); // make a new one for each map
     }
@@ -18,10 +17,10 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         if (contact.getFixtureA().getUserData() == "Player"){ // if the first fixture is player
             if(contact.getFixtureB().getUserData().getClass() == Door.class){ // check if the second fixture  is any door from door class
-                Fade_Animation.alpha = 0f;
-                test = true;
-
                 obj.add(contact.getFixtureB()); // add the object for only that door
+                Fade_Animation.alpha = 0f;
+                Levels.test = true;
+                new timer(1);
             }
             if(contact.getFixtureB().getUserData().getClass() == NPC.class){
                 obj.add(contact.getFixtureB());
@@ -45,7 +44,6 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
     }
 
     @Override

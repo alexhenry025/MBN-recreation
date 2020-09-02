@@ -7,22 +7,21 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Timer;
 
-import java.util.TimerTask;
+
+
+
 
 public class Levels {
     private WorldCreator wc;
     static boolean test = false;
     private audio sound;
+    static int time = 0;
 
     public Levels(){
         sound =  new audio();
@@ -63,18 +62,22 @@ public class Levels {
             }
 
             if (i.getUserData().getClass() == Door.class) { // if the object is a door
-                Fade_Animation.alpha = 0f;
-                test = true;
-                Door door = (Door) i.getUserData(); //gets the user data of each door
-                if(door.change){
-                    sound.stop();
-                    sound.play(door.sound);
+                if(time == 1){
+                    time = 0;
+                    Door door = (Door) i.getUserData(); //gets the user data of each door
+                    if(door.change){
+                        sound.stop();
+                        sound.play(door.sound);
+                    }
+                    Main.Map_Counter = Integer.parseInt(door.getType()); // update the map counter
+                    Main.spawns.setSpawnCounter(door.getCounter()); // get the spawn counter
+                    Main.SpawnCount = Main.spawns.getSpawnCounter(); // set a local variable in main to spawn counter
+                    CreateMap(Main.Maps.get(Main.Map_Counter), Main.spawns.getSpawns_x().get(Main.SpawnCount), Main.spawns.getSpawns_y().get(Main.SpawnCount)); // change the map and the players x,y
+                    // get the correct index            gets the correct spawn x                  gets the correct spawn y
                 }
-                Main.Map_Counter = Integer.parseInt(door.getType()); // update the map counter
-                Main.spawns.setSpawnCounter(door.getCounter()); // get the spawn counter
-                Main.SpawnCount = Main.spawns.getSpawnCounter(); // set a local variable in main to spawn counter
-                CreateMap(Main.Maps.get(Main.Map_Counter), Main.spawns.getSpawns_x().get(Main.SpawnCount), Main.spawns.getSpawns_y().get(Main.SpawnCount)); // change the map and the players x,y
-                // get the correct index            gets the correct spawn x                  gets the correct spawn y
+
+
+
             }
         }
         if(test){
@@ -82,4 +85,6 @@ public class Levels {
         }
         Main.batch.end();
     }
+
+
 }
