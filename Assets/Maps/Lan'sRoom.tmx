@@ -18,6 +18,8 @@
   <object id="25" name="Door" type="1" x="228.519" y="252.278" width="18.75" height="4.75">
    <properties>
     <property name="Angle" type="float" value="-328.58"/>
+    <property name="Change_sound" type="bool" value="false"/>
+    <property name="Sound" type="int" value="1"/>
     <property name="SpawnLoc" type="int" value="1"/>
     <property name="x_d" type="int" value="208"/>
     <property name="y_d" type="int" value="240"/>

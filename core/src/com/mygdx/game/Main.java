@@ -39,6 +39,7 @@ public class Main extends ApplicationAdapter {
     static TiledMapTileLayer Building;// Layer made in tile
     static World world;
     static Spawns spawns;
+    private audio sound;
     static boolean animation, destroyed = true;// booleans used to indicate animation change and object distruction
 
     @Override
@@ -53,9 +54,10 @@ public class Main extends ApplicationAdapter {
         File_Reading();
         b2dr = new Box2DDebugRenderer();// variable used to render the collision boxes. used for testing purposes.
         menu = new Menu();
-        display = new Display();
+        //display = new Display();
         keys = new Keyboard_Input();
         spawns = new Spawns();
+        sound = new audio();
         levels.CreateMap(Maps.get(Map_Counter), 90, 60);//create a map depending on what level we are on
     }
 
@@ -71,7 +73,7 @@ public class Main extends ApplicationAdapter {
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
         if (Game.equals("level1")){
-          System.out.println("\n" + player.getX() + ", " +  player.getY() + "\n");
+          //System.out.println("\n" + player.getX() + ", " +  player.getY() + "\n");
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
                 for (Body i : bodiesToDestroy) {
@@ -82,10 +84,11 @@ public class Main extends ApplicationAdapter {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear the screen
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
             levels.Level1(camera,renderer,batch);// render the first level
-            b2dr.render(world,camera.combined);
+            //b2dr.render(world,camera.combined);
             batch.begin();
             update();
             batch.end();
+
 
             if(Map_Counter > 0) { // since Lan's room doesn't have layers being added after make it for counter > 0
                 renderer.getBatch().begin();

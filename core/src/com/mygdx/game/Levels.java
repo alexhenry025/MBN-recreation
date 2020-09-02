@@ -22,6 +22,11 @@ import java.util.TimerTask;
 public class Levels {
     private WorldCreator wc;
     static boolean test = false;
+    private audio sound;
+
+    public Levels(){
+        sound =  new audio();
+    }
 
     void Level1(OrthographicCamera camera, OrthogonalTiledMapRenderer renderer, Batch batch){//method used to update camera and change maps relative to the camera
         camera.zoom = 0.08f;
@@ -47,8 +52,11 @@ public class Levels {
     }
 
     void ChangeMap(){
+        if(Main.Map_Counter == 0){
+            sound.sounds.get(1).play();
+        }
         Main.batch.begin();
-        Main.display.update();
+        //Main.display.update();
         for (Fixture i : Main.objs) { // iterates all the objects player is colliding with, also y destroy body is put in the beginning
             if(i.getUserData().getClass() == NPC.class){
                 NPC npc = (NPC) i.getUserData(); //gets the user data of each door
@@ -58,6 +66,10 @@ public class Levels {
                 Fade_Animation.alpha = 0f;
                 test = true;
                 Door door = (Door) i.getUserData(); //gets the user data of each door
+                if(door.change){
+                    sound.stop();
+                    sound.play(door.sound);
+                }
                 Main.Map_Counter = Integer.parseInt(door.getType()); // update the map counter
                 Main.spawns.setSpawnCounter(door.getCounter()); // get the spawn counter
                 Main.SpawnCount = Main.spawns.getSpawnCounter(); // set a local variable in main to spawn counter

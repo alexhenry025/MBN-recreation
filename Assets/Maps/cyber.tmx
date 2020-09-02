@@ -108,6 +108,8 @@
   <object id="99" name="Door" type="1" x="809.382" y="526.234" width="8.875" height="8.75">
    <properties>
     <property name="Angle" type="float" value="26.37"/>
+    <property name="Change_sound" type="bool" value="true"/>
+    <property name="Sound" type="int" value="1"/>
     <property name="SpawnLoc" type="int" value="2"/>
     <property name="x_d" type="int" value="100"/>
     <property name="y_d" type="int" value="100"/>
@@ -116,6 +118,8 @@
   <object id="101" name="Door" type="3" x="363.826" y="437.654" width="9.625" height="13.25">
    <properties>
     <property name="Angle" type="float" value="-27.2"/>
+    <property name="Change_sound" type="bool" value="true"/>
+    <property name="Sound" type="int" value="3"/>
     <property name="SpawnLoc" type="int" value="5"/>
     <property name="x_d" type="int" value="100"/>
     <property name="y_d" type="int" value="1"/>

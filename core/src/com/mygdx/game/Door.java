@@ -18,16 +18,19 @@ public class Door {
     private Rectangle rect;
     float New_x, New_y, angle;
     String type;
-    int counter;
+    int counter, sound;
+    boolean change;
     //private Stage stage
     //   rect type used for map change x y counter is what will tell the door which spawn to map to from array
-    public Door(Rectangle rect, String type, int New_x, int New_y, int counter, float angle){ // this gets the values for door from the world creator
+    public Door(Rectangle rect, String type, int New_x, int New_y, int counter, float angle, int sound, boolean change){ // this gets the values for door from the world creator
         this.rect = rect;
         this.type = type;
         this.New_x = New_x;
         this.New_y = New_y;
         this.counter = counter;
         this.angle = angle;
+        this.sound = sound;
+        this.change = change;
         System.out.println("creating doors");
         CreateBox2d();
     }
@@ -65,11 +68,5 @@ public class Door {
     public int getCounter(){
         return counter;
     }
-
-
-    public Rectangle getRect(){
-        return rect;
-    }
-
 
 }
