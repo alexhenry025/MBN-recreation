@@ -18,6 +18,9 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         if (contact.getFixtureA().getUserData() == "Player"){ // if the first fixture is player
             if(contact.getFixtureB().getUserData().getClass() == Door.class){ // check if the second fixture  is any door from door class
+                Fade_Animation.alpha = 0f;
+                test = true;
+
                 obj.add(contact.getFixtureB()); // add the object for only that door
             }
             if(contact.getFixtureB().getUserData().getClass() == NPC.class){
@@ -25,6 +28,8 @@ public class WorldContactListener implements ContactListener {
                 System.out.println("Hi lan ");
             }
         }
+
+
         Main.objs = obj; // update the obj arraylist in the main for changing the map
     }
 

@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.*;
 
 public class Main extends ApplicationAdapter {
@@ -87,6 +88,7 @@ public class Main extends ApplicationAdapter {
             //b2dr.render(world,camera.combined);
             batch.begin();
             update();
+            //display.update();
             batch.end();
 
 
@@ -96,7 +98,7 @@ public class Main extends ApplicationAdapter {
                 renderer.getBatch().end();
             }
             move();
-            levels.ChangeMap();
+           levels.ChangeMap();
         }
     }
     private void update(){
@@ -111,7 +113,6 @@ public class Main extends ApplicationAdapter {
 	    camera.position.x = player.getX(); // camera follows players x
 	    camera.position.y = player.getY(); // camera follows players y
     }
-
     @Override
     public void dispose () {
         batch.dispose();

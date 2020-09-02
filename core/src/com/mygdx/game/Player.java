@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.awt.*;
@@ -38,9 +39,9 @@ class Player {
 
     private int moveFrames(){ // this is the animation for the movement frames the character
         if(frames < open_list[Main.moves1]){
-            if(t < 3) {
+            if(t < 8) {
                 t ++;
-                if(t == 3) {
+                if(t == 8) {
                     frames += 1;
                     if (frames == open_list[Main.moves1]) {
                         frames = 0;
@@ -77,7 +78,9 @@ class Player {
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         fdef.shape = shape;
-        shape.setAsBox(20 * (float) Math.pow(Main.PPM, 2), 10 * (float) Math.pow(Main.PPM, 2));
+       // shape.setAsBox(20 * (float) Math.pow(Main.PPM, 2), 10 * (float) Math.pow(Main.PPM, 2));
+        shape.setAsBox(20 * (float) Math.pow(Main.PPM, 2),10 * (float) Math.pow(Main.PPM, 2),new Vector2(0,0),0);
+
         this.body.createFixture(fdef).setUserData("Player");
         this.body.getFixtureList().get(0).setUserData("Player");
         this.body.setTransform(rect.getX(), rect.getY(), 0);

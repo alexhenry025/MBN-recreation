@@ -20,8 +20,6 @@ public class DesktopLauncher {
 		config.height = 480; // set height of screen
 		config.title = "Mega Man Battle Network 6";
 		config.addIcon("Assets/icon.png", Files.FileType.Internal);
-		config.foregroundFPS = 45;
-
-
+		config.foregroundFPS = 60;
 	}
 }

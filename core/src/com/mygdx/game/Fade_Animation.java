@@ -10,7 +10,7 @@ class Fade_Animation {
      private static Sprite sprite = new Sprite(texture);
      static float alpha = 0;
 
-    static void Fade(SpriteBatch batch, String level){
+    public static boolean Fade(SpriteBatch batch, String level){
         switch((int)alpha){
             case 0:
                 for (int i = 0; i < 100; i++) {
@@ -26,5 +26,6 @@ class Fade_Animation {
         sprite.setPosition(0,0);
         sprite.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         sprite.draw(batch,alpha);
+        return true;
     }
 }
