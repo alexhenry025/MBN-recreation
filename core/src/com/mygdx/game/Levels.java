@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 
 public class Levels {
     private WorldCreator wc;
-    static boolean test = false;
+    static boolean fade_out = false, fade_in = false; // booleans for fade in and fade out animations
     private audio sound;
     static int time = 0;
 
@@ -45,7 +45,8 @@ public class Levels {
             Main.destroyed = false;
         }
         Main.player.MoveBody(x, y);
-
+        fade_in = true; // once the player has been moved set fade in to true
+        new Fadein_timer(1); // use fade in timer to wait a second
         wc = new WorldCreator(Main.world, map);
         Main.Building = (TiledMapTileLayer) map.getLayers().get("Building");
     }
@@ -80,8 +81,11 @@ public class Levels {
 
             }
         }
-        if(test){
-            Fade_Animation.Fade(Main.batch, Main.Game);
+        if(fade_in){
+            Fade_Animation.Fadein(Main.batch); // this will call the fade in animation function
+        }
+        if(fade_out){
+            Fade_Animation.Fadeout(Main.batch); // this will call the fade out animation function
         }
         Main.batch.end();
     }

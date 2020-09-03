@@ -54,7 +54,7 @@ class Menu {
                 test = true;
             }
             if (test) {
-                Fade_Animation.Fade(batch, "level1");
+                Fade_Animation.Fadeout(batch, "level1");
             }
             batch.end();
         }

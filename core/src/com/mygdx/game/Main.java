@@ -17,7 +17,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.*;
 
 public class Main extends ApplicationAdapter {
@@ -40,7 +39,6 @@ public class Main extends ApplicationAdapter {
     static TiledMapTileLayer Building;// Layer made in tile
     static World world;
     static Spawns spawns;
-    private audio sound;
     static boolean animation, destroyed = true;// booleans used to indicate animation change and object distruction
 
     @Override
@@ -58,7 +56,6 @@ public class Main extends ApplicationAdapter {
         //display = new Display();
         keys = new Keyboard_Input();
         spawns = new Spawns();
-        sound = new audio();
         levels.CreateMap(Maps.get(Map_Counter), 90, 60);//create a map depending on what level we are on
     }
 
@@ -74,8 +71,7 @@ public class Main extends ApplicationAdapter {
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
         if (Game.equals("level1")){
-            System.out.println(Levels.test + ", " + Levels.time);
-          //System.out.println("\n" + player.getX() + ", " +  player.getY() + "\n");
+            //System.out.println("\n" + player.getX() + ", " +  player.getY() + "\n");
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
                 for (Body i : bodiesToDestroy) {

@@ -18,9 +18,9 @@ public class WorldContactListener implements ContactListener {
         if (contact.getFixtureA().getUserData() == "Player"){ // if the first fixture is player
             if(contact.getFixtureB().getUserData().getClass() == Door.class){ // check if the second fixture  is any door from door class
                 obj.add(contact.getFixtureB()); // add the object for only that door
-                Fade_Animation.alpha = 0f;
-                Levels.test = true;
-                new timer(1);
+                Fade_Animation.alpha = 0; //set
+                Levels.fade_out = true; // call the fade out animation
+                new Fadeout_timer(1); // delay for a second
             }
             if(contact.getFixtureB().getUserData().getClass() == NPC.class){
                 obj.add(contact.getFixtureB());

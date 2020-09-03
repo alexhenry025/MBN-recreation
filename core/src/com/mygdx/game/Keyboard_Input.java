@@ -14,78 +14,84 @@ import static com.mygdx.game.Main.*;
     private Vector2 velocity = new Vector2();
     float speed = 60;
     void Player_Keys(){// simple inputs for the player ,allowing the player to move in 8 different directions
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.UP) ) && !Levels.test){
-            moves1 = NE;
-            player.body.setLinearVelocity(20,20);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-                player.body.setLinearVelocity(40,40);
-            }
-            animation = true;
-        }
-        else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.DOWN) )&& !Levels.test){
-            moves1 = SE;
-            player.getBody().applyLinearImpulse(new Vector2(0.90f, -0.90f), player.getBody().getWorldCenter(), true);
-            player.body.setLinearVelocity(20,-20);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-                player.body.setLinearVelocity(40,-40);
-            }
-            animation = true;
-        }
-
-        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.DOWN) )&& !Levels.test){
-            moves1 = SW;
-            player.body.setLinearVelocity(-20,-20);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-                player.body.setLinearVelocity(-40,-40);
-            }
-            animation = true;
-        }
-
-        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )&& !Levels.test){
-            moves1 = NW;
-            player.body.setLinearVelocity(-20,20);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-                player.body.setLinearVelocity(-40,40);
-            }
-            animation = true;
-        }
-
-        else  if (Gdx.input.isKeyPressed(Input.Keys.UP)&& !Levels.test) {// moves the player up
-            moves1 = UP;
-            player.body.setLinearVelocity(0,20);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-                player.body.setLinearVelocity(0,40);
-            }
-            animation = true;
-        }
-
-        else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)&& !Levels.test) {
-            moves1 = Down;
-            player.body.setLinearVelocity(0,-20);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-                player.body.setLinearVelocity(0,-40);
-            }
-            animation = true;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)&& !Levels.test) {
-            moves1 = Left;
-            player.body.setLinearVelocity(-20,0);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)&& !Levels.test){
-                player.body.setLinearVelocity(-40,0);
-            }
-            animation = true;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)&& !Levels.test) {
-            moves1 = Right;
-            player.body.setLinearVelocity(20,0);
-            if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)&& !Levels.test){
-                player.body.setLinearVelocity(40,0);
-            }
-            animation = true;
-        }
-
-        else {
+        if(Levels.fade_out || Levels.fade_in){
             player.body.setLinearVelocity(0,0);
             animation = false;
             player.frames = 0;
+        }
+        else{
+            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.UP) )){
+                moves1 = NE;
+                player.body.setLinearVelocity(20,20);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(40,40);
+                }
+                animation = true;
+            }
+            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (Gdx.input.isKeyPressed(Input.Keys.DOWN))){
+                moves1 = SE;
+                player.getBody().applyLinearImpulse(new Vector2(0.90f, -0.90f), player.getBody().getWorldCenter(), true);
+                player.body.setLinearVelocity(20,-20);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(40,-40);
+                }
+                animation = true;
+            }
+
+            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.DOWN))){
+                moves1 = SW;
+                player.body.setLinearVelocity(-20,-20);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(-40,-40);
+                }
+                animation = true;
+            }
+
+            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (Gdx.input.isKeyPressed(Input.Keys.UP))){
+                moves1 = NW;
+                player.body.setLinearVelocity(-20,20);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(-40,40);
+                }
+                animation = true;
+            }
+
+            else  if (Gdx.input.isKeyPressed(Input.Keys.UP)) {// moves the player up
+                moves1 = UP;
+                player.body.setLinearVelocity(0,20);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(0,40);
+                }
+                animation = true;
+            }
+
+            else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                moves1 = Down;
+                player.body.setLinearVelocity(0,-20);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(0,-40);
+                }
+                animation = true;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                moves1 = Left;
+                player.body.setLinearVelocity(-20,0);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(-40,0);
+                }
+                animation = true;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                moves1 = Right;
+                player.body.setLinearVelocity(20,0);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+                    player.body.setLinearVelocity(40,0);
+                }
+                animation = true;
+            }
+            else{
+                player.body.setLinearVelocity(0,0);
+                animation = false;
+                player.frames = 0;
+            }
         }
     }
 }
