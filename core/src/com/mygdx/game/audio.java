@@ -20,8 +20,9 @@ public class audio {
     }
 
     void play(int choice){
-        sounds.get(choice).play();
         sounds.get(choice).setLooping(true);
+        sounds.get(choice).play();
+
     }
 
     void stop(){

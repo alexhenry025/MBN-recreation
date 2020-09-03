@@ -49,6 +49,7 @@ class WorldCreator{
                     fdef.shape = shape;
                     if (obj.getName().equals("Door")) { // if the object name is door
                         // make a new door and add it to the list
+
                         door.add(new Door(rect, (String) obj.getProperties().get("type"), (Integer) (obj.getProperties().get("x_d")), (Integer) (obj.getProperties().get("y_d")), (Integer) (obj.getProperties().get("SpawnLoc")), (Float)obj.getProperties().get("Angle"), (Integer) obj.getProperties().get("Sound"), (Boolean) obj.getProperties().get("Change_sound")));
                         for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
                             f.setUserData(1);
@@ -68,6 +69,7 @@ class WorldCreator{
     }
 
     private static ChainShape createPolyline(PolylineMapObject polyline){ // method that creates the polyline objects
+
         float [] vertices = polyline.getPolyline().getTransformedVertices();
         Vector2[] worldverticies = new Vector2[vertices.length/2];
 
@@ -80,6 +82,7 @@ class WorldCreator{
     }
 
     public ArrayList<Body> getToBeDestroyed() { // this Array list stores all physical objects on the map that will need to be destroyed upon map change
+
         toBeDestroyed = new ArrayList<Body>();
         for (Body i : Wall) toBeDestroyed.add(i);
         for(Door i : door) toBeDestroyed.add(i.body);
