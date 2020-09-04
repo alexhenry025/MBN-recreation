@@ -90,9 +90,10 @@ public class Main extends ApplicationAdapter {
 
 
             if(Map_Counter > 0) { // since Lan's room doesn't have layers being added after make it for counter > 0
-                renderer.getBatch().begin();
-                renderer.renderTileLayer(Main.Building);
-                renderer.getBatch().end();
+                    renderer.getBatch().begin();
+                    renderer.renderTileLayer(Main.Building);
+                    renderer.getBatch().end();
+
             }
             move();
             levels.ChangeMap();

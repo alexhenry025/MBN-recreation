@@ -58,7 +58,6 @@ class WorldCreator{
                     if (obj.getName().equals("NPC")) {
                         //  System.out.println("Hi lan how are you doing today ");
                         npc.add(new NPC(rect, (String) obj.getProperties().get("type")));
-
                         for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
                             f.setUserData(2);
                         }
