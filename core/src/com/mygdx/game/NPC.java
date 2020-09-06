@@ -9,13 +9,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class NPC {
     Body body;
     Rectangle rect;
-    float New_x, New_y;
-    String type;
-    int counter;
+    float X,Y;
+    int npc;
 
-    public NPC(Rectangle rect, String type){ // this gets the values for door from the world creator
+    public NPC(Rectangle rect, float X, float Y, int npc){ // this gets the values for door from the world creator
         this.rect = rect;
-        this.type = type;
+        this.X = X;
+        this.Y = Y;
+        this.npc = npc;
 
         CreateBox2d();
     }
@@ -46,14 +47,9 @@ public class NPC {
         return body;
     }
 
-    public String getType() {
-        return type;
-    }
+    public float getX(){return X;}
 
-    public int getCounter(){
-        return counter;
-    }
-
+    public float getY(){return Y;}
 
     public Rectangle getRect(){
         return rect;

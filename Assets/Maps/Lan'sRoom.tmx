@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="20" height="20" tilewidth="30" tileheight="20" infinite="0" nextlayerid="17" nextobjectid="39">
- <tileset firstgid="1" source="lan's room.tsx"/>
- <tileset firstgid="100" name="LAN" tilewidth="30" tileheight="20" tilecount="440" columns="20">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-down" width="20" height="20" tilewidth="30" tileheight="20" infinite="0" nextlayerid="17" nextobjectid="33">
+ <tileset firstgid="1" name="LAN" tilewidth="30" tileheight="20" tilecount="440" columns="20">
   <image source="LAN.png" width="605" height="450"/>
  </tileset>
- <tileset firstgid="540" name="LansRoom_Grega" tilewidth="30" tileheight="20" tilecount="80" columns="8">
-  <image source="LansRoom_Grega.png" width="245" height="210"/>
- </tileset>
+ <tileset firstgid="441" source="Room/LansRoom_Grega.tsx"/>
  <layer id="1" name="Background" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzDdTAmEUhtGVwtBaixEUcwARA2AWc8CcA+b/33u2t/l2xrHhzpzmzrxPFDXvL67ll18rbbTTEdjrSkVRmm566KWPfgboDOxlbLIMMkSOYUYYTQXG3JjNOBNMMsU0M+QT9Ao2sxSZo8Q8Cywm6C3ZlKlQZZkVVllL0Fu32WCTLWpss8Nugt6ezT4HHHLEMSfU435g79TmjHMuuOSKa27idmDv1uaOex545IlnXuJuYK9h88ob73zwyRffcTOw17z/uR9JZxdA
+   eJztzOsyQmEAhtG9k3L/d1OUEhGSU0jIKYScKedWl9D3x5jpnVk/3yeKxvsPy8RRlGWaGXLkmaUQj94r+sxRYp4FyiyyFNCr+CyzwipV1qixHtDb8Nlki23q7LDLXkCv4bNPkwMOOaLFcUDvxOeUM85pc8ElVwG9js81N9zS5Y57HgJ6jz5PPPPCK2/06Af03n0++OSLb374HbYSo/dinwQTJJkkRZqpgN54f7MBoK09gg==
   </data>
  </layer>
  <layer id="2" name="Graphics" width="20" height="20">
@@ -18,36 +15,18 @@
   </data>
  </layer>
  <objectgroup id="3" name="Wall">
-  <object id="14" x="368.5" y="366.25">
-   <polyline points="0,0 26,-13.25 56.75,3.5 165.25,-50.75 135.75,-66.25 117.25,-56.25 39.75,-98 -12,-74.25 34.25,-51.75 -8.25,-29.5 3.25,-23.25 -21,-10.5"/>
+  <object id="14" x="245" y="263.25">
+   <polyline points="101.909,21.4773 79.9091,8.75 116.818,-10.3409 82.8182,-26.8864 131.364,-55.6136 61.3636,-88.7045 46.2727,-79.6136 39.7273,-82.1591 17.5455,-70.8864 32.0909,-62.3409 13,-53.25 11.3636,-47.9773 -0.454545,-41.9773 -7.18182,-42.3409 -38.4557,-26.0416 56.6364,20.2273 79.7273,32.75"/>
   </object>
-  <object id="25" name="Door" type="1" x="322.974" y="288.435" width="25.5" height="6.5">
+  <object id="25" name="Door" type="1" x="324.822" y="288.458" width="23.8675" height="4.82878">
    <properties>
-    <property name="Angle" type="float" value="33.13"/>
+    <property name="Angle" type="float" value="-27.48"/>
     <property name="Change_sound" type="bool" value="false"/>
     <property name="Sound" type="int" value="1"/>
     <property name="SpawnLoc" type="int" value="1"/>
     <property name="x_d" type="int" value="208"/>
     <property name="y_d" type="int" value="240"/>
    </properties>
-  </object>
-  <object id="33" x="302" y="286.75">
-   <polyline points="0,0 -110.5,-55.75"/>
-  </object>
-  <object id="34" x="206.25" y="237.75">
-   <polyline points="0,0 25.75,-13 36.25,-12.25 54.5,-21.25 54.5,-26.75 71.5,-35"/>
-  </object>
-  <object id="35" x="368.5" y="208">
-   <polyline points="0,0 -67.5,-34"/>
-  </object>
-  <object id="36" x="326.75" y="273.75">
-   <polyline points="0,0 87.75,-42.25"/>
-  </object>
-  <object id="37" x="364.5" y="208">
-   <polyline points="0,0 -35.5,17.25 -35.75,33.25 -3,48"/>
-  </object>
-  <object id="38" x="279.25" y="201.5">
-   <polyline points="0,0 -11.5,-9.5 21,-28.25"/>
   </object>
  </objectgroup>
  <layer id="8" name="Tile Layer 3" width="20" height="20">

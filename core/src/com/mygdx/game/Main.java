@@ -36,11 +36,12 @@ public class Main extends ApplicationAdapter {
     static OrthogonalTiledMapRenderer renderer;// render with respect to the Orthogonal plane
     static ArrayList<Fixture> objs = new ArrayList<Fixture>();// Array list of
     static ArrayList<Body> bodiesToDestroy = new ArrayList<Body>(); // bodies to be destroyed after loading in a new map
-    static TiledMapTileLayer Building;// Layer made in tile
+    static TiledMapTileLayer Building, NPC;// Layer made in tile
     static World world;
     static Spawns spawns;
     static boolean animation, destroyed = true;// booleans used to indicate animation change and object distruction
 
+    static boolean collide = false;
     @Override
     public void create() {// create method
         world = new World(new Vector2(0,0),true); // creating new world , setting in the position
@@ -82,18 +83,26 @@ public class Main extends ApplicationAdapter {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear the screen
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
             levels.Level1(camera,renderer,batch);// render the first level
-            //b2dr.render(world,camera.combined);
+            b2dr.render(world,camera.combined);
+
+
             batch.begin();
             update();
             //display.update();
             batch.end();
-
-
-            if(Map_Counter > 0) { // since Lan's room doesn't have layers being added after make it for counter > 0
-                    renderer.getBatch().begin();
-                    renderer.renderTileLayer(Main.Building);
-                    renderer.getBatch().end();
-
+            if(Map_Counter > 1){ // since Lan's room doesn't have layers being added after make it for counter > 0
+                renderer.getBatch().begin();
+                renderer.renderTileLayer(Building);
+                for(int i = 0; i < WorldCreator.npc.size(); i ++) {
+                    if (Distance(player.body.getPosition().x, WorldCreator.npc.get(i).getX() * PPM, player.body.getPosition().y, WorldCreator.npc.get(i).getY() * PPM) < 10) {
+                        int index = i;
+                        if (player.body.getPosition().y > WorldCreator.npc.get(index).getY() * PPM) {
+                            System.out.println("NOW IM SUPER RACIST");
+                            renderer.renderTileLayer(NPC);
+                        }
+                    }
+                }
+                renderer.getBatch().end();
             }
             move();
             levels.ChangeMap();
@@ -101,6 +110,12 @@ public class Main extends ApplicationAdapter {
     }
     private void update(){
         player.update(batch); // updates the players x y coordinates etc
+    }
+
+    double Distance(float x1, float x2, float y1, float y2){
+        return Math.sqrt(Math.abs(Math.pow((double)(x2 - x1),2)) + Math.abs(Math.pow((double)(y2 - y1),2)));
+
+
     }
 
     private void move() {

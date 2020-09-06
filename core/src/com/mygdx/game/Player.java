@@ -33,7 +33,7 @@ class Player {
     }
 
     private void render(SpriteBatch batch){
-        Lan.setPosition(100,100);
+        Lan.setPosition(96,58);
         batch.draw(Lan,body.getPosition().x - 27 * (float) Math.pow(Main.PPM,2),body.getPosition().y - 15 * (float) Math.pow(Main.PPM, 2), Lan.getWidth() * (float) Math.pow(Main.PPM, 2) * 3.2f, Lan.getHeight() * (float) Math.pow(Main.PPM, 2) * 3.2f);
     }
 
@@ -70,7 +70,7 @@ class Player {
     }
 
     private void createbody(){// create the players body
-        Lan.setPosition(100,100);
+        Lan.setPosition(96,58);
         rect = new Rectangle((int) Lan.getX(), (int) Lan.getY(), (int) Lan.getWidth(), (int) Lan.getHeight());//create a recto take players x,y,width and height
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;

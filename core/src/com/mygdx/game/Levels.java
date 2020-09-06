@@ -13,16 +13,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-
-
-
-
 public class Levels {
     private WorldCreator wc;
     static boolean fade_out = false, fade_in = false; // booleans for fade in and fade out animations
     private audio sound;
     static int time = 0;
-
     public Levels(){
         sound =  new audio();
     }
@@ -34,7 +29,6 @@ public class Levels {
         renderer.render();
         batch.setProjectionMatrix(Main.camera.combined);
     }
-
     void CreateMap(String type, int x, int y) { // A function / Method that is used to create a new map
         TmxMapLoader loader = new TmxMapLoader();
         TiledMap map = loader.load(type);
@@ -49,6 +43,7 @@ public class Levels {
         new Fadein_timer(1); // use fade in timer to wait a second
         wc = new WorldCreator(Main.world, map);
         Main.Building = (TiledMapTileLayer) map.getLayers().get("Building");
+        Main.NPC = (TiledMapTileLayer) map.getLayers().get("Top_Layer");
     }
 
     void ChangeMap(){
@@ -60,6 +55,8 @@ public class Levels {
         for (Fixture i : Main.objs) { // iterates all the objects player is colliding with, also y destroy body is put in the beginning
             if(i.getUserData().getClass() == NPC.class){
                 NPC npc = (NPC) i.getUserData(); //gets the user data of each door
+                //System.out.println("Colliding with NPC #" + npc.npc + ", X:" + npc.rect.x + ", Y:" + npc.rect.y);
+
             }
 
             if (i.getUserData().getClass() == Door.class) { // if the object is a door

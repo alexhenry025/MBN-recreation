@@ -57,7 +57,7 @@ class WorldCreator{
                     }
                     if (obj.getName().equals("NPC")) {
                         //  System.out.println("Hi lan how are you doing today ");
-                        npc.add(new NPC(rect, (String) obj.getProperties().get("type")));
+                        npc.add(new NPC(rect,((RectangleMapObject) obj).getRectangle().getX(), ((RectangleMapObject) obj).getRectangle().getY(), (Integer) obj.getProperties().get("NPC")));
                         for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
                             f.setUserData(2);
                         }
@@ -85,6 +85,7 @@ class WorldCreator{
         toBeDestroyed = new ArrayList<Body>();
         for (Body i : Wall) toBeDestroyed.add(i);
         for(Door i : door) toBeDestroyed.add(i.body);
+        for(NPC i : npc) toBeDestroyed.add(i.body);
         return toBeDestroyed;
     }
 }

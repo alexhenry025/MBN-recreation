@@ -35,6 +35,7 @@ class Fade_Animation {
             case 1:
                 alpha = 1;
                 Main.Game = level;
+                Main.player.MoveBody(96,58);
 
             default:
                 break;

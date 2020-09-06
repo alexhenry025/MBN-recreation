@@ -22,7 +22,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="Door" offsetx="31.5" offsety="11">
-  <object id="1" name="Door" type="2" x="357.77" y="268.66" width="71.4315" height="5.60384">
+  <object id="1" name="Door" type="2" x="387.145" y="288.535" width="71.4315" height="5.60384">
    <properties>
     <property name="Angle" type="float" value="-27.91"/>
     <property name="Change_sound" type="bool" value="true"/>
