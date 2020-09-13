@@ -41,13 +41,6 @@
   <object id="49" x="395.75" y="179.5">
    <polyline points="0,0 78,38.75 29.25,63.5 27.5,62.25"/>
   </object>
- </objectgroup>
- <layer id="4" name="Tile Layer 3" width="200" height="200">
-  <data encoding="base64" compression="zlib">
-   eJzt04f/4AMdx/Ffk1KRMhtK0UbOTc7Z2+/HHTdsd9wd7ripnVBpWZmlRGaTJjJCe2lQmlZ7oWjQfPU/5OHx+D6ez8fj9Qd8Ho/3Z2QEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/GjY6MbFHja0JNrEk1uabUlrVVTa2ta1ptU9vWdrX96KN9ATxydmjfO9ZOtXPtUrvWbrV77VF71miN1V61d02vGbWP/2DA9m3fM2tWza45tV/tXwfUgXVQHVyH1KE1t+bVYXW4/2DA5rfvBbWwjqgj66haVIvr6DqmltTSWlbLa0WtrGP9BwP2qvb96npNvbZeV6+vN9Qb67h6Ux1fJ9SJ9eZ6S721TvIfDNjb2vfb6x31znpXnVyn1Kl1Wp1e764z6sw6q86uc+pc/8GAvad9v7fOq/fV++v8+kBdUBfWB+uiurguqUvrsrq8PuQ/GLAPt++P1EfrY/XxuqKurE/UJ+tT9en6TH22rqqr65r6nP9gwK5t39fV9XVDfb5urJvq5vpCfbG+VF+ur9RX62v19fqG/2DAvtm+v1W31LfrO/Xd+l7dWrfV9+sHdXv9sH5UP66f1E/9BwP2s/Z9R91Zd9XddU/9vH5Rv6xf1a/rN/Xb+l39vv5Qf/QfDNi97fu+ur/+VH+uB+rB+kv9tf5Wf6+H6uH6R/2z/lX/9h8M2H/+t++xkZHH1GPrcfX4ekI9sVapVetJ9eRarZ5ST62n1epjj/YF8MhZo30/vdasZ9Qza61au9apdWu9Wr+eVc+u59Rza4N6nv9gwJ7fvjesF9QLa6PauF5UL66X1EvrZfXyekVtUpvWZvVK/8GAbd6+x9UWNb4m1MSaVJNrSm1ZW9XU2rqm1Ta1bW3nPxiw7dv3DrVj7VQ71y61a+1Wu9cetWeN1ljtVXvX9JrhPxiwfdr3vjWzZtXsmlP71f51QB1YB9XBdUgdWnNrXh3mPxiww9v3/FpQC+uIOrKOqkW1uI6uY2pJLa1ltbxW1Er/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwCP8Fbz/4XQ==
-  </data>
- </layer>
- <objectgroup id="6" name="Door" offsetx="0.5" offsety="-1.25">
   <object id="28" name="Door" type="2" x="288.389" y="326.497" width="31.6844" height="3.43531">
    <properties>
     <property name="Angle" type="float" value="323.87"/>
@@ -69,4 +62,10 @@
    </properties>
   </object>
  </objectgroup>
+ <layer id="4" name="Tile Layer 3" width="200" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt04f/4AMdx/Ffk1KRMhtK0UbOTc7Z2+/HHTdsd9wd7ripnVBpWZmlRGaTJjJCe2lQmlZ7oWjQfPU/5OHx+D6ez8fj9Qd8Ho/3Z2QEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/GjY6MbFHja0JNrEk1uabUlrVVTa2ta1ptU9vWdrX96KN9ATxydmjfO9ZOtXPtUrvWbrV77VF71miN1V61d02vGbWP/2DA9m3fM2tWza45tV/tXwfUgXVQHVyH1KE1t+bVYXW4/2DA5rfvBbWwjqgj66haVIvr6DqmltTSWlbLa0WtrGP9BwP2qvb96npNvbZeV6+vN9Qb67h6Ux1fJ9SJ9eZ6S721TvIfDNjb2vfb6x31znpXnVyn1Kl1Wp1e764z6sw6q86uc+pc/8GAvad9v7fOq/fV++v8+kBdUBfWB+uiurguqUvrsrq8PuQ/GLAPt++P1EfrY/XxuqKurE/UJ+tT9en6TH22rqqr65r6nP9gwK5t39fV9XVDfb5urJvq5vpCfbG+VF+ur9RX62v19fqG/2DAvtm+v1W31LfrO/Xd+l7dWrfV9+sHdXv9sH5UP66f1E/9BwP2s/Z9R91Zd9XddU/9vH5Rv6xf1a/rN/Xb+l39vv5Qf/QfDNi97fu+ur/+VH+uB+rB+kv9tf5Wf6+H6uH6R/2z/lX/9h8M2H/+t++xkZHH1GPrcfX4ekI9sVapVetJ9eRarZ5ST62n1epjj/YF8MhZo30/vdasZ9Qza61au9apdWu9Wr+eVc+u59Rza4N6nv9gwJ7fvjesF9QLa6PauF5UL66X1EvrZfXyekVtUpvWZvVK/8GAbd6+x9UWNb4m1MSaVJNrSm1ZW9XU2rqm1Ta1bW3nPxiw7dv3DrVj7VQ71y61a+1Wu9cetWeN1ljtVXvX9JrhPxiwfdr3vjWzZtXsmlP71f51QB1YB9XBdUgdWnNrXh3mPxiww9v3/FpQC+uIOrKOqkW1uI6uY2pJLa1ltbxW1Er/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwCP8Fbz/4XQ==
+  </data>
+ </layer>
+ <objectgroup id="6" name="Door" offsetx="0.5" offsety="-1.25"/>
 </map>

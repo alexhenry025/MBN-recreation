@@ -1,1 +1,1 @@
-Assets/Maps/Lan'sRoom.tmx, Assets/Maps/LivingRoom.tmx, Assets/Maps/cyber.tmx, Assets/Maps/Shop.tmx
+Assets/Maps/Lan'sRoom.tmx, Assets/Maps/LivingRoom.tmx, Assets/Maps/cyber.tmx, Assets/Maps/Shop.tmx, Assets/Maps/school.tmx

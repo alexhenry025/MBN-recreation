@@ -12,6 +12,7 @@ public class WorldContactListener implements ContactListener {
     public WorldContactListener(){
         obj = new ArrayList<Fixture>(); // make a new one for each map
     }
+    public static boolean coll = false;
 
     @Override
     public void beginContact(Contact contact) {
@@ -23,21 +24,20 @@ public class WorldContactListener implements ContactListener {
                 new Fadeout_timer(1); // delay for a second
             }
             if(contact.getFixtureB().getUserData().getClass() == NPC.class){
-                obj.add(contact.getFixtureB());
-                System.out.println("Hi lan ");
+                //obj.add(contact.getFixtureB());;
+                coll = true;
             }
         }
-
-
         Main.objs = obj; // update the obj arraylist in the main for changing the map
     }
 
-
     @Override
     public void endContact(Contact contact) {
-
         if(contact.getFixtureA().getUserData().equals("Player") && contact.getFixtureB().getUserData().getClass() == Door.class){
             obj.remove(contact.getFixtureB()); // after collision is done remove it so that map doesnt get confused when given multiple objects
+        }
+        if(contact.getFixtureA().getUserData().equals("Player") && contact.getFixtureB().getUserData().getClass() == NPC.class){
+            coll =false;
         }
         Main.objs = obj; // update the main one
     }
@@ -45,7 +45,6 @@ public class WorldContactListener implements ContactListener {
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
     }
-
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 

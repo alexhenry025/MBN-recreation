@@ -10,8 +10,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -19,9 +21,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.*;
 
+
 public class Main extends ApplicationAdapter {
     static SpriteBatch batch;
-    static final float PPM = 0.3f;
     static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6 , SE = 7;// variable for player direction
     static OrthographicCamera camera; // creating camera
     static int moves1, Map_Counter = 0, SpawnCount;// counter for maps , this would be = to the level of the map
@@ -40,6 +42,8 @@ public class Main extends ApplicationAdapter {
     static World world;
     static Spawns spawns;
     static boolean animation, destroyed = true;// booleans used to indicate animation change and object distruction
+    public static com.badlogic.gdx.math.Rectangle rect;
+    public static ShapeRenderer shapeRenderer;
 
     static boolean collide = false;
     @Override
@@ -51,15 +55,15 @@ public class Main extends ApplicationAdapter {
         player = new Player();
         levels = new Levels();
         Maps = new ArrayList<String>();
+        shapeRenderer = new ShapeRenderer();
         File_Reading();
         b2dr = new Box2DDebugRenderer();// variable used to render the collision boxes. used for testing purposes.
         menu = new Menu();
-        //display = new Display();
         keys = new Keyboard_Input();
         spawns = new Spawns();
         levels.CreateMap(Maps.get(Map_Counter), 90, 60);//create a map depending on what level we are on
-    }
 
+    }
     private void File_Reading(){ // used for loading in map locations from a file
         FileHandle file = Gdx.files.internal("Assets/Maps.txt");
         String[] text = file.readString().split(", ");
@@ -72,7 +76,6 @@ public class Main extends ApplicationAdapter {
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
         if (Game.equals("level1")){
-            //System.out.println("\n" + player.getX() + ", " +  player.getY() + "\n");
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
                 for (Body i : bodiesToDestroy) {
@@ -84,8 +87,6 @@ public class Main extends ApplicationAdapter {
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
             levels.Level1(camera,renderer,batch);// render the first level
             b2dr.render(world,camera.combined);
-
-
             batch.begin();
             update();
             //display.update();
@@ -93,18 +94,27 @@ public class Main extends ApplicationAdapter {
             if(Map_Counter > 1){ // since Lan's room doesn't have layers being added after make it for counter > 0
                 renderer.getBatch().begin();
                 renderer.renderTileLayer(Building);
-                for(int i = 0; i < WorldCreator.npc.size(); i ++) {
-                    if (Distance(player.body.getPosition().x, WorldCreator.npc.get(i).getX() * PPM, player.body.getPosition().y, WorldCreator.npc.get(i).getY() * PPM) < 10) {
-                        int index = i;
-                        if (player.body.getPosition().y > WorldCreator.npc.get(index).getY() * PPM) {
-                            System.out.println("NOW IM SUPER RACIST");
-                            renderer.renderTileLayer(NPC);
-                        }
-                    }
-                }
+
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+                rect = new Rectangle(player.body.getPosition().x,player.body.getPosition().y,20,10);
+                shapeRenderer.setColor(1, 1, 0, 1);
+                shapeRenderer.line(80,20,30,40);
+                shapeRenderer.rect(player.body.getPosition().x,player.body.getPosition().y,20 * (float) Math.pow(categories.PPM, 2),10 * (float) Math.pow(categories.PPM, 2));
+                shapeRenderer.end();
+
                 renderer.getBatch().end();
+
+
             }
             move();
+            renderer.getBatch().begin();
+            for(int i =0; i<WorldCreator.npc_rect.size();i++){//run a loop that checks if the player rect is overlaping
+                //the NPC's rect
+                if(player.getRect().overlaps(WorldCreator.npc_rect.get(i))){
+                    renderer.renderTileLayer(NPC);
+                }
+            }
+            renderer.getBatch().end();
             levels.ChangeMap();
         }
     }
@@ -114,10 +124,7 @@ public class Main extends ApplicationAdapter {
 
     double Distance(float x1, float x2, float y1, float y2){
         return Math.sqrt(Math.abs(Math.pow((double)(x2 - x1),2)) + Math.abs(Math.pow((double)(y2 - y1),2)));
-
-
     }
-
     private void move() {
 //      p.body.setLinearVelocity(0, 0);
         keys.Player_Keys(); // calls the player keys method in the keyboard input class
@@ -130,5 +137,6 @@ public class Main extends ApplicationAdapter {
     public void dispose () {
         batch.dispose();
         renderer.dispose();
+        //shapeRenderer.dispose();
     }
 }

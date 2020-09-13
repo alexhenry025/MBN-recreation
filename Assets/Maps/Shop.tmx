@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="200" height="200" tilewidth="3" tileheight="2" infinite="0" nextlayerid="20" nextobjectid="17">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="200" height="200" tilewidth="3" tileheight="2" infinite="0" nextlayerid="20" nextobjectid="19">
  <tileset firstgid="1" source="Shop/Shop.tsx"/>
  <layer id="11" name="Background" width="200" height="200">
   <data encoding="base64" compression="zlib">
@@ -15,13 +15,6 @@
   <object id="9" x="358.667" y="285.333">
    <polyline points="0,0 -74.6667,38 -193.167,-17.75 -163.583,-34 -147.667,-29.6667 -147,-38 -149.667,-40.6667 -157.333,-37 -216.667,-64.6667 -155.333,-94.6667 -59.3333,-45.3333 20,-86.6667 96,-49.3333 66,-31.3333"/>
   </object>
- </objectgroup>
- <layer id="13" name="Tile Layer 3" width="200" height="200" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
-  </data>
- </layer>
- <objectgroup id="5" name="Door" offsetx="31.5" offsety="11">
   <object id="1" name="Door" type="2" x="387.145" y="288.535" width="71.4315" height="5.60384">
    <properties>
     <property name="Angle" type="float" value="-27.91"/>
@@ -32,5 +25,17 @@
     <property name="y_d" type="int" value="100"/>
    </properties>
   </object>
+  <object id="17" x="358.25" y="284.5">
+   <polyline points="0,0 29.5,15.5"/>
+  </object>
+  <object id="18" x="424.75" y="254.25">
+   <polyline points="0,0 25.75,12.75"/>
+  </object>
  </objectgroup>
+ <layer id="13" name="Tile Layer 3" width="200" height="200" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
+  </data>
+ </layer>
+ <objectgroup id="5" name="Door" offsetx="31.5" offsety="11"/>
 </map>

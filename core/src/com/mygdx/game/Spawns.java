@@ -17,9 +17,7 @@ class Spawns {
 
     Spawns(){
         FileReader(); // call file reader to load in values
-
     }
-
     private void FileReader(){
         FileHandle file = Gdx.files.internal("Assets/SpawnBoxes.dat"); // this can be found in the assets folder
         String [] text = file.readString().split("\n");
@@ -35,19 +33,15 @@ class Spawns {
             }
         }
     }
-
     ArrayList<Integer> getSpawns_x(){
         return Spawns_x;
     }
-
     ArrayList<Integer> getSpawns_y(){
         return Spawns_y;
     }
-
     int getSpawnCounter(){
         return SpawnCounter;
     }
-
     void setSpawnCounter(int x){
         this.SpawnCounter = x;
     }

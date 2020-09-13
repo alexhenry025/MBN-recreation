@@ -7,10 +7,12 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 public class Levels {
@@ -21,6 +23,8 @@ public class Levels {
     public Levels(){
         sound =  new audio();
     }
+    public static com.badlogic.gdx.math.Rectangle rect;
+    public static com.badlogic.gdx.graphics.glutils.ShapeRenderer shapeRenderer;
 
     void Level1(OrthographicCamera camera, OrthogonalTiledMapRenderer renderer, Batch batch){//method used to update camera and change maps relative to the camera
         camera.zoom = 0.08f;
@@ -32,8 +36,7 @@ public class Levels {
     void CreateMap(String type, int x, int y) { // A function / Method that is used to create a new map
         TmxMapLoader loader = new TmxMapLoader();
         TiledMap map = loader.load(type);
-        Main.renderer = new OrthogonalTiledMapRenderer(map, Main.PPM);
-
+        Main.renderer = new OrthogonalTiledMapRenderer(map, categories.PPM);
         if (wc != null) {// if there are still bodies currently in the world , destroy them
             Main.bodiesToDestroy = wc.getToBeDestroyed();
             Main.destroyed = false;
@@ -55,10 +58,7 @@ public class Levels {
         for (Fixture i : Main.objs) { // iterates all the objects player is colliding with, also y destroy body is put in the beginning
             if(i.getUserData().getClass() == NPC.class){
                 NPC npc = (NPC) i.getUserData(); //gets the user data of each door
-                //System.out.println("Colliding with NPC #" + npc.npc + ", X:" + npc.rect.x + ", Y:" + npc.rect.y);
-
             }
-
             if (i.getUserData().getClass() == Door.class) { // if the object is a door
                 if(time == 1){
                     time = 0;
@@ -73,9 +73,6 @@ public class Levels {
                     CreateMap(Main.Maps.get(Main.Map_Counter), Main.spawns.getSpawns_x().get(Main.SpawnCount), Main.spawns.getSpawns_y().get(Main.SpawnCount)); // change the map and the players x,y
                     // get the correct index            gets the correct spawn x                  gets the correct spawn y
                 }
-
-
-
             }
         }
         if(fade_in){
@@ -86,6 +83,4 @@ public class Levels {
         }
         Main.batch.end();
     }
-
-
 }

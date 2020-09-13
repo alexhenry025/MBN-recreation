@@ -32,7 +32,6 @@ public class Door {
         this.angle = angle;
         this.sound = sound;
         this.change = change;
-
         System.out.println("creating doors");
         CreateBox2d();
     }
@@ -41,24 +40,15 @@ public class Door {
         BodyDef bdef = new BodyDef();
         FixtureDef def = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-
         bdef.type = BodyDef.BodyType.StaticBody;
         bdef.angle = -angle* MathUtils.degreesToRadians;
-
-        bdef.position.set(rect.getX() * Main.PPM + rect.getWidth() / 2 * Main.PPM, rect.getY() * Main.PPM + rect.getHeight() / 2 * Main.PPM);
-
+        bdef.position.set(rect.getX() * categories.PPM + rect.getWidth() / 2 * categories.PPM, rect.getY() * categories.PPM + rect.getHeight() / 2 * categories.PPM);
         body = Main.world.createBody(bdef);
-
-        shape.setAsBox(rect.getWidth() / 2 * Main.PPM, rect.getHeight() / 2 * Main.PPM);
-
+        shape.setAsBox(rect.getWidth() / 2 * categories.PPM, rect.getHeight() / 2 * categories.PPM);
         def.shape = shape;
-
         this.body.createFixture(def);
-
         this.body.getFixtureList().get(0).setUserData(this);
-
     }
-
     public Body getBody() {
         return body;
     }
