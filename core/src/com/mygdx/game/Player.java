@@ -8,6 +8,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -18,15 +20,19 @@ class Player {
     static ArrayList<Texture> tmp;
     private static ArrayList<ArrayList<Texture>> sprites = new ArrayList<ArrayList<Texture>>();
     public static com.badlogic.gdx.math.Rectangle rectp;
-    Body body;
+    public static Body body;
     static int frames = 0;
     private int t = 0;
     private int [] open_list = new int [] {8,8,8,8,8,8,8,8};
+    public static ShapeRenderer shapeRenderer;
+    public static com.badlogic.gdx.math.Rectangle rect;
+
 
     Player(){
         Lan = new Sprite();
         Load();
         createbody(categories.Category_PLAYER,categories.Category_NPC,(short)0);
+
     }
     private void render(SpriteBatch batch){
         Lan.setPosition(96,58);
@@ -82,6 +88,7 @@ class Player {
         fixtureDef.filter.categoryBits= c_bits;
         fixtureDef.filter.maskBits = m_bits;
         fixtureDef.filter.groupIndex = g_index;
+
     }
 
     void update(SpriteBatch batch){// update method which updates the players frame relative to its movement
@@ -137,7 +144,8 @@ class Player {
         return body;
     }
     Rectangle getRect(){
-        return new Rectangle(body.getPosition().x - 27 * (float) Math.pow(categories.PPM,2),body.getPosition().y - 15 * (float) Math.pow(categories.PPM, 2),20,10);
+        System.out.println(body.getPosition().y);
+        return new Rectangle(body.getPosition().x - 27 * (float) Math.pow(categories.PPM,2),body.getPosition().y  ,20,5);
     }
 }
 

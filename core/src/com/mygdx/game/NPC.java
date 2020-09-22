@@ -40,6 +40,8 @@ public class NPC {
     public float getX(){return X;}
     public float getY(){return Y;}
     public static Rectangle getRect(){
+        System.out.println("NPC RECT Y POS " +body.getPosition().y);
+
         return new Rectangle(body.getPosition().x,body.getPosition().y,rect.getWidth()/2*categories.PPM,rect.getHeight()/2*categories.PPM);
     }
 

@@ -87,9 +87,19 @@ public class Main extends ApplicationAdapter {
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
             levels.Level1(camera,renderer,batch);// render the first level
             b2dr.render(world,camera.combined);
+            renderer.getBatch().begin();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            rect = new Rectangle(Player.body.getPosition().x,Player.body.getPosition().y,20,10);
+            shapeRenderer.setColor(1, 1, 0, 1);
+            shapeRenderer.line(80,20,30,40);
+            shapeRenderer.rect(Player.body.getPosition().x,Player.body.getPosition().y,50,30);
+            shapeRenderer.end();
+
+            renderer.getBatch().end();
             batch.begin();
             update();
             //display.update();
+
             batch.end();
             if(Map_Counter > 1){ // since Lan's room doesn't have layers being added after make it for counter > 0
                 renderer.getBatch().begin();
@@ -99,17 +109,17 @@ public class Main extends ApplicationAdapter {
                 rect = new Rectangle(player.body.getPosition().x,player.body.getPosition().y,20,10);
                 shapeRenderer.setColor(1, 1, 0, 1);
                 shapeRenderer.line(80,20,30,40);
-                shapeRenderer.rect(player.body.getPosition().x,player.body.getPosition().y,20 * (float) Math.pow(categories.PPM, 2),10 * (float) Math.pow(categories.PPM, 2));
+                shapeRenderer.rect(player.body.getPosition().x- 27 * (float) Math.pow(categories.PPM,2),player.body.getPosition().y- 15 * (float) Math.pow(categories.PPM, 2),50,30);
                 shapeRenderer.end();
-
                 renderer.getBatch().end();
-
 
             }
             move();
             renderer.getBatch().begin();
             for(int i =0; i<WorldCreator.npc_rect.size();i++){//run a loop that checks if the player rect is overlaping
                 //the NPC's rect
+                System.out.println("NPC RECT Y"+WorldCreator.npc_rect.get(8).y);
+                System.out.println("PLAYER RECT Y "+player.getRect().y);
                 if(player.getRect().overlaps(WorldCreator.npc_rect.get(i))){
                     renderer.renderTileLayer(NPC);
                 }
