@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+
 import java.util.ArrayList;
 
 class Intro_Animations {
@@ -21,29 +22,29 @@ class Intro_Animations {
     private Stage stage;
     public static float alpha = 1;
 
-    Intro_Animations(String type, int size){
+    Intro_Animations(String type, int size) {
         stage = new Stage();
         sprite = new Sprite();
         Texture = new ArrayList<Texture>();
         Sprites = new ArrayList<ArrayList<Texture>>();
-        load(type,size);
+        load(type, size);
 
     }
 
-    private void load(String type, int size){
-        for(int i = 0; i < size; i ++){
+    private void load(String type, int size) {
+        for (int i = 0; i < size; i++) {
             Texture.add(new Texture(type + i + ".png"));
         }
         Sprites.add(Texture);
     }
 
-    public int Animation(int timer_MAX, int frame_MAX){
-        if(timer < timer_MAX){
-            timer ++;
-            if(timer == timer_MAX){
-                if(frame < frame_MAX){
-                    frame ++;
-                    if(frame == frame_MAX){
+    public int Animation(int timer_MAX, int frame_MAX) {
+        if (timer < timer_MAX) {
+            timer++;
+            if (timer == timer_MAX) {
+                if (frame < frame_MAX) {
+                    frame++;
+                    if (frame == frame_MAX) {
                         frame = 0;
                         Menu.change = true;
 
@@ -56,7 +57,7 @@ class Intro_Animations {
         return frame;
     }
 
-    void update(SpriteBatch batch, int timer_MAX, int frame_MAX){
+    void update(SpriteBatch batch, int timer_MAX, int frame_MAX) {
         stage.addAction(Actions.fadeOut(1));
         //System.out.println("FAAADE");
         Animation(timer_MAX, frame_MAX);
@@ -64,9 +65,9 @@ class Intro_Animations {
         render(batch);
     }
 
-    private void render(SpriteBatch batch){
-        sprite.setPosition(0,0);
-        sprite.draw(batch,alpha);
+    private void render(SpriteBatch batch) {
+        sprite.setPosition(0, 0);
+        sprite.draw(batch, alpha);
     }
 
 

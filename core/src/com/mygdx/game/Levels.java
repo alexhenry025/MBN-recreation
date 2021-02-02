@@ -5,6 +5,7 @@
  */
 
 package com.mygdx.game;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -20,19 +21,22 @@ public class Levels {
     static boolean fade_out = false, fade_in = false; // booleans for fade in and fade out animations
     private audio sound;
     static int time = 0;
-    public Levels(){
-        sound =  new audio();
+
+    public Levels() {
+        sound = new audio();
     }
+
     public static com.badlogic.gdx.math.Rectangle rect;
     public static com.badlogic.gdx.graphics.glutils.ShapeRenderer shapeRenderer;
 
-    void Level1(OrthographicCamera camera, OrthogonalTiledMapRenderer renderer, Batch batch){//method used to update camera and change maps relative to the camera
+    void Level1(OrthographicCamera camera, OrthogonalTiledMapRenderer renderer, Batch batch) {//method used to update camera and change maps relative to the camera
         camera.zoom = 0.08f;
         camera.update();
         renderer.setView(Main.camera);
         renderer.render();
         batch.setProjectionMatrix(Main.camera.combined);
     }
+
     void CreateMap(String type, int x, int y) { // A function / Method that is used to create a new map
         TmxMapLoader loader = new TmxMapLoader();
         TiledMap map = loader.load(type);
@@ -49,21 +53,21 @@ public class Levels {
         Main.NPC = (TiledMapTileLayer) map.getLayers().get("Top_Layer");
     }
 
-    void ChangeMap(){
-        if(Main.Map_Counter == 0){
+    void ChangeMap() {
+        if (Main.Map_Counter == 0) {
             sound.sounds.get(1).play();
         }
         Main.batch.begin();
         //Main.display.update();
         for (Fixture i : Main.objs) { // iterates all the objects player is colliding with, also y destroy body is put in the beginning
-            if(i.getUserData().getClass() == NPC.class){
+            if (i.getUserData().getClass() == NPC.class) {
                 NPC npc = (NPC) i.getUserData(); //gets the user data of each door
             }
             if (i.getUserData().getClass() == Door.class) { // if the object is a door
-                if(time == 1){
+                if (time == 1) {
                     time = 0;
                     Door door = (Door) i.getUserData(); //gets the user data of each door
-                    if(door.change){
+                    if (door.change) {
                         sound.stop();
                         sound.play(door.sound);
                     }
@@ -75,10 +79,10 @@ public class Levels {
                 }
             }
         }
-        if(fade_in){
+        if (fade_in) {
             Fade_Animation.Fadein(Main.batch); // this will call the fade in animation function
         }
-        if(fade_out){
+        if (fade_out) {
             Fade_Animation.Fadeout(Main.batch); // this will call the fade out animation function
         }
         Main.batch.end();

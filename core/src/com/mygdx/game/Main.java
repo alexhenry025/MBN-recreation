@@ -4,6 +4,7 @@
  * Megaman Battle Network 6
  */
 package com.mygdx.game;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -19,12 +20,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+
 import java.util.*;
 
 
 public class Main extends ApplicationAdapter {
     static SpriteBatch batch;
-    static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6 , SE = 7;// variable for player direction
+    static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6, SE = 7;// variable for player direction
     static OrthographicCamera camera; // creating camera
     static int moves1, Map_Counter = 0, SpawnCount;// counter for maps , this would be = to the level of the map
     static String Game = "Intro_1";
@@ -46,9 +48,10 @@ public class Main extends ApplicationAdapter {
     public static ShapeRenderer shapeRenderer;
 
     static boolean collide = false;
+
     @Override
     public void create() {// create method
-        world = new World(new Vector2(0,0),true); // creating new world , setting in the position
+        world = new World(new Vector2(0, 0), true); // creating new world , setting in the position
         world.setContactListener(new WorldContactListener());
         batch = new SpriteBatch();
         camera = new OrthographicCamera(720f, 480f);// camera created with respect to screen resolution
@@ -64,18 +67,20 @@ public class Main extends ApplicationAdapter {
         levels.CreateMap(Maps.get(Map_Counter), 90, 60);//create a map depending on what level we are on
 
     }
-    private void File_Reading(){ // used for loading in map locations from a file
+
+    private void File_Reading() { // used for loading in map locations from a file
         FileHandle file = Gdx.files.internal("Assets/Maps.txt");
         String[] text = file.readString().split(", ");
         for (int i = 0; i < text.length; i++) {
             Collections.addAll(Maps, text[i]);
         }
     }
+
     @Override
     public void render() {
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
-        if (Game.equals("level1")){
+        if (Game.equals("level1")) {
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
                 for (Body i : bodiesToDestroy) {
@@ -85,14 +90,14 @@ public class Main extends ApplicationAdapter {
             }
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear the screen
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
-            levels.Level1(camera,renderer,batch);// render the first level
-            b2dr.render(world,camera.combined);
+            levels.Level1(camera, renderer, batch);// render the first level
+            b2dr.render(world, camera.combined);
             renderer.getBatch().begin();
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            rect = new Rectangle(Player.body.getPosition().x,Player.body.getPosition().y,20,10);
+            rect = new Rectangle(Player.body.getPosition().x, Player.body.getPosition().y, 20, 10);
             shapeRenderer.setColor(1, 1, 0, 1);
-            shapeRenderer.line(80,20,30,40);
-            shapeRenderer.rect(Player.body.getPosition().x,Player.body.getPosition().y,50,30);
+            shapeRenderer.line(80, 20, 30, 40);
+            shapeRenderer.rect(Player.body.getPosition().x, Player.body.getPosition().y, 50, 30);
             shapeRenderer.end();
 
             renderer.getBatch().end();
@@ -101,26 +106,26 @@ public class Main extends ApplicationAdapter {
             //display.update();
 
             batch.end();
-            if(Map_Counter > 1){ // since Lan's room doesn't have layers being added after make it for counter > 0
+            if (Map_Counter > 1) { // since Lan's room doesn't have layers being added after make it for counter > 0
                 renderer.getBatch().begin();
                 renderer.renderTileLayer(Building);
 
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                rect = new Rectangle(player.body.getPosition().x,player.body.getPosition().y,20,10);
+                rect = new Rectangle(player.body.getPosition().x, player.body.getPosition().y, 20, 10);
                 shapeRenderer.setColor(1, 1, 0, 1);
-                shapeRenderer.line(80,20,30,40);
-                shapeRenderer.rect(player.body.getPosition().x- 27 * (float) Math.pow(categories.PPM,2),player.body.getPosition().y- 15 * (float) Math.pow(categories.PPM, 2),50,30);
+                shapeRenderer.line(80, 20, 30, 40);
+                shapeRenderer.rect(player.body.getPosition().x - 27 * (float) Math.pow(categories.PPM, 2), player.body.getPosition().y - 15 * (float) Math.pow(categories.PPM, 2), 50, 30);
                 shapeRenderer.end();
                 renderer.getBatch().end();
 
             }
             move();
             renderer.getBatch().begin();
-            for(int i =0; i<WorldCreator.npc_rect.size();i++){//run a loop that checks if the player rect is overlaping
+            for (int i = 0; i < WorldCreator.npc_rect.size(); i++) {//run a loop that checks if the player rect is overlaping
                 //the NPC's rect
-                System.out.println("NPC RECT Y"+WorldCreator.npc_rect.get(8).y);
-                System.out.println("PLAYER RECT Y "+player.getRect().y);
-                if(player.getRect().overlaps(WorldCreator.npc_rect.get(i))){
+                System.out.println("NPC RECT Y" + WorldCreator.npc_rect.get(8).y);
+                System.out.println("PLAYER RECT Y " + player.getRect().y);
+                if (player.getRect().overlaps(WorldCreator.npc_rect.get(i))) {
                     renderer.renderTileLayer(NPC);
                 }
             }
@@ -128,23 +133,26 @@ public class Main extends ApplicationAdapter {
             levels.ChangeMap();
         }
     }
-    private void update(){
+
+    private void update() {
         player.update(batch); // updates the players x y coordinates etc
     }
 
-    double Distance(float x1, float x2, float y1, float y2){
-        return Math.sqrt(Math.abs(Math.pow((double)(x2 - x1),2)) + Math.abs(Math.pow((double)(y2 - y1),2)));
+    double Distance(float x1, float x2, float y1, float y2) {
+        return Math.sqrt(Math.abs(Math.pow((double) (x2 - x1), 2)) + Math.abs(Math.pow((double) (y2 - y1), 2)));
     }
+
     private void move() {
 //      p.body.setLinearVelocity(0, 0);
         keys.Player_Keys(); // calls the player keys method in the keyboard input class
-	    player.setX(player.body.getPosition().x); // set the pos of player sprite to player body
-	    player.setY(player.body.getPosition().y); // ser the pos of player sprite to player body
-	    camera.position.x = player.getX(); // camera follows players x
-	    camera.position.y = player.getY(); // camera follows players y
+        player.setX(player.body.getPosition().x); // set the pos of player sprite to player body
+        player.setY(player.body.getPosition().y); // ser the pos of player sprite to player body
+        camera.position.x = player.getX(); // camera follows players x
+        camera.position.y = player.getY(); // camera follows players y
     }
+
     @Override
-    public void dispose () {
+    public void dispose() {
         batch.dispose();
         renderer.dispose();
         //shapeRenderer.dispose();

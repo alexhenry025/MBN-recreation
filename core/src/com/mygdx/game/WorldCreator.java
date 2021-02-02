@@ -5,6 +5,7 @@
  */
 
 package com.mygdx.game;
+
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -12,27 +13,28 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+
 import java.util.ArrayList;
 
-class WorldCreator{
+class WorldCreator {
     private Body body;
     public BodyDef bdef = new BodyDef();
     public FixtureDef fdef = new FixtureDef();
     public PolygonShape shape = new PolygonShape();
     public static ArrayList<Door> door; // this is an object Array list for doors makes all the doors and also handles map change
     private ArrayList<Body> Wall; // this is an object array list that contains all bodies for wall collision
-    public static ArrayList<NPC>npc;
+    public static ArrayList<NPC> npc;
     public static com.badlogic.gdx.math.Rectangle rect;
     public static com.badlogic.gdx.graphics.glutils.ShapeRenderer shapeRenderer;
-    boolean hit_detection ;
+    boolean hit_detection;
     public static ArrayList<Rectangle> npc_rect = new ArrayList<Rectangle>();
     private ArrayList<Body> toBeDestroyed = new ArrayList<Body>();
 
-    public WorldCreator(World world, TiledMap map){
+    public WorldCreator(World world, TiledMap map) {
         door = new ArrayList<Door>(); // make a new one every time a new map loads
         Wall = new ArrayList<Body>(); // make a new one every time a new map loads
         npc = new ArrayList<NPC>();//this is a list of all the NPC is the current map
-        for(int i = 0; i < map.getLayers().getCount(); i ++) { // iterate through all the objects in the map
+        for (int i = 0; i < map.getLayers().getCount(); i++) { // iterate through all the objects in the map
             for (MapObject obj : map.getLayers().get(i).getObjects()) { // check all the objects in the map
                 if (obj instanceof PolylineMapObject) { // if an object is polyline type
                     Shape shape;
@@ -53,13 +55,13 @@ class WorldCreator{
                     fdef.shape = shape;
                     if (obj.getName().equals("Door")) { // if the object name is door
                         // make a new door and add it to the list
-                        door.add(new Door(rect, (String) obj.getProperties().get("type"), (Integer) (obj.getProperties().get("x_d")), (Integer) (obj.getProperties().get("y_d")), (Integer) (obj.getProperties().get("SpawnLoc")), (Float)obj.getProperties().get("Angle"), (Integer) obj.getProperties().get("Sound"), (Boolean) obj.getProperties().get("Change_sound")));
+                        door.add(new Door(rect, (String) obj.getProperties().get("type"), (Integer) (obj.getProperties().get("x_d")), (Integer) (obj.getProperties().get("y_d")), (Integer) (obj.getProperties().get("SpawnLoc")), (Float) obj.getProperties().get("Angle"), (Integer) obj.getProperties().get("Sound"), (Boolean) obj.getProperties().get("Change_sound")));
                         for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
                             f.setUserData(1);
                         }
                     }
                     if (obj.getName().equals("NPC")) {
-                        npc.add(new NPC(rect,((RectangleMapObject) obj).getRectangle().getX(), ((RectangleMapObject) obj).getRectangle().getY(), (Integer) obj.getProperties().get("NPC")));
+                        npc.add(new NPC(rect, ((RectangleMapObject) obj).getRectangle().getX(), ((RectangleMapObject) obj).getRectangle().getY(), (Integer) obj.getProperties().get("NPC")));
                         npc_rect.add(NPC.getRect());//add the created NPC rect's in an object Arraylist.
                         for (Fixture f : body.getFixtureList()) { // add the door's fixture used for collision to the fixture list
                             f.setUserData(2);
@@ -71,17 +73,14 @@ class WorldCreator{
         }
 
 
-
-
-
     }
 
-    private static ChainShape createPolyline(PolylineMapObject polyline){ // method that creates the polyline objects
+    private static ChainShape createPolyline(PolylineMapObject polyline) { // method that creates the polyline objects
 
-        float [] vertices = polyline.getPolyline().getTransformedVertices();
-        Vector2[] worldverticies = new Vector2[vertices.length/2];
+        float[] vertices = polyline.getPolyline().getTransformedVertices();
+        Vector2[] worldverticies = new Vector2[vertices.length / 2];
 
-        for(int i = 0; i < worldverticies.length; i ++){
+        for (int i = 0; i < worldverticies.length; i++) {
             worldverticies[i] = new Vector2(vertices[i * 2] * categories.PPM, vertices[i * 2 + 1] * categories.PPM);
         }
         ChainShape cs = new ChainShape();
@@ -93,7 +92,7 @@ class WorldCreator{
 
         toBeDestroyed = new ArrayList<Body>();
         for (Body i : Wall) toBeDestroyed.add(i);
-        for(Door i : door) toBeDestroyed.add(i.body);
+        for (Door i : door) toBeDestroyed.add(i.body);
         //for(NPC i : npc) toBeDestroyed.add(i.body);
         return toBeDestroyed;
     }

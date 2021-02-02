@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 public class Display {
     static SpriteBatch batch;
-    Sprite b ;
+    Sprite b;
     private ArrayList<Texture> Texture;
     private ArrayList<ArrayList<Texture>> Sprites;
 
 
-    public Display(){
-        b= new Sprite();
+    public Display() {
+        b = new Sprite();
         batch = new SpriteBatch();
         Texture = new ArrayList<Texture>();
         Sprites = new ArrayList<ArrayList<Texture>>();
@@ -24,12 +24,14 @@ public class Display {
 
 
     }
-    public void update(){
+
+    public void update() {
         b.set(new Sprite(Sprites.get(0).get(0)));
         render(Main.batch);
     }
-    public void render(SpriteBatch batch){
-        b.setPosition(Main.player.getX()-35,Main.player.getY()-24);
+
+    public void render(SpriteBatch batch) {
+        b.setPosition(Main.player.getX() - 35, Main.player.getY() - 24);
         b.draw(batch);
     }
 
