@@ -7,10 +7,14 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -20,12 +24,15 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import sun.font.TrueTypeFont;
+
 
 import java.util.*;
 
 
 public class Main extends ApplicationAdapter {
     static SpriteBatch batch;
+    private BitmapFont font;
     static final int UP = 0, Down = 1, Left = 2, Right = 3, NW = 4, SW = 5, NE = 6, SE = 7;// variable for player direction
     static OrthographicCamera camera; // creating camera
     static int moves1, Map_Counter = 0, SpawnCount;// counter for maps , this would be = to the level of the map
@@ -46,8 +53,12 @@ public class Main extends ApplicationAdapter {
     static boolean animation, destroyed = true;// booleans used to indicate animation change and object distruction
     public static com.badlogic.gdx.math.Rectangle rect;
     public static ShapeRenderer shapeRenderer;
+    public static final String CHAR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.;,{}\\\"´`'<>\"";
 
     static boolean collide = false;
+    private Font fontmaker ;
+
+
 
     @Override
     public void create() {// create method
@@ -65,6 +76,8 @@ public class Main extends ApplicationAdapter {
         keys = new Keyboard_Input();
         spawns = new Spawns();
         levels.CreateMap(Maps.get(Map_Counter), 90, 60);//create a map depending on what level we are on
+        fontmaker = new Font(100);
+
 
     }
 
@@ -81,6 +94,7 @@ public class Main extends ApplicationAdapter {
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
         if (Game.equals("level1")) {
+
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
             if (!destroyed) { // if not destroyed
                 for (Body i : bodiesToDestroy) {
@@ -102,6 +116,7 @@ public class Main extends ApplicationAdapter {
 
             renderer.getBatch().end();
             batch.begin();
+
             update();
             //display.update();
 
@@ -123,10 +138,14 @@ public class Main extends ApplicationAdapter {
             renderer.getBatch().begin();
             for (int i = 0; i < WorldCreator.npc_rect.size(); i++) {//run a loop that checks if the player rect is overlaping
                 //the NPC's rect
-                System.out.println("NPC RECT Y" + WorldCreator.npc_rect.get(8).y);
-                System.out.println("PLAYER RECT Y " + player.getRect().y);
+               // System.out.println("NPC RECT Y" + WorldCreator.npc_rect.get(8).y);
+               // System.out.println("PLAYER RECT Y " + player.getRect().y);
                 if (player.getRect().overlaps(WorldCreator.npc_rect.get(i))) {
                     renderer.renderTileLayer(NPC);
+                    if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+                        System.out.println();
+                        fontmaker.render("hello lan",player.getX(),player.getY());
+                    }
                 }
             }
             renderer.getBatch().end();

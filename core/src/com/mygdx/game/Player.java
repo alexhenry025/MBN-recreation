@@ -144,7 +144,7 @@ class Player {
     }
 
     Rectangle getRect() {
-        System.out.println(body.getPosition().y);
+        //System.out.println(body.getPosition().y);
         return new Rectangle(body.getPosition().x - 27 * (float) Math.pow(categories.PPM, 2), body.getPosition().y, 20, 5);
     }
 }
