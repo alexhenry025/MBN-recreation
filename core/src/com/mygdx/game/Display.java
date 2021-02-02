@@ -21,18 +21,20 @@ public class Display {
         Sprites = new ArrayList<ArrayList<Texture>>();
         Texture.add(new Texture("Assets/Miscellaneous/box.png"));
         Sprites.add(Texture);
+        b.set(new Sprite(Sprites.get(0).get(0)));
 
 
     }
 
     public void update() {
-        b.set(new Sprite(Sprites.get(0).get(0)));
-        render(Main.batch);
+
     }
 
-    public void render(SpriteBatch batch) {
-        b.setPosition(Main.player.getX() - 35, Main.player.getY() - 24);
+    public void render() {
+        batch.begin();
+        b.setPosition(0, Main.player.getY() - 150);
         b.draw(batch);
+        batch.end();
     }
 
 }

@@ -56,8 +56,8 @@ public class Main extends ApplicationAdapter {
     public static final String CHAR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.;,{}\\\"´`'<>\"";
 
     static boolean collide = false;
-    private Font fontmaker ;
-
+    private Font fontmaker;
+    Display dis;
 
 
     @Override
@@ -76,7 +76,8 @@ public class Main extends ApplicationAdapter {
         keys = new Keyboard_Input();
         spawns = new Spawns();
         levels.CreateMap(Maps.get(Map_Counter), 90, 60);//create a map depending on what level we are on
-        fontmaker = new Font(100);
+        fontmaker = new Font(15);
+        dis = new Display();
 
 
     }
@@ -124,7 +125,6 @@ public class Main extends ApplicationAdapter {
             if (Map_Counter > 1) { // since Lan's room doesn't have layers being added after make it for counter > 0
                 renderer.getBatch().begin();
                 renderer.renderTileLayer(Building);
-
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 rect = new Rectangle(player.body.getPosition().x, player.body.getPosition().y, 20, 10);
                 shapeRenderer.setColor(1, 1, 0, 1);
@@ -138,13 +138,15 @@ public class Main extends ApplicationAdapter {
             renderer.getBatch().begin();
             for (int i = 0; i < WorldCreator.npc_rect.size(); i++) {//run a loop that checks if the player rect is overlaping
                 //the NPC's rect
-               // System.out.println("NPC RECT Y" + WorldCreator.npc_rect.get(8).y);
-               // System.out.println("PLAYER RECT Y " + player.getRect().y);
+                // System.out.println("NPC RECT Y" + WorldCreator.npc_rect.get(8).y);
+                // System.out.println("PLAYER RECT Y " + player.getRect().y);
                 if (player.getRect().overlaps(WorldCreator.npc_rect.get(i))) {
                     renderer.renderTileLayer(NPC);
-                    if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+                    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                         System.out.println();
-                        fontmaker.render("hello lan",player.getX(),player.getY());
+                        dis.render();
+                        fontmaker.render("Good morning Lan, how has your day been?", 150, 122);
+
                     }
                 }
             }

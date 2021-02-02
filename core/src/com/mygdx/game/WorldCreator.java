@@ -25,8 +25,6 @@ class WorldCreator {
     private ArrayList<Body> Wall; // this is an object array list that contains all bodies for wall collision
     public static ArrayList<NPC> npc;
     public static com.badlogic.gdx.math.Rectangle rect;
-    public static com.badlogic.gdx.graphics.glutils.ShapeRenderer shapeRenderer;
-    boolean hit_detection;
     public static ArrayList<Rectangle> npc_rect = new ArrayList<Rectangle>();
     private ArrayList<Body> toBeDestroyed = new ArrayList<Body>();
 
@@ -71,8 +69,6 @@ class WorldCreator {
                 }
             }
         }
-
-
     }
 
     private static ChainShape createPolyline(PolylineMapObject polyline) { // method that creates the polyline objects
