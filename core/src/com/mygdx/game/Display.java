@@ -9,32 +9,28 @@ import java.util.ArrayList;
 
 public class Display {
     static SpriteBatch batch;
-    Sprite b;
+    Sprite b ;
     private ArrayList<Texture> Texture;
     private ArrayList<ArrayList<Texture>> Sprites;
 
 
-    public Display() {
-        b = new Sprite();
+    public Display(){
+        b= new Sprite();
         batch = new SpriteBatch();
         Texture = new ArrayList<Texture>();
         Sprites = new ArrayList<ArrayList<Texture>>();
         Texture.add(new Texture("Assets/Miscellaneous/box.png"));
         Sprites.add(Texture);
+
+
+    }
+    public void update(){
         b.set(new Sprite(Sprites.get(0).get(0)));
-
-
+        render(Main.batch);
     }
-
-    public void update() {
-
-    }
-
-    public void render() {
-        batch.begin();
-        b.setPosition(0, Main.player.getY() - 150);
+    public void render(SpriteBatch batch){
+        b.setPosition(Main.player.getX()-35,Main.player.getY()-24);
         b.draw(batch);
-        batch.end();
     }
 
 }

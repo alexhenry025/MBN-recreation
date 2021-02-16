@@ -21,5 +21,7 @@ public class DesktopLauncher {
         config.title = "Mega Man Battle Network 6";
         config.addIcon("Assets/icon.png", Files.FileType.Internal);
         config.foregroundFPS = 60;
+        config.vSyncEnabled = true;
+        config.forceExit = true;
     }
 }

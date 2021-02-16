@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="left-up" width="20" height="20" tilewidth="30" tileheight="20" infinite="0" nextlayerid="18" nextobjectid="39">
- <tileset firstgid="1" source="lan's room.tsx"/>
- <tileset firstgid="81" name="LAN" tilewidth="30" tileheight="20" tilecount="440" columns="20">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-down" width="20" height="20" tilewidth="30" tileheight="20" infinite="0" nextlayerid="28" nextobjectid="46">
+ <tileset firstgid="1" name="LAN" tilewidth="30" tileheight="20" tilecount="440" columns="20">
   <image source="LAN.png" width="605" height="450"/>
  </tileset>
- <tileset firstgid="521" name="LansRoom_Grega" tilewidth="30" tileheight="20" tilecount="80" columns="8">
-  <image source="LansRoom_Grega.png" width="245" height="210"/>
- </tileset>
+ <tileset firstgid="441" source="Room/LansRoom_Grega.tsx"/>
  <layer id="1" name="Background" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzEdOggEUhdE/zBQb9l4QwS7FrohS7IoF1P2vxLMF3sSYcJMzvF+S9PcfNpBKkkHSDDHMCKOMpXrvZXzGmWCSKaaZYTbQm/OZZ4FFllhmhdVAb80nyzo5NshTYDPQ2/LZZodd9tjngGKgV/IpU+GQI4454TTQO/M554JLqlxR4zrQu/Gp06BJi1vuuA/0HnweeeKZF15p8xbovft88EmHLl988xPo9fc3+wUAJQ/J
+   eJztzOsyQmEAhtG9k3L/d1OUEhGSU0jIKYScKedWl9D3x5jpnVk/3yeKxvsPy8RRlGWaGXLkmaUQj94r+sxRYp4FyiyyFNCr+CyzwipV1qixHtDb8Nlki23q7LDLXkCv4bNPkwMOOaLFcUDvxOeUM85pc8ElVwG9js81N9zS5Y57HgJ6jz5PPPPCK2/06Af03n0++OSLb374HbYSo/dinwQTJJkkRZqpgN54f7MBoK09gg==
   </data>
  </layer>
  <layer id="2" name="Graphics" width="20" height="20">
@@ -17,40 +14,39 @@
    eJxjYBgFo2AUjIJRMApIBwAGQAAB
   </data>
  </layer>
- <objectgroup id="3" name="Wall">
-  <object id="33" x="302" y="286.75">
-   <polyline points="0,0 -110.5,-55.75"/>
-  </object>
-  <object id="34" x="206.25" y="237.75">
-   <polyline points="0,0 25.75,-13 36.25,-12.25 54.5,-21.25 54.5,-26.75 71.5,-35"/>
-  </object>
-  <object id="35" x="368.5" y="208">
-   <polyline points="0,0 -67.5,-34"/>
-  </object>
-  <object id="36" x="326.75" y="273.75">
-   <polyline points="0,0 87.75,-42.25"/>
-  </object>
-  <object id="37" x="364.5" y="208">
-   <polyline points="0,0 -35.5,17.25 -35.75,33.25 -3,48"/>
-  </object>
-  <object id="38" x="279.25" y="201.5">
-   <polyline points="0,0 -11.5,-9.5 21,-28.25"/>
-  </object>
-  <object id="25" name="Door" type="1" x="316.769" y="285.677" width="25.5" height="6.5">
-   <properties>
-    <property name="Angle" type="float" value="-33.11"/>
-    <property name="Change_sound" type="bool" value="false"/>
-    <property name="Sound" type="int" value="1"/>
-    <property name="SpawnLoc" type="int" value="1"/>
-    <property name="x_d" type="int" value="208"/>
-    <property name="y_d" type="int" value="240"/>
-   </properties>
-  </object>
- </objectgroup>
- <layer id="8" name="Tile Layer 3" width="20" height="20">
+ <layer id="24" name="Building" width="20" height="20">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMApIBwAGQAAB
   </data>
  </layer>
- <objectgroup id="11" name="Door"/>
+ <layer id="25" name="Top_Layer" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApIBwAGQAAB
+  </data>
+ </layer>
+ <objectgroup id="3" name="Wall">
+  <object id="42" name="Wall" x="361.818" y="252.545">
+   <polyline points="0,0 -36.5455,19.2727 -14.3636,31.8182"/>
+  </object>
+  <object id="43" name="Wall" x="324.182" y="296.182">
+   <polyline points="0,0 -119.455,-59.2727 -93.0909,-72.5455 -87.4545,-73.4545 -84.3636,-73.4545 -80,-75.0909 -76.1818,-76.5455 -72.3636,-77.8182 -67.2727,-80.9091 -66.1818,-84.7273 -65.4545,-86.7273 -46.9091,-94.3636 -46.9091,-112.182 -38.3636,-116.182 -34.1818,-113.273 -18.3636,-120.545 54.9091,-82.7273"/>
+  </object>
+  <object id="45" name="Wall" x="365.364" y="206.545">
+   <polyline points="0,0 -37.4545,16.6364 -36.9091,29.4545 -3.54545,45.9091"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="26" name="Filter"/>
+ <objectgroup id="27" name="NPC"/>
+ <objectgroup id="11" name="Door">
+  <object id="25" name="Door" type="1" x="324.822" y="288.458" width="23.8675" height="4.82878">
+   <properties>
+    <property name="Angle" type="float" value="-27.48"/>
+    <property name="Change_sound" type="bool" value="false"/>
+    <property name="Sound" type="int" value="1"/>
+    <property name="SpawnLoc" type="int" value="1"/>
+    <property name="x_d" type="int" value="318"/>
+    <property name="y_d" type="int" value="278"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
