@@ -147,7 +147,6 @@ class Player {
     }
 
     public Rectangle getRect() {
-        //System.out.println(body.getPosition().y);
         return new Rectangle(body.getPosition().x, body.getPosition().y, 20, 5);
     }
 }

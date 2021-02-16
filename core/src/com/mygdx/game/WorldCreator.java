@@ -129,7 +129,6 @@ class WorldCreator{
         float[] worldVertices = new float[vertices.length];
 
         for (int i = 0; i < vertices.length; ++i) {
-            System.out.println(vertices[i]);
             worldVertices[i] = vertices[i] / Main.PPM;
         }
 

@@ -16,7 +16,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.Objects.*;
 
 import java.util.*;
 
@@ -43,8 +42,6 @@ public class Main extends ApplicationAdapter {
     private Keyboard_Input keys;
     public static World world;
     private WorldCreator wc;
-
-    static String hello = "";
 
     @Override
     public void create() {// create method
@@ -76,8 +73,6 @@ public class Main extends ApplicationAdapter {
     public void render(){
         world.step(1 / 60f, 6, 2);// calculates the physics using box2D
         menu.render(batch);
-        System.out.println(bodiesToDestroy);
-        System.out.println(player.getX() + ", " + player.getY());
         if (Game.equals("level1")){
             //System.out.println("\n" + player.getX() + ", " +  player.getY() + "\n");
             //Destroying bodies when needed this is put in the beginning so that changing the map in the method move can be possible
@@ -90,7 +85,7 @@ public class Main extends ApplicationAdapter {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear the screen
             Gdx.gl.glClearColor(51 / 255f, 245 / 255f, 219 / 255f, 1); // make background blue
             maps.Camera(camera,renderer,batch);// render the first level
-            b2dr.render(world,camera.combined);
+//            b2dr.render(world,camera.combined);
             batch.begin();
             update();
             //display.update();
@@ -124,11 +119,6 @@ public class Main extends ApplicationAdapter {
         renderer.dispose();
         player.dispose();
         Fade_Animation.dispose();
-        world.dispose();
-        for(Body b : bodiesToDestroy){
-            world.destroyBody(b);
-        }
-        bodiesToDestroy.clear();
         objs.clear();
         maps.layers.clear();
         wc.dispose();
