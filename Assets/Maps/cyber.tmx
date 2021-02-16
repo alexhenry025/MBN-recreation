@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-down" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="28" nextobjectid="232">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-down" width="400" height="400" tilewidth="3" tileheight="2" infinite="0" nextlayerid="28" nextobjectid="236">
  <tileset firstgid="1" name="City" tilewidth="3" tileheight="2" tilecount="78003" columns="321">
   <image source="City/City.png" width="963" height="486"/>
  </tileset>
@@ -214,29 +214,11 @@
    </properties>
    <polygon points="0,0 -13.4205,-0.0877575 -13.3333,-22.4659 0,-22.1149"/>
   </object>
-  <object id="228" name="Filter" x="461.091" y="302.727">
+  <object id="235" name="Filter" x="560.364" y="343.091">
    <properties>
     <property name="Layer" type="int" value="5"/>
    </properties>
-   <polygon points="0,0 22.1818,0.727273 22.3636,29.8182 -1.45455,26.9091"/>
-  </object>
-  <object id="229" name="Filter" x="489.091" y="314.182">
-   <properties>
-    <property name="Layer" type="int" value="5"/>
-   </properties>
-   <polygon points="0,0 22.1818,0.727273 22.3636,29.8182 -1.45455,26.9091"/>
-  </object>
-  <object id="230" name="Filter" x="515.818" y="326.727">
-   <properties>
-    <property name="Layer" type="int" value="5"/>
-   </properties>
-   <polygon points="0,0 22.1818,0.727273 22.3636,29.8182 -1.45455,26.9091"/>
-  </object>
-  <object id="231" name="Filter" x="538.021" y="337.091">
-   <properties>
-    <property name="Layer" type="int" value="5"/>
-   </properties>
-   <polygon points="0,0 30.8175,0.727273 31.0701,29.8182 -2.02083,26.9091"/>
+   <polygon points="0,0 10,20.9091 -3.81818,30.9091 -102.909,-16.1818 -99.4545,-36.9091 -87.2727,-41.4545"/>
   </object>
  </objectgroup>
  <objectgroup id="19" name="NPC">
